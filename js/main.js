@@ -1,5 +1,5 @@
-define(["leaflet", "leaflet_bing"],
-    function(leaflet, leaflet_bing) {
+define(["leaflet", "leaflet_bing", "leaflet_mouseposition"],
+    function(leaflet, leaflet_bing, leaflet_mouseposition) {
         // set up the map
         var map = new leaflet.Map('map');
 
@@ -30,6 +30,8 @@ define(["leaflet", "leaflet_bing"],
                 }
             }
         });
+        
+        leaflet_mouseposition().addTo(map);
 
         // start the map in South-East England
         map.setView(new leaflet.LatLng(51.3, 0.7), 13);
