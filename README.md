@@ -3,3 +3,6 @@ OS OpenSpace doesn't have the 1:25,000 mapping and the embeddable Bing client is
 
 ## Why does it use require.js
 Because I wanted to learn about require. The page load time seems to increase significantly with require, so I'd probably remove it if wanted to use this code for something in production.
+
+## How can I try it
+[Live demo](http://tstibbs.github.io/os-map/)
