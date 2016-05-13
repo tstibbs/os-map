@@ -6,11 +6,9 @@ requirejs.config({
 });
 
 describe('conversion', function() {
-    it('should return actual grid refs', function() {
-		requirejs(['conversion'],
-			function  (conversion) {
-				conversion(1, 1, 10).should.equal('SV 00001 00001');
-			}
-		);
-    });
+	var conversion = requirejs('conversion');
+
+	it('should return actual grid refs', function() {
+		conversion(1, 1, 10).should.equal('SV 00001 00001');
+	});
 });
