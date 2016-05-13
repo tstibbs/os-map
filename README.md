@@ -6,3 +6,10 @@ Because I wanted to learn about require. The page load time seems to increase si
 
 ## How can I try it
 [Live demo](http://tstibbs.github.io/os-map/)
+
+## Unit tests
+There are some basic unit tests covering some of the non-UI functionality. To run these:
+```
+npm install
+npm test
+```
