@@ -5,7 +5,7 @@ define(["leaflet_mouseposition", "proj4", "conversion"],
 				options = {};
 			}
 			options.latLngFormatter = function (lat, lng) {
-				return conversion(lat, lng);
+				return conversion.latLngToGridRef(lat, lng);
 			}
 			
 			return leaflet_mouseposition(options);
