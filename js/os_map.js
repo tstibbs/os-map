@@ -14,5 +14,11 @@ define(["leaflet", "leaflet_bing", "mouseposition_osgb"],
 
         // start the map in South-East England
         map.setView(new leaflet.LatLng(51.3, 0.7), 13);
+
+        return {
+            getMap: function() {
+                return map;
+            }
+        };
     }
 );
