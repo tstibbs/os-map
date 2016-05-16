@@ -6,9 +6,12 @@ requirejs.config({
 });
 
 describe('conversion', function() {
+
 	var conversion = requirejs('conversion');
 
-	it('should return actual grid refs', function() {
-		conversion(1, 1, 10).should.equal('SV 00001 00001');
-	});
+	describe('latLngToGridRef', function () {
+		it('should return actual grid refs', function() {
+			conversion(52.657977, 1.716038).should.equal('TG 51408 13177');
+		});
+    });
 });
