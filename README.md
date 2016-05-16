@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/tstibbs/os-map.svg?branch=master)](https://travis-ci.org/tstibbs/os-map)
+
 ## What is this
 OS OpenSpace doesn't have the 1:25,000 mapping and the embeddable Bing client is a bit rubbish. So I thought I'd hook together some pre-existing stuff to make something a bit more appropriate for walking maps that isn't as rubbish as the bing client but still has the 1:25,000 mapping. It's mostly just me experimenting, there will be no technological breakthroughs here.
 
