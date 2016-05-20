@@ -2,12 +2,16 @@
   "name": "tstibbs_os-map",
   "version": "0.0.1",
   "scripts": {
-    "test": "mocha"
+    "test": "mocha",
+	"test_coverage": "node ./node_modules/istanbul/lib/cli.js --hook-run-in-context cover ./node_modules/mocha/bin/_mocha --report lcovonly -- -R spec",
+	"coveralls": "cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js"
   },
   "author": "tstibbs",
   "license": "Apache-2.0",
   "homepage": "https://github.com/tstibbs/os-map",
   "dependencies": {
+    "istanbul": "^0.4.3",
+    "coveralls": "^2.11.9",
     "requirejs": "^2.2.0",
     "mocha": "^2.4.5",
     "should": "^8.3.1",
