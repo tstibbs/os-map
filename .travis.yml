@@ -1,5 +1,9 @@
 language: node_js
 
-script: npm run-script test_coverage
+script:
+  - npm run-script test_coverage_baseline
+  - npm run-script test_coverage
+  - npm run-script merge_test_coverage
+  - npm run-script coveralls
 
 after_success: npm run-script coveralls
