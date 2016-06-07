@@ -10,8 +10,10 @@ define(["os_map", "points", "params"],
 			}
 		} else {
 			//dummy data as an example
-			points(522270, 295925); //TL 22270 95925
-			points(334695, 505141); //NY 34695 05141
+			points(418678,385093);
+			points(422816,385344);
+			points(419762,390990);
+			points(412927,387809);
 		}
     }
 );
