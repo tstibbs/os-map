@@ -12,8 +12,8 @@ define(["leaflet", "leaflet_bing", "mouseposition_osgb"],
         
         mouseposition_osgb().addTo(map);
 
-        // start the map in South-East England
-        map.setView(new leaflet.LatLng(51.3, 0.7), 13);
+        // starting point doesn't have any particular relevance at the moment, but there are less scenic places to go
+        map.setView(new leaflet.LatLng(53.374694, -1.711474), 13);
 
         return {
             getMap: function() {
