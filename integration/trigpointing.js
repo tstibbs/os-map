@@ -9,9 +9,14 @@ $.get('down-flash.php' + window.location.search, function(data) {
 		//e.g. <C D='Castlebythe Barrow' I='2041' E='202873' N='229647' F='n'/>
 		var point = $(element);
 		var name = point.attr('D');
+		if (name !== null) {
+			//get rid of any commas as that will break the parsing of the query string
+			name = name.replace(',', ' ');
+		}
+		var url = 'http://www.trigpointing.uk/trig/' + point.attr('I');
 		var eastings = point.attr('E');
 		var northings = point.attr('N');
-		points = points + eastings + "," + northings;
+		points = points + eastings + "," + northings + "," + url + "," + name;
     });
     window.location="http://tstibbs.github.io/os-map/index.html?trigs=" + encodeURIComponent(points);
 });

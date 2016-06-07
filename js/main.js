@@ -6,7 +6,7 @@ define(["os_map", "points", "params"],
 			var allPoints = locationsFromUrl.split(";");
 			for (var i = 0; i < allPoints.length; i++) {
 				var point = allPoints[i].split(',');
-				points(point[0], point[1]);
+				points(point[0], point[1], point[2], point[3]);
 			}
 		} else {
 			//dummy data as an example
