@@ -19,3 +19,12 @@ There are some basic unit tests covering some of the non-UI functionality. To ru
 npm install
 npm test
 ```
+
+## [trigpointing.uk](http://trigpointing.uk)
+This project started as an excuse to learn a little about a few javascript libraries I'd never used (leaflet and requirejs mainly). However recently I added some stuff to it to enable it to be used as the map for tripointing.uk, because the "dynamic" map on that site is not as usable as it could be. If you want to try this functionality out, you simply need to do a search on trigpointing.uk, then run the following (e.g. in Chrome press F12 and then paste this code into the console):
+```
+$.getScript("http://tstibbs.github.io/os-map/integration/trigpointing.js");
+```
+After a short delay it should redirect you to this site and display the results of your search.
+
+Note that for now the integration between the two sites relies on passing a bunch of stuff in the URL so you will need to keep the search to something that returns a smallish number of results (maybe a few 10s) to ensure the URL doesn't get truncated by your browser.
