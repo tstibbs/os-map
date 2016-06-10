@@ -1,5 +1,5 @@
-define(["leaflet_mouseposition", "proj4", "conversion"],
-    function(leaflet_mouseposition, proj4, conversion) {
+define(["leaflet_mouseposition", "conversion"],
+    function(leaflet_mouseposition, conversion) {
         return function(options) {
 			if (options == undefined || options == null) {
 				options = {};
