@@ -1,5 +1,5 @@
-define(["leaflet", "leaflet_bing", "mouseposition_osgb"],
-    function(leaflet, leaflet_bing, mouseposition_osgb) {
+define(["leaflet", "leaflet_bing", "mouseposition_osgb", "screenposition_osgb", "mobile"],
+    function(leaflet, leaflet_bing, mouseposition_osgb, screenposition_osgb, mobile) {
         // set up the map
         var map = new leaflet.Map('map');
 
@@ -9,11 +9,15 @@ define(["leaflet", "leaflet_bing", "mouseposition_osgb"],
         map.addLayer(bingOsLayer);
         var fallbackLayer = new leaflet_bing(bingKey, {type: "Road", maxZoom: 11, minZoom: 0});
         map.addLayer(fallbackLayer);
-        
-        mouseposition_osgb().addTo(map);
 
         // starting point doesn't have any particular relevance at the moment, but there are less scenic places to go
         map.setView(new leaflet.LatLng(53.374694, -1.711474), 13);
+        
+        if (mobile.isMobile()) {
+        	screenposition_osgb().addTo(map);
+        } else {
+        	mouseposition_osgb().addTo(map);
+        }
 
         return {
             getMap: function() {
