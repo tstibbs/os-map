@@ -13,6 +13,9 @@ Because I wanted to learn about require. The page load time seems to increase si
 ## How can I try it
 [Live demo](http://tstibbs.github.io/os-map/)
 
+## Does it support mobile devices
+In theory yes. If we detect that you are using a mobile device then the mouse pointer positioning stuff goes away and the coordinates instead show the location that is at the centre of the bit of the map you are currently viewing. Leaflet itself [already supports mobile devices](http://leafletjs.com/examples/mobile.html).
+
 ## Unit tests
 There are some basic unit tests covering some of the non-UI functionality. To run these:
 ```
