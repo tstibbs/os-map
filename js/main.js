@@ -10,10 +10,10 @@ define(["os_map", "points", "params"],
 			}
 		} else {
 			//dummy data as an example
-			points(418678,385093);
-			points(422816,385344);
-			points(419762,390990);
-			points(412927,387809);
+			points(418678,385093, 'http://trigpointing.uk/trig/6995', 'Winhill Pike');
+			points(422816,385344, 'http://trigpointing.uk/trig/3795', 'High Neb');
+			points(419762,390990, 'http://trigpointing.uk/trig/949', 'Back Tor');
+			points(412927,387809, 'http://trigpointing.uk/trig/3019', 'Edale Moor');
 		}
     }
 );
