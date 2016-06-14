@@ -1,5 +1,5 @@
-define(["os_map", "points", "params"],
-    function(os_map, points, params) {
+define(["os_map", "points", "params", "jquery"],
+    function(os_map, points, params, $) {
 		
 		var locationsFromUrl = params('trigs');
 		if (locationsFromUrl != null) {
@@ -15,5 +15,6 @@ define(["os_map", "points", "params"],
 			points(419762,390990, 'http://trigpointing.uk/trig/949', 'Back Tor');
 			points(412927,387809, 'http://trigpointing.uk/trig/3019', 'Edale Moor');
 		}
+		$('div#loading-message-pane').hide();
     }
 );
