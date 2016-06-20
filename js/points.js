@@ -1,5 +1,5 @@
-define(["proj4", "leaflet", "os_map", "conversion", "leaflet_cluster"],
-    function(proj4, leaflet, os_map, conversion, leaflet_cluster) {
+define(["proj4", "leaflet", "os_map", "leaflet_cluster"],
+    function(proj4, leaflet, os_map, leaflet_cluster) {
 	
 		var icon = leaflet.icon({
 			iconUrl: 'img/trig.png',
@@ -9,8 +9,7 @@ define(["proj4", "leaflet", "os_map", "conversion", "leaflet_cluster"],
 
 		var markerList = [];
         return {
-			add: function (eastings, northings, url, name) {
-				var out = conversion.osgbToLngLat(eastings, northings);
+			add: function (lngLat, url, name) {
 				var lng = lngLat[0];
 				var lat = lngLat[1];
 				var marker = leaflet.marker([lat, lng], {icon: icon});
