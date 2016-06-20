@@ -15,9 +15,21 @@ describe('conversion', function() {
 		});
     });
 
-	describe('osgbToLatLng', function () {
+	describe('osgbToLngLat', function () {
 		it('should work for valid OSBGs', function() {
-			conversion.osgbToLatLng(651409, 313177).should.deepEqual([1.716038442825891, 52.65797660129558]); // array is long, lat
+			conversion.osgbToLngLat(651409, 313177).should.deepEqual([1.716038442825891, 52.65797660129558]); // array is long, lat
+		});
+    });
+
+	describe('gridRefToOsgb', function () {
+		it('should work for valid grid refs', function() {
+			conversion.gridRefToOsgb('TG 51408 13177').should.deepEqual([651408, 313177]); // array is long, lat
+		});
+    });
+
+	describe('gridRefToLngLat', function () {
+		it('should work for valid grid refs', function() {
+			conversion.gridRefToLngLat('TG 51408 13177').should.deepEqual([1.7160236901080013, 52.657977064472796]); // array is long, lat
 		});
     });
 });

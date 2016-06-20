@@ -8,7 +8,7 @@ define(["proj4", "leaflet", "os_map", "conversion"],
 		});
 	
         return function (eastings, northings, url, name) {
-            var out = conversion.osgbToLatLng(eastings, northings);
+            var out = conversion.osgbToLngLat(eastings, northings);
             var lng = out[0];
             var lat = out[1];
             var marker = leaflet.marker([lat, lng], {icon: icon});
