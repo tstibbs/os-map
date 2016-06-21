@@ -10,12 +10,14 @@ define(["os_map", "points", "params", "conversion", "jquery"],
 				points.add(lngLat, point[2], point[3]);
 			}
 		} else if (this.points_to_load !== undefined) {
-			//['osgb_gridref','waypoint','name','physical_type'],
+			//['osgb_gridref','waypoint','name','physical_type','condition'],
 			for (var i = 0; i < this.points_to_load.length; i++) {
 				var point = this.points_to_load[i];
 				var gridref = point[0];
 				var waypoint = point[1];
 				var name = point[2];
+				var physicalType = point[3];
+				var condition = point[4];
 				var waypointRegex = /TP0*(\d+)/;
 				var url = null;
 				if (waypointRegex.test(waypoint)) {
@@ -28,7 +30,8 @@ define(["os_map", "points", "params", "conversion", "jquery"],
 				} catch (err) {
 					if (console) {console.log(err);}
 				}
-				points.add(lngLat, url, name);
+				var extraInfo = '<span>Condition: '+condition+'</span><br /><span>Physical Type: '+physicalType+'</span>'
+				points.add(lngLat, url, name, extraInfo);
 			}
 		} else {
 			//dummy data as an example
