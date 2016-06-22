@@ -9,21 +9,27 @@ define(["proj4", "leaflet", "os_map", "leaflet_cluster"],
 
 		var markerList = [];
         return {
-			add: function (lngLat, url, name) {
+			add: function (lngLat, url, name, extraText, type) {
 				var lng = lngLat[0];
 				var lat = lngLat[1];
 				var marker = leaflet.marker([lat, lng], {icon: icon});
 				if (name == null) {
 					name = url;
 				}
+				var popupText = "";
 				if (url != null) {
-					marker.bindPopup('<a href="' + url + '">' + name + '</a>');
+					popupText = '<a href="' + url + '">' + name + '</a>';
 				} else if (name != null) {
-					marker.bindPopup('<span>' + name + '</span>');
+					popupText = '<span>' + name + '</span>';
 				}
-				
+				if (popupText.length > 0) {
+					popupText = popupText + '<br />';
+				}
+				if (extraText != null) {
+					popupText = popupText + extraText;
+				}
+				marker.bindPopup(popupText);
 				markerList.push(marker);
-				// marker.addTo(os_map.getMap());
 			},
 			finish: function (finished) {
 				var markers = leaflet_cluster({
