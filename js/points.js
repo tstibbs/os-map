@@ -1,5 +1,5 @@
-define(["proj4", "leaflet", "os_map", "leaflet_cluster", "leaflet_subgroup", "leaflet_matrixlayers", "config"],
-    function(proj4, leaflet, os_map, leaflet_cluster, leaflet_subgroup, leaflet_matrixlayers, config) {
+define(["proj4", "leaflet", "os_map", "leaflet_cluster", "leaflet_subgroup", "leaflet_matrixlayers"],
+    function(proj4, leaflet, os_map, leaflet_cluster, leaflet_subgroup, leaflet_matrixlayers) {
 	
 		var icons = {
 			Pillar: leaflet.icon({
@@ -13,9 +13,14 @@ define(["proj4", "leaflet", "os_map", "leaflet_cluster", "leaflet_subgroup", "le
 				popupAnchor: [0, -23]
 			}),
 		}
+	
+		var Points = leaflet.Class.extend({
+			initialize: function (osMap) {
+				this._markerList = null;
+				this._map = osMap.getMap();
+				this._config = osMap.getConfig();
+			},
 
-		var markerList = null;
-        return {
 			add: function (lngLat, url, name, extraText, type, condition) {
 				var lng = lngLat[0];
 				var lat = lngLat[1];
@@ -41,29 +46,28 @@ define(["proj4", "leaflet", "os_map", "leaflet_cluster", "leaflet_subgroup", "le
 				}
 				marker.bindPopup(popupText);
 				
-				if (config.dimensional_layering) {
-					if (markerList == null) {
-						markerList = {};
+				if (this._config.dimensional_layering) {
+					if (this._markerList == null) {
+						this._markerList = {};
 					}
-					if (markerList[type] == null) {
-						markerList[type] = {};
+					if (this._markerList[type] == null) {
+						this._markerList[type] = {};
 					}
-					if (markerList[type][condition] == null) {
-						markerList[type][condition] = new Array();
+					if (this._markerList[type][condition] == null) {
+						this._markerList[type][condition] = new Array();
 					}
-					markerList[type][condition].push(marker);
+					this._markerList[type][condition].push(marker);
 				} else {
-					if (markerList == null) {
-						markerList = [];
+					if (this._markerList == null) {
+						this._markerList = [];
 					}
-					markerList.push(marker);
+					this._markerList.push(marker);
 				}
 			},
+			
 			finish: function (finished) {
-				var map = os_map.getMap();
-				
 				var parentGroup = null;
-				if (config.cluster) {
+				if (this._config.cluster) {
 					parentGroup = leaflet_cluster({
 						chunkedLoading: true,
 						chunkProgress: function (processed, total, elapsed, layersArray) {
@@ -77,32 +81,34 @@ define(["proj4", "leaflet", "os_map", "leaflet_cluster", "leaflet_subgroup", "le
 					finished();
 				}
 				
-				parentGroup.addTo(map);
-				if (!config.dimensional_layering) {
-					if (config.cluster) {
-						parentGroup.addLayers(markerList);
+				parentGroup.addTo(this._map);
+				if (!this._config.dimensional_layering) {
+					if (this._config.cluster) {
+						parentGroup.addLayers(this._markerList);
 					} else {
-						for (var i = 0; i < markerList.length; i++) {
-							parentGroup.addLayer(markerList[i]);	
+						for (var i = 0; i < this._markerList.length; i++) {
+							parentGroup.addLayer(this._markerList[i]);	
 						}
 					}
-					map.addLayer(parentGroup);
+					this._map.addLayer(parentGroup);
 				} else {
 					//grouped
 					var control = leaflet_matrixlayers(null, null, {dimensionNames: ['Type', 'Condition']});
-					Object.keys(markerList).forEach(function (type) {
-						var conditions = markerList[type];
+					Object.keys(this._markerList).forEach(function (type) {
+						var conditions = this._markerList[type];
 						Object.keys(conditions).forEach(function (condition) { 
 							var arrayOfMarkers = conditions[condition];
 							//sub group through require js seems not to work for reasons I haven't looked into yet
 							var subGroup = leaflet.featureGroup.subGroup(parentGroup, arrayOfMarkers);
-							subGroup.addTo(map);
+							subGroup.addTo(this._map);
 							control.addMatrixOverlay(subGroup, type + '/' + condition);
-						});
-					});
-					control.addTo(map);
+						}, this);
+					}, this);
+					control.addTo(this._map);
 				}
 			}
-		};
+		});
+
+        return Points;
     }
 );

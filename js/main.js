@@ -1,5 +1,8 @@
 define(["os_map", "points", "params", "conversion", "jquery"],
-    function(os_map, points, params, conversion, $) {
+    function(OsMap, Points, params, conversion, $) {
+	
+		var osMap = new OsMap(window.os_map_config);
+		var points = new Points(osMap);
 		
 		var locationsFromUrl = params('trigs');
 		if (locationsFromUrl != null) {
