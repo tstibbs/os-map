@@ -1,18 +1,29 @@
 define(["proj4", "leaflet", "os_map", "leaflet_cluster", "leaflet_subgroup", "leaflet_matrixlayers", "config"],
     function(proj4, leaflet, os_map, leaflet_cluster, leaflet_subgroup, leaflet_matrixlayers, config) {
 	
-		var icon = leaflet.icon({
-			iconUrl: window.os_map_base + 'img/trig.png',
-			iconAnchor: [10, 40], // point of the icon which will correspond to marker's location
-			popupAnchor: [1, -38] // point from which the popup should open relative to the iconAnchor
-		});
+		var icons = {
+			Pillar: leaflet.icon({
+				iconUrl: window.os_map_base + 'img/pillar.png',
+				iconAnchor: [10, 40], // point of the icon which will correspond to marker's location
+				popupAnchor: [1, -38] // point from which the popup should open relative to the iconAnchor
+			}),
+			Bolt: leaflet.icon({
+				iconUrl: window.os_map_base + 'img/bolt.png',
+				iconAnchor: [11, 27],
+				popupAnchor: [0, -23]
+			}),
+		}
 
 		var markerList = null;
         return {
 			add: function (lngLat, url, name, extraText, type, condition) {
 				var lng = lngLat[0];
 				var lat = lngLat[1];
-				var marker = leaflet.marker([lat, lng], {icon: icon});
+				var markerOptions = {};
+				if (icons[type] !== undefined) {
+					markerOptions.icon = icons[type];
+				}
+				var marker = leaflet.marker([lat, lng], markerOptions);
 				if (name == null) {
 					name = url;
 				}
