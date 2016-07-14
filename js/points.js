@@ -2,7 +2,7 @@ define(["proj4", "leaflet", "os_map", "leaflet_cluster"],
     function(proj4, leaflet, os_map, leaflet_cluster) {
 	
 		var icon = leaflet.icon({
-			iconUrl: 'img/trig.png',
+			iconUrl: window.os_map_base + 'img/trig.png',
 			iconAnchor: [10, 40], // point of the icon which will correspond to marker's location
 			popupAnchor: [1, -38] // point from which the popup should open relative to the iconAnchor
 		});
