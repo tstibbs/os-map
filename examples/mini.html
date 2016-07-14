@@ -2,31 +2,34 @@
 <html>
 	<head>
 		<meta charset=utf-8 />
-		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 		<link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet/v0.7.7/leaflet.css" />
-		<link rel="stylesheet" href="https://cdn.rawgit.com/Leaflet/Leaflet.markercluster/232e93ccbe5b70241913f47a4d1a8ceec8c88c30/dist/MarkerCluster.Default.css" />
-		<link rel="stylesheet" href="https://cdn.rawgit.com/Leaflet/Leaflet.markercluster/232e93ccbe5b70241913f47a4d1a8ceec8c88c30/dist/MarkerCluster.css" />
 		<!-- Add the moment it's safe to load these at the same time because there are no conflicts and the styles will only be used if the particular control is in play -->
 		<link rel="stylesheet" href="https://cdn.rawgit.com/tstibbs/Leaflet.MapCenterCoord/cc990a672930886aaef55b1a66e651bdaaf27353/src/L.Control.MapCenterCoord.css" />
 		<link rel="stylesheet" href="https://cdn.rawgit.com/tstibbs/Leaflet.MousePosition/b628c7be754c134c63117b3feb75e720a1d20673/src/L.Control.MousePosition.css" />
 		<link rel="stylesheet" href="../css/app.css" />
 		
-		<script src="all_trigs.js"></script>
+		<script src="mini.js"></script>
 		<script type="text/javascript">
+			var os_map_config = {
+				cluster: false
+			};
 			window.os_map_base = '../';
 		</script>
 		<script data-main="../js/app" src='https://cdnjs.cloudflare.com/ajax/libs/require.js/2.2.0/require.js'></script>
 	</head>
 
-	<body class="full-screen">
-		<div id="loading-message-pane" class="full-screen">
-			<div class="loading-message-container">
-				<div class="loading-message-text">
-					<p>Loading...</p>
+	<body>
+		<div class="mini-map">
+			<div id="loading-message-pane" class="full-screen">
+				<div class="loading-message-container">
+					<div class="loading-message-text">
+						<p>Loading...</p>
+					</div>
 				</div>
 			</div>
+			<div id="map" class="mini-map"></div>
 		</div>
-		<div id="map" class="full-screen"></div>
 	</body>
 </html>
