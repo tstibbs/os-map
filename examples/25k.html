@@ -10,10 +10,13 @@
 		<!-- Add the moment it's safe to load these at the same time because there are no conflicts and the styles will only be used if the particular control is in play -->
 		<link rel="stylesheet" href="https://cdn.rawgit.com/tstibbs/Leaflet.MapCenterCoord/cc990a672930886aaef55b1a66e651bdaaf27353/src/L.Control.MapCenterCoord.css" />
 		<link rel="stylesheet" href="https://cdn.rawgit.com/tstibbs/Leaflet.MousePosition/b628c7be754c134c63117b3feb75e720a1d20673/src/L.Control.MousePosition.css" />
-		<link rel="stylesheet" href="css/app.css" />
+		<link rel="stylesheet" href="../css/app.css" />
 		
-		<script src="integration/all_trigs.js"></script>
-		<script data-main="js/app" src='https://cdnjs.cloudflare.com/ajax/libs/require.js/2.2.0/require.js'></script>
+		<script src="all_trigs.js"></script>
+		<script type="text/javascript">
+			window.os_map_base = '../';
+		</script>
+		<script data-main="../js/app" src='https://cdnjs.cloudflare.com/ajax/libs/require.js/2.2.0/require.js'></script>
 	</head>
 
 	<body>
