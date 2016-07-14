@@ -31,7 +31,7 @@ define(["os_map", "points", "params", "conversion", "jquery"],
 					if (console) {console.log(err);}
 				}
 				var extraInfo = '<span>Condition: '+condition+'</span><br /><span>Physical Type: '+physicalType+'</span>'
-				points.add(lngLat, url, name, extraInfo);
+				points.add(lngLat, url, name, extraInfo, physicalType, condition);
 			}
 		} else {
 			//dummy data as an example

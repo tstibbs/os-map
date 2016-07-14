@@ -7,6 +7,8 @@ requirejs.config({
 		leaflet_cluster: 'https://cdn.rawgit.com/Leaflet/Leaflet.markercluster/232e93ccbe5b70241913f47a4d1a8ceec8c88c30/dist/leaflet.markercluster-src',
 		leaflet_mouseposition: 'https://cdn.rawgit.com/tstibbs/Leaflet.MousePosition/b628c7be754c134c63117b3feb75e720a1d20673/src/L.Control.MousePosition',
 		leaflet_screenposition: 'https://cdn.rawgit.com/tstibbs/Leaflet.MapCenterCoord/cc990a672930886aaef55b1a66e651bdaaf27353/src/L.Control.MapCenterCoord',
+		leaflet_subgroup: 'https://cdn.rawgit.com/ghybs/Leaflet.FeatureGroup.SubGroup/e675f5736513ec6f9a8ab391965808b192990e9e/leaflet.featuregroup.subgroup-src',
+        leaflet_matrixlayers: '../tmp/matrixControl',
 		jquery: 'https://code.jquery.com/jquery-3.0.0'
     },
     shim: {
@@ -28,6 +30,14 @@ requirejs.config({
         leaflet_cluster: {
             deps: ['leaflet'],
             exports: 'L.markerClusterGroup'
+        },
+        leaflet_subgroup: {
+            deps: ['leaflet'],
+            exports: 'L.featureGroup.subGroup'
+        },
+        leaflet_matrixlayers: {
+            deps: ['leaflet'],
+            exports: 'L.control.matrixLayers'
         },
         proj4js: {
             exports: 'module.exports'
