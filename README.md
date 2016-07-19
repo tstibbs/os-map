@@ -11,7 +11,7 @@ OS OpenSpace doesn't have the 1:25,000 mapping and the embeddable Bing client is
 Because I wanted to learn about require. The page load time seems to increase significantly with require, so I'd probably remove it if wanted to use this code for something in production.
 
 ## How can I try it?
-[Live demo](http://tstibbs.github.io/os-map/)
+[Live demo](http://tstibbs.github.io/os-map/examples/index.html)
 
 ## Does it support mobile devices?
 In theory yes. If we detect that you are using a mobile device then the mouse pointer positioning stuff goes away and the coordinates instead show the location that is at the centre of the bit of the map you are currently viewing. Leaflet itself [already supports mobile devices](http://leafletjs.com/examples/mobile.html).
