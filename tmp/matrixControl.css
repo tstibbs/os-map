@@ -1,0 +1,4 @@
+.leaflet-control-layers-expanded {
+	overflow: auto;
+	max-height: 90vh;
+}
