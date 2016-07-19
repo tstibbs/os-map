@@ -94,6 +94,7 @@ define(["proj4", "leaflet", "os_map", "leaflet_cluster", "leaflet_subgroup", "le
 				} else {
 					//grouped
 					var control = leaflet_matrixlayers(null, null, {dimensionNames: ['Type', 'Condition']});
+					control.addTo(this._map);
 					Object.keys(this._markerList).forEach(function (type) {
 						var conditions = this._markerList[type];
 						Object.keys(conditions).forEach(function (condition) { 
@@ -104,7 +105,6 @@ define(["proj4", "leaflet", "os_map", "leaflet_cluster", "leaflet_subgroup", "le
 							control.addMatrixOverlay(subGroup, type + '/' + condition);
 						}, this);
 					}, this);
-					control.addTo(this._map);
 				}
 			}
 		});
