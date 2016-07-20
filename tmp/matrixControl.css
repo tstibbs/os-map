@@ -1,4 +1,7 @@
 .leaflet-control-layers-expanded {
-	overflow: auto;
 	max-height: 90vh;
+}
+
+.leaflet-control-layers-expanded form.leaflet-control-layers-list {
+	overflow: scroll;
 }
