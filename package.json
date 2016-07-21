@@ -3,7 +3,7 @@
   "version": "0.0.1",
   "scripts": {
     "test": "mocha",
-    "test_coverage_baseline": "node ./node_modules/istanbul/lib/cli.js --hook-run-in-context cover ./node_modules/mocha/bin/_mocha node_modules/istanbul-baseline/cli.js ./js/* --report lcovonly -- -R spec && node node_modules/lcov-zeroer/cli.js ./coverage/lcov.info ./coverage/lcov.info.baseline",
+    "test_coverage_baseline": "node ./node_modules/istanbul/lib/cli.js --hook-run-in-context cover ./node_modules/mocha/bin/_mocha node_modules/istanbul-baseline/cli.js --report lcovonly -- -R spec && node node_modules/lcov-zeroer/cli.js ./coverage/lcov.info ./coverage/lcov.info.baseline",
     "test_coverage": "node ./node_modules/istanbul/lib/cli.js --hook-run-in-context cover ./node_modules/mocha/bin/_mocha --report lcovonly -- -R spec",
     "merge_test_coverage": "node_modules/.bin/lcov-result-merger 'coverage/lcov.info*' 'coverage/lcov.merged'",
     "coveralls": "cat ./coverage/lcov.merged | ./node_modules/coveralls/bin/coveralls.js"
@@ -21,5 +21,10 @@
     "istanbul-baseline": "tstibbs/node-istanbul-baseline",
     "lcov-zeroer": "tstibbs/node-lcov-zeroer",
     "proj4": "^2.3.14"
+  },
+  "config": {
+	"istanbul_baseline": {
+	  "path": "./js/*"
+	}
   }
 }
