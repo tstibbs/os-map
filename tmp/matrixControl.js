@@ -71,7 +71,7 @@ L.Control.MatrixLayers = L.Control.Layers.extend({
 		this._addLoadingIndicator(labelElement, function() {
 			this._updateSelectedLayers(function() {
 				this._removeLoadingIndicator(labelElement);
-			});
+			}.bind(this));
 		}.bind(this));
 	},
 
@@ -198,7 +198,7 @@ L.Control.MatrixLayers = L.Control.Layers.extend({
 
 	_addLoadingIndicator: function (labelElement, callback) {
 		var img = document.createElement('img');
-		img.src = 'loading.gif';
+		img.src = this.options.loadingImage;
 		img.class = 'loading-image';
 		img.onload = callback;
 		labelElement.appendChild(img);

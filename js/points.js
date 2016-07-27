@@ -93,7 +93,7 @@ define(["proj4", "leaflet", "os_map", "leaflet_cluster", "leaflet_subgroup", "le
 					this._map.addLayer(parentGroup);
 				} else {
 					//grouped
-					var control = leaflet_matrixlayers(null, null, {dimensionNames: ['Type', 'Condition']});
+					var control = leaflet_matrixlayers(null, null, {dimensionNames: ['Type', 'Condition'], loadingImage: '../img/loading.gif'});
 					control.addTo(this._map);
 					Object.keys(this._markerList).forEach(function (type) {
 						var conditions = this._markerList[type];
