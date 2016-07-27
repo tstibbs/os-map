@@ -93,18 +93,18 @@ define(["proj4", "leaflet", "os_map", "leaflet_cluster", "leaflet_subgroup", "le
 					this._map.addLayer(parentGroup);
 				} else {
 					//grouped
-					var control = leaflet_matrixlayers(null, null, {dimensionNames: ['Type', 'Condition'], loadingImage: '../img/loading.gif'});
-					control.addTo(this._map);
+					var matrixOverlays = {};
 					Object.keys(this._markerList).forEach(function (type) {
 						var conditions = this._markerList[type];
 						Object.keys(conditions).forEach(function (condition) { 
 							var arrayOfMarkers = conditions[condition];
-							//sub group through require js seems not to work for reasons I haven't looked into yet
 							var subGroup = leaflet.featureGroup.subGroup(parentGroup, arrayOfMarkers);
-							subGroup.addTo(this._map);
-							control.addMatrixOverlay(subGroup, type + '/' + condition);
+							//don't add to the map yet - let the layer control do that if it thinks it needs to - otherwise we could add all layers then immediately try to remove them all, which can cause UI weirdness
+							matrixOverlays[type + '/' + condition] = subGroup;
 						}, this);
 					}, this);
+					var control = leaflet_matrixlayers(null, null, matrixOverlays, {dimensionNames: ['Type', 'Condition'], loadingImage: '../img/loading.gif'});
+					control.addTo(this._map);
 				}
 			}
 		});

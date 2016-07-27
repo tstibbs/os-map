@@ -13,7 +13,7 @@ requirejs.config({
 		leaflet_mouseposition: 'https://cdn.rawgit.com/tstibbs/Leaflet.MousePosition/b628c7be754c134c63117b3feb75e720a1d20673/src/L.Control.MousePosition',
 		leaflet_screenposition: 'https://cdn.rawgit.com/tstibbs/Leaflet.MapCenterCoord/cc990a672930886aaef55b1a66e651bdaaf27353/src/L.Control.MapCenterCoord',
 		leaflet_subgroup: 'https://cdn.rawgit.com/ghybs/Leaflet.FeatureGroup.SubGroup/e675f5736513ec6f9a8ab391965808b192990e9e/leaflet.featuregroup.subgroup-src',
-        leaflet_matrixlayers: '../tmp/matrixControl',
+        leaflet_matrixlayers: 'https://cdn.rawgit.com/tstibbs/Leaflet.MatrixLayersControl/880e81fb8924d4d85953e28785ff0a29618c0d9d/src/matrixControl',
 		jquery: 'https://code.jquery.com/jquery-3.0.0'
     },
     shim: {
