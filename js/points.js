@@ -50,13 +50,17 @@ define(["proj4", "leaflet", "os_map", "leaflet_cluster", "leaflet_subgroup", "le
 					if (this._markerList == null) {
 						this._markerList = {};
 					}
-					if (this._markerList[type] == null) {
+					var markersByType = this._markerList[type];
+					if (markersByType == null) {
 						this._markerList[type] = {};
+						markersByType = this._markerList[type];
 					}
-					if (this._markerList[type][condition] == null) {
-						this._markerList[type][condition] = new Array();
+					var markersByCondition = markersByType[condition];
+					if (markersByCondition == null) {
+						markersByType[condition] = new Array();
+						markersByCondition = markersByType[condition];
 					}
-					this._markerList[type][condition].push(marker);
+					markersByCondition.push(marker);
 				} else {
 					if (this._markerList == null) {
 						this._markerList = [];
