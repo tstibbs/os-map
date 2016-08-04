@@ -10,8 +10,8 @@ define([],
         return {
 			isMobile: function() {
 				var testString = navigator.userAgent||navigator.vendor||window.opera;
-				return firstRegex.test(testString) || secondRegex.test(testString.substr(0,4))
+				return firstRegex.test(testString) || secondRegex.test(testString.substr(0,4));
 			}
-		}
+		};
     }
 );

@@ -8,7 +8,7 @@ define(["proj4"],
 			var n = num.toString();
 			while (n.length < w) n = '0' + n;
 			return n;
-		};
+		}
 
 		return {
 			latLngToGridRef: function(lat, lng) {
@@ -28,7 +28,7 @@ define(["proj4"],
 				if (isNaN(e) || isNaN(n)) throw new Error('Invalid grid reference');
 
 				// use digits = 0 to return numeric format (in metres)
-				if (digits == 0) return pad(e, 6)+','+pad(n, 6);
+				if (digits === 0) return pad(e, 6)+','+pad(n, 6);
 
 				// get the 100km-grid indices
 				var e100k = Math.floor(e/100000), n100k = Math.floor(n/100000);

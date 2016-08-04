@@ -12,7 +12,7 @@ define(["proj4", "leaflet", "os_map", "leaflet_cluster", "leaflet_subgroup", "le
 				iconAnchor: [11, 27],
 				popupAnchor: [0, -23]
 			}),
-		}
+		};
 	
 		var Points = leaflet.Class.extend({
 			initialize: function (osMap) {
@@ -57,7 +57,7 @@ define(["proj4", "leaflet", "os_map", "leaflet_cluster", "leaflet_subgroup", "le
 					}
 					var markersByCondition = markersByType[condition];
 					if (markersByCondition == null) {
-						markersByType[condition] = new Array();
+						markersByType[condition] = [];
 						markersByCondition = markersByType[condition];
 					}
 					markersByCondition.push(marker);
