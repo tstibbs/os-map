@@ -55,16 +55,17 @@ define(["os_map", "points", "params", "conversion", "jquery"],
 						var trigId = match[1];
 						url = 'http://trigpointing.uk/trig/' + trigId;
 					}
+					var lngLat;
 					try {
-						var lngLat = conversion.gridRefToLngLat(gridref);	
+						lngLat = conversion.gridRefToLngLat(gridref);	
 					} catch (err) {
 						if (console) {console.log(err);}
 					}
-					var extraInfo = '<span>Condition: '+condition+'</span><br /><span>Physical Type: '+physicalType+'</span>'
+					var extraInfo = '<span>Condition: '+condition+'</span><br /><span>Physical Type: '+physicalType+'</span>';
 					points.add(lngLat, url, name, extraInfo, physicalType, condition);
 				}
 				points.finish(finish);
 			}
-		}
+		};
     }
 );

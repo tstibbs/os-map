@@ -41,6 +41,6 @@ define(["leaflet_screenposition", "conversion", "jquery"],
 					addShowHideHandling();
 				}
 			};
-        }
+        };
     }
 );
