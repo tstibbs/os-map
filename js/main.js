@@ -3,7 +3,7 @@ define(["os_map", "points", "params", "conversion", "jquery"],
 	
 		function buildMap(options) {
 			var osMap = new OsMap(options);
-			var points = new Points(osMap);
+			var points = new Points(osMap.getMap(), options);
 			return points;
 		}
 		
