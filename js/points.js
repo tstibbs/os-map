@@ -1,5 +1,5 @@
-define(["proj4", "leaflet", "os_map", "leaflet_cluster", "leaflet_subgroup", "leaflet_matrixlayers"],
-    function(proj4, leaflet, os_map, leaflet_cluster, leaflet_subgroup, leaflet_matrixlayers) {
+define(["proj4", "leaflet", "leaflet_cluster", "leaflet_subgroup", "leaflet_matrixlayers"],
+    function(proj4, leaflet, leaflet_cluster, leaflet_subgroup, leaflet_matrixlayers) {
 	
 		var icons = {
 			Pillar: leaflet.icon({
@@ -15,10 +15,10 @@ define(["proj4", "leaflet", "os_map", "leaflet_cluster", "leaflet_subgroup", "le
 		};
 	
 		var Points = leaflet.Class.extend({
-			initialize: function (osMap) {
+			initialize: function (map, config) {
 				this._markerList = null;
-				this._map = osMap.getMap();
-				this._config = osMap.getConfig();
+				this._map = map;
+				this._config = config;
 			},
 
 			add: function (lngLat, url, name, extraText, type, condition) {
