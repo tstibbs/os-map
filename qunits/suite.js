@@ -24,6 +24,14 @@ function setupNonKarma() {
 }
 
 function setupKarma() {
+
+	//hacking in some stuff that would be useful in phantom js
+	if (String.prototype.endsWith === undefined) {
+		String.prototype.endsWith = function(suffix) {
+			return this.indexOf(suffix, this.length - suffix.length) !== -1;
+		};
+	}
+
 	var tests = [];
 	for (var i = 0; i < testFiles.length; i++) {
 		tests[i] = '/base/qunits/' + testFiles[i];

@@ -10,7 +10,6 @@ module.exports = function(config) {
     files: [
         {pattern: 'js/**/*.js', included: false},
         {pattern: 'qunits/src/**/*.js', included: false},
-
         'js/app.js',
         'qunits/suite.js',
     ],
@@ -25,7 +24,7 @@ module.exports = function(config) {
 
     autoWatch: true,
 
-    browsers: ['Chrome'], //also try PhantomJS
+    browsers: [/*'Chrome',*/ 'PhantomJS'],
 
     captureTimeout: 60000,
 
