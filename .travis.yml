@@ -5,5 +5,6 @@ script:
   - npm run-script test_coverage
   - npm run-script merge_test_coverage
   - npm run-script coveralls
+  - npm run-script qunit_test
 
 after_success: npm run-script coveralls

@@ -6,7 +6,8 @@
     "test_coverage_baseline": "node ./node_modules/istanbul/lib/cli.js --hook-run-in-context cover ./node_modules/mocha/bin/_mocha node_modules/istanbul-baseline/cli.js --report lcovonly -- -R spec && node node_modules/lcov-zeroer/cli.js ./coverage/lcov.info ./coverage/lcov.info.baseline",
     "test_coverage": "node ./node_modules/istanbul/lib/cli.js --hook-run-in-context cover ./node_modules/mocha/bin/_mocha --report lcovonly -- -R spec",
     "merge_test_coverage": "node_modules/.bin/lcov-result-merger 'coverage/lcov.info*' 'coverage/lcov.merged'",
-    "coveralls": "cat ./coverage/lcov.merged | ./node_modules/coveralls/bin/coveralls.js"
+    "coveralls": "cat ./coverage/lcov.merged | ./node_modules/coveralls/bin/coveralls.js",
+	"qunit_test": "node_modules/karma/bin/karma start"
   },
   "author": "tstibbs",
   "license": "Apache-2.0",
@@ -27,6 +28,7 @@
 	"karma-chrome-launcher": "^1.0.1",
 	"karma-qunit": "^1.1.0",
 	"karma-requirejs": "^1.0.0",
+	"karma-phantomjs-launcher": "^1.0.1",
 	"qunitjs": "^1.23.1"
   },
   "config": {
