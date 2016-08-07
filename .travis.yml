@@ -3,8 +3,9 @@ language: node_js
 script:
   - npm run-script test_coverage_baseline
   - npm run-script test_coverage
-  - npm run-script merge_test_coverage
-  - npm run-script coveralls
+  - npm run-script merge_test_coverage1
   - npm run-script qunit_test
+  - npm run-script merge_test_coverage2
+  - npm run-script coveralls
 
 after_success: npm run-script coveralls
