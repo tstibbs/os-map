@@ -15,18 +15,23 @@
     "proj4": "^2.3.14"
   },
   "devDependencies": {
-    "istanbul": "^0.4.4",
-    "coveralls": "^2.11.9",
-    "lcov-result-merger": "^1.2.0",
-    "requirejs": "^2.2.0",
-    "mocha": "^3.0.1",
-    "should": "^8.3.1",
-    "istanbul-baseline": "tstibbs/node-istanbul-baseline",
-    "lcov-zeroer": "tstibbs/node-lcov-zeroer"
+	"istanbul": "^0.4.4",
+	"coveralls": "^2.11.9",
+	"lcov-result-merger": "^1.2.0",
+	"requirejs": "^2.2.0",
+	"mocha": "^3.0.1",
+	"should": "^8.3.1",
+	"istanbul-baseline": "tstibbs/node-istanbul-baseline",
+	"lcov-zeroer": "tstibbs/node-lcov-zeroer",
+	"karma": "^1.1.2",
+	"karma-chrome-launcher": "^1.0.1",
+	"karma-qunit": "^1.1.0",
+	"karma-requirejs": "^1.0.0",
+	"qunitjs": "^1.23.1"
   },
   "config": {
-	"istanbul_baseline": {
-	  "path": "./js/*"
-	}
+    "istanbul_baseline": {
+      "path": "./js/*"
+    }
   }
 }
