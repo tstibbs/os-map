@@ -14,8 +14,15 @@ module.exports = function(config) {
         'qunits/suite.js',
     ],
 
-    reporters: ['progress'],
+    reporters: ['progress', 'coverage'],
 
+    preprocessors: { 'js/**/*.js': ['coverage'] },
+    
+	coverageReporter: {
+		type : 'lcov',
+		subdir: 'karma'
+    },
+	
     port: 9876,
 
     colors: true,
