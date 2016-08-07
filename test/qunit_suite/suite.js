@@ -1,8 +1,8 @@
 //list of tests
 var testFiles = [
-	"src/mouseposition_osgb_test.js",
-	"src/screenposition_osgb_test.js",
-	"src/points_test.js"
+	"mouseposition_osgb_test.js",
+	"screenposition_osgb_test.js",
+	"points_test.js"
 ];
 
 if (window.__karma__ == undefined) {
@@ -16,8 +16,13 @@ if (window.__karma__ == undefined) {
 function setupNonKarma() {
 	QUnit.config.autostart = false;
 
+	var tests = [];
+	var tests = testFiles.map(function (testFile) { 
+		return '../' + testFile;
+	})
+
 	// Resolve all testModules and then start the Test Runner.
-	requirejs(testFiles, function(){
+	requirejs(tests, function(){
 		QUnit.load();
 		QUnit.start();
 	});
@@ -33,9 +38,9 @@ function setupKarma() {
 	}
 
 	var tests = [];
-	for (var i = 0; i < testFiles.length; i++) {
-		tests[i] = '/base/qunits/' + testFiles[i];
-	}
+	var tests = testFiles.map(function (testFile) { 
+		return '/base/test/' + testFile;
+	});
 
 	requirejs.config({
 		baseUrl: '/base/js',

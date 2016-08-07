@@ -9,9 +9,9 @@ module.exports = function(config) {
 
     files: [
         {pattern: 'js/**/*.js', included: false},
-        {pattern: 'qunits/src/**/*.js', included: false},
+        {pattern: 'test/**/*.js', included: false},
         'js/app.js',
-        'qunits/suite.js',
+        'test/qunit_suite/suite.js',
     ],
 
     reporters: ['progress', 'coverage'],
