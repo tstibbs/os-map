@@ -29,12 +29,12 @@ module.exports = function(config) {
 
     logLevel: config.LOG_INFO,
 
-    autoWatch: true,
+    autoWatch: false,
 
     browsers: [/*'Chrome',*/ 'PhantomJS'],
 
     captureTimeout: 60000,
 
-    singleRun: true
+    singleRun: false
   });
 };
