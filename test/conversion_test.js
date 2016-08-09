@@ -5,7 +5,15 @@ define(["conversion"],
 		});
 
 		QUnit.test('conversion - osgbToLngLat - should work for valid OSBGs', function (assert) {
-			assert.deepEqual(conversion.osgbToLngLat(651409, 313177), [1.716038442825891, 52.65797660129557]); // array is long, lat
+			//the exact conversion seems to change slightly depending on the javscript runtime... but that level of detail won't matter so much, so just validate the range.
+			var minExpectedValue = [1.716038442825891, 52.65797660129557];
+			var maxExpectedValue = [1.716038442825891, 52.65797660129558];
+			var actualValue = conversion.osgbToLngLat(651409, 313177);// array is long, lat
+			assert.equal(actualValue.length, 2);
+			assert.ok(actualValue[0] >= minExpectedValue[0]);
+			assert.ok(actualValue[0] <= maxExpectedValue[0]);
+			assert.ok(actualValue[1] >= minExpectedValue[1]);
+			assert.ok(actualValue[1] <= maxExpectedValue[1]);
 		});
 
 		QUnit.test('conversion - gridRefToOsgb - should work for valid grid refs', function (assert) {
