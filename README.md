@@ -20,7 +20,7 @@ In theory yes. If we detect that you are using a mobile device then the mouse po
 OS maps are actually quite colourful and creating an icon that stands out regardless of the map beneath it was surprisingly difficult. However, it's just a placeholder really as I'm aware that my graphic design skills are pretty limited - so I'm more than happy to receive suggestions!
 
 ## Unit tests
-There are some basic unit tests covering some of the non-UI functionality. To run these:
+There are some basic unit tests covering some of the functionality. To run these go here http://tstibbs.github.io/os-map/test/qunit_suite/test.html or run these commands:
 ```
 npm install
 npm test
