@@ -3,7 +3,7 @@
   "version": "0.0.1",
   "scripts": {
     "test_coverage_baseline": "node ./node_modules/istanbul/lib/cli.js --hook-run-in-context cover ./node_modules/mocha/bin/_mocha node_modules/istanbul-baseline/cli.js --report lcovonly -- -R spec && mkdir ./coverage/baseline && node node_modules/lcov-zeroer/cli.js ./coverage/lcov.info ./coverage/baseline/lcov.info",
-	"test": "node_modules/karma/bin/karma start",
+	"test": "node_modules/karma/bin/karma start --no-auto-watch --single-run",
     "merge_test_coverage": "node_modules/.bin/lcov-result-merger 'coverage/**/lcov.info*' 'coverage/lcov.merged'",
     "coveralls": "cat ./coverage/lcov.merged | ./node_modules/coveralls/bin/coveralls.js"
   },
