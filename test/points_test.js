@@ -10,9 +10,10 @@ define(["leaflet", "points"],
 			points.finish(function() {});//callback not needed as not async here
 			
 			var markerElements = $('img.leaflet-marker-icon');
-			assert.ok(markerElements.length === 1);
-			assert.ok(markerElements.is(":visible"));
-			assert.ok( markerElements[0].src.endsWith('marker-icon.png'));
+			assert.ok(markerElements.length === 1, "should just be one marker icon");
+			assert.ok(markerElements.is(":visible"), "should be visible");
+			var markerIconSource = markerElements[0].src;
+			assert.ok(/.*\/marker\-icon(\-[\d\w]+)?\.png/.test(markerIconSource), "should be a standard marker icon, was: " + markerIconSource);
 		});
 	}
 );
