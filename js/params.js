@@ -1,8 +1,8 @@
-define([],
-    function() {
+define(['global'],
+    function(global) {
 	
 		var params = {};
-		var search = window.location.search;
+		var search = global.location.search;
 		if (search.length > 0) {
 			search = search.substr(1);
 			var paramString = search.split("&");
