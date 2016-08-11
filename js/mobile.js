@@ -1,5 +1,5 @@
-define([],
-    function() {
+define(['global'],
+    function(global) {
 	
 		//all taken from http://detectmobilebrowsers.com/ (licence is UNLICENSE - http://unlicense.org/)
 	
@@ -9,7 +9,7 @@ define([],
 		
         return {
 			isMobile: function() {
-				var testString = navigator.userAgent||navigator.vendor||window.opera;
+				var testString = global.navigator.userAgent||global.navigator.vendor||global.opera;
 				return firstRegex.test(testString) || secondRegex.test(testString.substr(0,4));
 			}
 		};
