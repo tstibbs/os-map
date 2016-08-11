@@ -4,8 +4,15 @@ var testFiles = [
 	"screenposition_osgb_test.js",
 	"points_test.js",
 	"conversion_test.js",
-	"mobile_test.js"
+	"mobile_test.js",
+	"params_test.js"
 ];
+
+requirejs.config({
+    paths: {
+        Squire: "https://npmcdn.com/squirejs@0.2.1/src/Squire"
+    }
+});
 
 if (window.__karma__ == undefined) {
 	//we've just opened a qunit page locally for dev purposes
@@ -50,7 +57,14 @@ function setupKarma() {
 		//load our tests
 		deps: tests,
 
-		//kick off tests only once requirejs has finished
-		callback: window.__karma__.start
-});
+		//kick off tests only once requirejs has finished, but only once
+		callback: function() {
+			if (window.KARMA_TESTS_STARTED === true) {
+				return;
+			} else {
+				window.KARMA_TESTS_STARTED = true;
+				window.__karma__.start();
+			}
+		}
+	});
 }
