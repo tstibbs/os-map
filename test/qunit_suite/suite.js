@@ -5,7 +5,8 @@ var testFiles = [
 	"points_test.js",
 	"conversion_test.js",
 	"mobile_test.js",
-	"params_test.js"
+	"params_test.js",
+	"config_test.js"
 ];
 
 requirejs.config({
