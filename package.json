@@ -10,16 +10,11 @@
   "author": "tstibbs",
   "license": "Apache-2.0",
   "homepage": "https://github.com/tstibbs/os-map",
-  "dependencies": {
-    "proj4": "^2.3.14"
-  },
   "devDependencies": {
 	"istanbul": "^0.4.4",
 	"coveralls": "^2.11.9",
 	"lcov-result-merger": "^1.2.0",
 	"requirejs": "^2.2.0",
-	"mocha": "^3.0.1",
-	"should": "^8.3.1",
 	"istanbul-baseline": "tstibbs/node-istanbul-baseline",
 	"lcov-zeroer": "tstibbs/node-lcov-zeroer",
 	"karma": "^1.1.2",
