@@ -2,9 +2,6 @@
 
 module.exports = function(config) {
   config.set({
-
-    basePath: '',
-
     frameworks: ['requirejs', 'qunit'],
 
     files: [
@@ -22,19 +19,7 @@ module.exports = function(config) {
 		type : 'lcov',
 		subdir: 'karma'
     },
-	
-    port: 9876,
-
-    colors: true,
-
-    logLevel: config.LOG_INFO,
-
-    autoWatch: true,
 
     browsers: [/*'Chrome',*/ 'PhantomJS'],
-
-    captureTimeout: 60000,
-
-    singleRun: false
   });
 };
