@@ -6,12 +6,19 @@ var testFiles = [
 	"conversion_test.js",
 	"mobile_test.js",
 	"params_test.js",
-	"config_test.js"
+	"config_test.js",
+	"os_map_test.js"
 ];
 
 requirejs.config({
     paths: {
-        Squire: "https://npmcdn.com/squirejs@0.2.1/src/Squire"
+        Squire: "https://npmcdn.com/squirejs@0.2.1/src/Squire",
+        sinon: "https://npmcdn.com/sinon@1.17.5/pkg/sinon"
+    },
+    shim: {
+        sinon: {
+            exports: 'sinon'
+        }
     }
 });
 
