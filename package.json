@@ -15,6 +15,7 @@
 	"coveralls": "^2.11.9",
 	"lcov-result-merger": "^1.2.0",
 	"requirejs": "^2.2.0",
+	"mocha": "^3.0.1",
 	"istanbul-baseline": "tstibbs/node-istanbul-baseline",
 	"lcov-zeroer": "tstibbs/node-lcov-zeroer",
 	"karma": "^1.1.2",
