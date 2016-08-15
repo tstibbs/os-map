@@ -3,6 +3,8 @@
 [![GitHub issues](https://img.shields.io/github/issues/tstibbs/os-map.svg)](https://github.com/tstibbs/os-map/issues)
 [![bitHound Overall Score](https://www.bithound.io/github/tstibbs/os-map/badges/score.svg)](https://www.bithound.io/github/tstibbs/os-map)
 [![GitHub license](https://img.shields.io/badge/license-Apache%202-blue.svg)](https://raw.githubusercontent.com/tstibbs/os-map/master/LICENSE)
+[![Build Status](https://saucelabs.com/buildstatus/tstibbs)](https://saucelabs.com/beta/builds/5e191601dd4c46cd9c06b041910365ed)
+[![Build Status](https://saucelabs.com/browser-matrix/tstibbs.svg)](https://saucelabs.com/beta/builds/5e191601dd4c46cd9c06b041910365ed)
 
 ## What is this?
 OS OpenSpace doesn't have the 1:25,000 mapping and the embeddable Bing client is a bit rubbish. So I thought I'd hook together some pre-existing stuff to make something a bit more appropriate for walking maps that isn't as rubbish as the bing client but still has the 1:25,000 mapping. It's mostly just me experimenting, there will be no technological breakthroughs here.
