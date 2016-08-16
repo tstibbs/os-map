@@ -7,17 +7,22 @@ var testFiles = [
 	"mobile_test.js",
 	"params_test.js",
 	"config_test.js",
-	"os_map_test.js"
+	"os_map_test.js",
+	"loader_test.js"
 ];
 
 requirejs.config({
     paths: {
         Squire: "https://npmcdn.com/squirejs@0.2.1/src/Squire",
-        sinon: "https://npmcdn.com/sinon@1.17.5/pkg/sinon"
+        sinon: "https://npmcdn.com/sinon@1.17.5/pkg/sinon",
+        loader: '../js/loader'
     },
     shim: {
         sinon: {
             exports: 'sinon'
+        },
+        loader: {
+            exports: 'loadOsMap'
         }
     }
 });
