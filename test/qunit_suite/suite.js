@@ -13,8 +13,8 @@ var testFiles = [
 
 requirejs.config({
     paths: {
-        Squire: "https://npmcdn.com/squirejs@0.2.1/src/Squire",
-        sinon: "https://npmcdn.com/sinon@1.17.5/pkg/sinon",
+        Squire: devPaths.Squire,
+        sinon: devPaths.sinon,
         loader: '../js/loader'
     },
     shim: {
