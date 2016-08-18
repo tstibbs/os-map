@@ -138,6 +138,10 @@ module.exports = function(config) {
 
 	browsers: Object.keys(browsers),
 
-	customLaunchers: browsers
+	customLaunchers: browsers,
+	
+	browserNoActivityTimeout: 60000,
+	browserDisconnectTimeout: 10000,
+	captureTimeout: 60000
   });
 };
