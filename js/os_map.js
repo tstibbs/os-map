@@ -24,10 +24,6 @@ define(["leaflet", "leaflet_bing", "mouseposition_osgb", "screenposition_osgb", 
 
 			getMap: function () {
 				return this._map;
-			},
-
-			getConfig: function () {
-				return this._config;
 			}
 		});
 
