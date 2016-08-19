@@ -76,9 +76,27 @@ define(['Squire', 'sinon', 'mouseposition_osgb', 'screenposition_osgb'],
 					//tear down
 					mouseposition_osgb_mock.addTo.restore();
 					screenposition_osgb_mock.addTo.restore();
-					done();
+					waitForBingLayerToFinish(done);
 				}
 			);
+		}
+		
+		//hack because the bing layer adds and removes function in a way that can cause an overlap between tests
+		function waitForBingLayerToFinish(done) {
+			var metadataFunctionsExist = false;
+			for (fn in window) {
+				if (/_bing_metadata.*/.test(fn) && typeof(window[fn]) == 'function' ) {
+					metadataFunctionsExist = true;
+					break;
+				}
+			}
+			if (metadataFunctionsExist === true) {
+				setTimeout(function() {
+					waitForBingLayerToFinish(done);
+				}, 100);
+			} else {
+				done();
+			}
 		}
 	}
 );
