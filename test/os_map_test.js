@@ -1,8 +1,6 @@
 define(['Squire', 'sinon', 'mouseposition_osgb', 'screenposition_osgb'],
     function(Squire, sinon, mouseposition_osgb, screenposition_osgb) {
-	
-		var injector = new Squire();
-		
+
 		var mouseposition_osgb_mock = mouseposition_osgb();
 		var screenposition_osgb_mock = screenposition_osgb();
 		
@@ -45,10 +43,10 @@ define(['Squire', 'sinon', 'mouseposition_osgb', 'screenposition_osgb'],
 				});
 				
 				QUnit.test('mobile', function(assert) {
-					runTest(assert, false, {}, function(leafletMap, mouseposition_osgb_mock, screenposition_osgb_mock) {
+					runTest(assert, true, {}, function(leafletMap, mouseposition_osgb_mock, screenposition_osgb_mock) {
 						//check screen/mouse position is applied correctly based on a mobile browser
-						assert.ok(mouseposition_osgb_mock().addTo.calledOnce, "mouse position should be displayed");
-						assert.notOk(screenposition_osgb_mock().addTo.calledOnce, "screen position should not be displayed");
+						assert.notOk(mouseposition_osgb_mock().addTo.calledOnce, "mouse position should not be displayed");
+						assert.ok(screenposition_osgb_mock().addTo.calledOnce, "screen position should be displayed");
 					});
 				});
 			});
@@ -62,6 +60,7 @@ define(['Squire', 'sinon', 'mouseposition_osgb', 'screenposition_osgb'],
 			sinon.spy(mouseposition_osgb_mock, "addTo");
 			sinon.spy(screenposition_osgb_mock, "addTo");
 
+			var injector = new Squire();
 			injector.mock('mobile', {isMobile: function() {return isMobile;}});
 			injector.mock('mouseposition_osgb', function() {return mouseposition_osgb_mock;});
 			injector.mock('screenposition_osgb', function() {return screenposition_osgb_mock;});
@@ -76,6 +75,7 @@ define(['Squire', 'sinon', 'mouseposition_osgb', 'screenposition_osgb'],
 					//tear down
 					mouseposition_osgb_mock.addTo.restore();
 					screenposition_osgb_mock.addTo.restore();
+					injector.clean();
 					waitForBingLayerToFinish(done);
 				}
 			);
