@@ -29,7 +29,7 @@ var paths = {
 	jquery: 'https://code.jquery.com/jquery-' + versions.jquery
 }
 
-var devPaths = {
+var testingPaths = {
 	Squire: 'https://npmcdn.com/squirejs@' + versions.Squire + '/src/Squire',
 	sinon: 'https://npmcdn.com/sinon@' + versions.sinon + '/pkg/sinon'
 }
