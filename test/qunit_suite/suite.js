@@ -11,12 +11,9 @@ var testFiles = [
 	"loader_test.js"
 ];
 
+testingPaths.loader = '../js/loader'; //this is a hack for testing, so no need for it to appear in app.js
 requirejs.config({
-    paths: {
-        Squire: devPaths.Squire,
-        sinon: devPaths.sinon,
-        loader: '../js/loader'
-    },
+    paths: testingPaths,
     shim: {
         sinon: {
             exports: 'sinon'
