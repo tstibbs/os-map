@@ -1,9 +1,10 @@
-define(["os_map", "points", "params", "conversion", "jquery"],
-    function(OsMap, Points, params, conversion, $) {
+define(["os_map", "points", "config", "params", "conversion", "jquery"],
+    function(OsMap, Points, Config, params, conversion, $) {
 	
 		function buildMap(options) {
-			var osMap = new OsMap(options);
-			var points = new Points(osMap.getMap(), options);
+			var config = new Config(options);
+			var osMap = new OsMap(config);
+			var points = new Points(osMap.getMap(), config);
 			return points;
 		}
 		

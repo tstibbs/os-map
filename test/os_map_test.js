@@ -1,5 +1,5 @@
-define(['Squire', 'sinon', 'mouseposition_osgb', 'screenposition_osgb'],
-    function(Squire, sinon, mouseposition_osgb, screenposition_osgb) {
+define(['Squire', 'sinon', 'config', 'mouseposition_osgb', 'screenposition_osgb'],
+    function(Squire, sinon, Config, mouseposition_osgb, screenposition_osgb) {
 
 		var mouseposition_osgb_mock = mouseposition_osgb();
 		var screenposition_osgb_mock = screenposition_osgb();
@@ -68,7 +68,7 @@ define(['Squire', 'sinon', 'mouseposition_osgb', 'screenposition_osgb'],
 			injector.require(['os_map', 'mouseposition_osgb', 'screenposition_osgb'],
 				function(OsMap, mouseposition_osgb, screenposition_osgb) {
 					//run test
-					var map = new OsMap(options);
+					var map = new OsMap(new Config(options));
 					var leafletMap = map.getMap();
 					//inspect
 					verify(leafletMap, mouseposition_osgb, screenposition_osgb);
