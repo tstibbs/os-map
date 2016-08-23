@@ -128,7 +128,7 @@ for (var browser in extraBrowsers) { browsers[browser] = extraBrowsers[browser];
 module.exports = function(config) {
   baseConfig(config);
   config.set({
-	reporters: ['saucelabs', 'progress'],
+	reporters: ['saucelabs', 'spec'],
 	
 	preprocessors: {},
 

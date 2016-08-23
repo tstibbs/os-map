@@ -11,7 +11,7 @@ module.exports = function(config) {
         'test/qunit_suite/suite.js',
     ],
 
-    reporters: ['progress', 'coverage'],
+    reporters: ['spec', 'coverage'],
 
     preprocessors: { 'js/**/*.js': ['coverage'] },
     

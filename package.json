@@ -25,6 +25,7 @@
 	"karma-requirejs": "^1.0.0",
 	"karma-phantomjs-launcher": "^1.0.1",
 	"karma-sauce-launcher": "^1.0.0",
+	"karma-spec-reporter": "^0.0.26",
 	"karma-coverage": "^1.1.1",
 	"qunitjs": "^1.23.1"
   },
