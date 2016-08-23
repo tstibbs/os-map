@@ -4,8 +4,8 @@ define(["leaflet", "leaflet_bing", "mouseposition_osgb", "screenposition_osgb", 
         var bingKey = "LfO3DMI9S6GnXD7d0WGs~bq2DRVkmIAzSOFdodzZLvw~Arx8dclDxmZA0Y38tHIJlJfnMbGq5GXeYmrGOUIbS2VLFzRKCK0Yv_bAl6oe-DOc";
 	
 		var OsMap = leaflet.Class.extend({
-			initialize: function (options) {
-				this._config = new Config(options);
+			initialize: function (config) {
+				this._config = config;
 				// set up the map
 				this._map = new leaflet.Map(this._config.map_element_id);
 				// create bing layers
