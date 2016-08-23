@@ -1,5 +1,5 @@
-define(["proj4", "leaflet", "leaflet_cluster", "leaflet_subgroup", "leaflet_matrixlayers"],
-    function(proj4, leaflet, leaflet_cluster, leaflet_subgroup, leaflet_matrixlayers) {
+define(["leaflet", "leaflet_cluster", "leaflet_subgroup", "leaflet_matrixlayers"],
+    function(leaflet, leaflet_cluster, leaflet_subgroup, leaflet_matrixlayers) {
 	
 		var icons = {
 			Pillar: leaflet.icon({
@@ -94,7 +94,6 @@ define(["proj4", "leaflet", "leaflet_cluster", "leaflet_subgroup", "leaflet_matr
 							parentGroup.addLayer(this._markerList[i]);	
 						}
 					}
-					this._map.addLayer(parentGroup);
 				} else {
 					//grouped
 					var matrixOverlays = {};
