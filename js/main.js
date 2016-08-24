@@ -1,46 +1,46 @@
-define(["os_map", "points", "config", "params", "conversion", "jquery"],
-    function(OsMap, Points, Config, params, conversion, $) {
-	
-		function buildMap(options) {
-			var config = new Config(options);
-			var osMap = new OsMap(config);
-			var points = new Points(osMap.getMap(), config);
-			return points;
-		}
-		
+define(["os_map", "points_model", "points_view", "config", "params", "conversion", "jquery"],
+    function(OsMap, PointsModel, PointsView, Config, params, conversion, $) {
+			
 		function finish() {
 			$('div#loading-message-pane').hide();
 		}
 		
 		return {
+			_buildMap: function(options) {
+				var config = new Config(options);
+				var osMap = new OsMap(config);
+				this._pointsModel = new PointsModel(config);
+				this._pointsView = new PointsView(osMap.getMap(), config, this._pointsModel);
+			},
+			
 			hasUrlData: function() {
 				return params('trigs') != null;
 			},
 			
 			buildMapFromUrl: function(options) {
-				var points = buildMap(options);
+				this._buildMap(options);
 				var locationsFromUrl = params('trigs');
 				var allPoints = locationsFromUrl.split(";");
 				for (var i = 0; i < allPoints.length; i++) {
 					var point = allPoints[i].split(',');
 					var lngLat = conversion.osgbToLngLat(point[0], point[1]);
-					points.add(lngLat, point[2], point[3]);
+					this._pointsModel.add(lngLat, point[2], point[3]);
 				}
-				points.finish(finish);
+				this._pointsView.finish(finish);
 			},
 			
 			buildMapWithDummyData: function(options) {
-				var points = buildMap(options);
+				this._buildMap(options);
 				//dummy data as an example
-				points.add(conversion.osgbToLngLat(418678, 385093), 'http://trigpointing.uk/trig/6995', 'Winhill Pike');
-				points.add(conversion.osgbToLngLat(422816, 385344), 'http://trigpointing.uk/trig/3795', 'High Neb');
-				points.add(conversion.osgbToLngLat(419762, 390990), 'http://trigpointing.uk/trig/949', 'Back Tor');
-				points.add(conversion.osgbToLngLat(412927, 387809), 'http://trigpointing.uk/trig/3019', 'Edale Moor');
-				points.finish(finish);
+				this._pointsModel.add(conversion.osgbToLngLat(418678, 385093), 'http://trigpointing.uk/trig/6995', 'Winhill Pike');
+				this._pointsModel.add(conversion.osgbToLngLat(422816, 385344), 'http://trigpointing.uk/trig/3795', 'High Neb');
+				this._pointsModel.add(conversion.osgbToLngLat(419762, 390990), 'http://trigpointing.uk/trig/949', 'Back Tor');
+				this._pointsModel.add(conversion.osgbToLngLat(412927, 387809), 'http://trigpointing.uk/trig/3019', 'Edale Moor');
+				this._pointsView.finish(finish);
 			},
 			
 			buildMapWithData: function(options, pointsToLoad) {
-				var points = buildMap(options);
+				this._buildMap(options);
 				//['osgb_gridref','waypoint','name','physical_type','condition'],
 				for (var i = 0; i < pointsToLoad.length; i++) {
 					var point = pointsToLoad[i];
@@ -63,9 +63,9 @@ define(["os_map", "points", "config", "params", "conversion", "jquery"],
 						if (console) {console.log(err);}
 					}
 					var extraInfo = '<span>Condition: '+condition+'</span><br /><span>Physical Type: '+physicalType+'</span>';
-					points.add(lngLat, url, name, extraInfo, physicalType, condition);
+					this._pointsModel.add(lngLat, url, name, extraInfo, physicalType, condition);
 				}
-				points.finish(finish);
+				this._pointsView.finish(finish);
 			}
 		};
     }

@@ -1,5 +1,5 @@
-define(["leaflet", "leaflet_cluster", "leaflet_subgroup", "leaflet_matrixlayers"],
-    function(leaflet, leaflet_cluster, leaflet_subgroup, leaflet_matrixlayers) {
+define(["leaflet", "leaflet_cluster", "leaflet_subgroup", "leaflet_matrixlayers", "points_model"],
+    function(leaflet, leaflet_cluster, leaflet_subgroup, leaflet_matrixlayers, PointsModel) {
 	
 		var icons = {
 			Pillar: leaflet.icon({
@@ -14,62 +14,43 @@ define(["leaflet", "leaflet_cluster", "leaflet_subgroup", "leaflet_matrixlayers"
 			}),
 		};
 	
-		var Points = leaflet.Class.extend({
-			initialize: function (map, config) {
+		var PointsView = leaflet.Class.extend({
+			initialize: function (map, config, pointsModel) {
 				this._markerList = null;
 				this._map = map;
 				this._config = config;
+				this._model = pointsModel;
 			},
+			
+			_translateMarker: function(markerConfig) {
+				var type = markerConfig.type;
+				var latLng = markerConfig.latLng;
+				var popupText = markerConfig.popupText;
 
-			add: function (lngLat, url, name, extraText, type, condition) {
-				var lng = lngLat[0];
-				var lat = lngLat[1];
 				var markerOptions = {};
 				if (icons[type] !== undefined) {
-					markerOptions.icon = icons[type];
+				  markerOptions.icon = icons[type];
 				}
-				var marker = leaflet.marker([lat, lng], markerOptions);
-				if (name == null) {
-					name = url;
-				}
-				var popupText = "";
-				if (url != null) {
-					popupText = '<a href="' + url + '">' + name + '</a>';
-				} else if (name != null) {
-					popupText = '<span>' + name + '</span>';
-				}
-				if (popupText.length > 0) {
-					popupText = popupText + '<br />';
-				}
-				if (extraText != null) {
-					popupText = popupText + extraText;
-				}
+				var marker = leaflet.marker(latLng, markerOptions);
 				marker.bindPopup(popupText);
-				
-				if (this._config.dimensional_layering) {
-					if (this._markerList == null) {
-						this._markerList = {};
+				return marker;
+			},
+
+			_translateMarkerGroup: function(group) {
+				if (group.constructor === Array) {
+					group.forEach(function(markerConfig, i, group) {
+						group[i] = this._translateMarker(markerConfig);
+					}, this);
+				} else { //is hash
+					for (dimension in group) {
+						group[dimension] = this._translateMarkerGroup(group[dimension]);
 					}
-					var markersByType = this._markerList[type];
-					if (markersByType == null) {
-						this._markerList[type] = {};
-						markersByType = this._markerList[type];
-					}
-					var markersByCondition = markersByType[condition];
-					if (markersByCondition == null) {
-						markersByType[condition] = [];
-						markersByCondition = markersByType[condition];
-					}
-					markersByCondition.push(marker);
-				} else {
-					if (this._markerList == null) {
-						this._markerList = [];
-					}
-					this._markerList.push(marker);
 				}
+				return group;
 			},
 			
 			finish: function (finished) {
+				this._markerList = this._translateMarkerGroup(this._model.getMarkerList());
 				var parentGroup = null;
 				if (this._config.cluster) {
 					parentGroup = leaflet_cluster({
@@ -91,7 +72,7 @@ define(["leaflet", "leaflet_cluster", "leaflet_subgroup", "leaflet_matrixlayers"
 						parentGroup.addLayers(this._markerList);
 					} else {
 						for (var i = 0; i < this._markerList.length; i++) {
-							parentGroup.addLayer(this._markerList[i]);	
+							parentGroup.addLayer(this._markerList[i]);
 						}
 					}
 				} else {
@@ -112,6 +93,6 @@ define(["leaflet", "leaflet_cluster", "leaflet_subgroup", "leaflet_matrixlayers"
 			}
 		});
 
-        return Points;
+        return PointsView;
     }
 );

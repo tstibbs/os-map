@@ -1,13 +1,15 @@
-define(["Squire", "leaflet", "jquery", "points", "leaflet_cluster"],
-    function(Squire, leaflet, $, Points, leaflet_cluster) {
+define(["Squire", "sinon", "leaflet", "jquery", "points_view", "points_model", "config", "leaflet_cluster"],
+    function(Squire, Sinon, leaflet, $, PointsView, PointsModel, Config, leaflet_cluster) {
 	
 		var leaflet_cluster_mock = leaflet_cluster();
 	
 		QUnit.module('points', function() {
 			QUnit.test('basic marker should display', function(assert) {
-				var points = dummyMap(Points, {});
-				points.add([-0.09, 51.505], "http://example.com/dummyurl", "blahpoint");
-				points.finish(function() {});//callback not needed as not async here
+				var points = dummyMap(PointsView, {cluster: false});
+				var pointsModel = points[0];
+				var pointsView = points[1];
+				pointsModel.add([-0.09, 51.505], "http://example.com/dummyurl", "blahpoint");
+				pointsView.finish(function() {});//callback not needed as not async here
 				
 				var markerElements = $('img.leaflet-marker-icon');
 				assert.ok(markerElements.length === 1, "should just be one marker icon");
@@ -17,9 +19,11 @@ define(["Squire", "leaflet", "jquery", "points", "leaflet_cluster"],
 			});
 			
 			QUnit.test('marker should display based on type', function(assert) {
-				var points = dummyMap(Points, {});
-				points.add([-0.09, 51.505], "http://example.com/dummyurl", "blahpoint", "extraText", "Pillar");
-				points.finish(function() {});
+				var points = dummyMap(PointsView, {cluster: false});
+				var pointsModel = points[0];
+				var pointsView = points[1];
+				pointsModel.add([-0.09, 51.505], "http://example.com/dummyurl", "blahpoint", "extraText", "Pillar");
+				pointsView.finish(function() {});
 				
 				var markerIconSource = $('img.leaflet-marker-icon')[0].src;
 				assert.ok(/.*img\/pillar\.png/.test(markerIconSource), "should be a pillar marker icon, was: " + markerIconSource);
@@ -27,9 +31,11 @@ define(["Squire", "leaflet", "jquery", "points", "leaflet_cluster"],
 			
 			QUnit.test('should accept null name', function(assert) {
 				//setup
-				var points = dummyMap(Points, {});
-				points.add([-0.09, 51.505], "http://example.com/dummyurl", null);
-				points.finish(function() {});
+				var points = dummyMap(PointsView, {cluster: false});
+				var pointsModel = points[0];
+				var pointsView = points[1];
+				pointsModel.add([-0.09, 51.505], "http://example.com/dummyurl", null);
+				pointsView.finish(function() {});
 				//test
 				$text = getOneMarkerText(assert, points);
 				$anchor = $('a', $text);
@@ -38,10 +44,12 @@ define(["Squire", "leaflet", "jquery", "points", "leaflet_cluster"],
 			
 			QUnit.test('should accept null url', function(assert) {
 				//setup
-				var points = dummyMap(Points, {});
+				var points = dummyMap(PointsView, {cluster: false});
+				var pointsModel = points[0];
+				var pointsView = points[1];
 				var markerName = "thisisaname"
-				points.add([-0.09, 51.505], null, markerName);
-				points.finish(function() {});
+				pointsModel.add([-0.09, 51.505], null, markerName);
+				pointsView.finish(function() {});
 				//test
 				$text = getOneMarkerText(assert, points);
 				assert.equal($('a', $text).length, 0);
@@ -50,10 +58,12 @@ define(["Squire", "leaflet", "jquery", "points", "leaflet_cluster"],
 			
 			QUnit.test('should include extra text', function(assert) {
 				//setup
-				var points = dummyMap(Points, {});
+				var points = dummyMap(PointsView, {cluster: false});
+				var pointsModel = points[0];
+				var pointsView = points[1];
 				var extraText = "blah stuff thing"
-				points.add([-0.09, 51.505], "http://example.com/dummyurl", "xpoint", extraText);
-				points.finish(function() {});
+				pointsModel.add([-0.09, 51.505], "http://example.com/dummyurl", "xpoint", extraText);
+				pointsView.finish(function() {});
 				//test
 				$text = getOneMarkerText(assert, points);
 				assert.ok($text.text().indexOf(extraText) !== -1);//just check it's included, we're not too concerned where
@@ -65,15 +75,15 @@ define(["Squire", "leaflet", "jquery", "points", "leaflet_cluster"],
 					var options = {
 						cluster: true
 					};
-					runTest(assert, options, function(points, leaflet_cluster_mock) {
+					runTest(assert, options, function(pointsModel, pointsView, leaflet_cluster_mock) {
 						//run test
 						var name1 = "blahpoint1";
 						var name2 = "blahpoint2";
 						var latLng1 = [-0.09, 51.505];
 						var latLng2 = [0.5, 50];
-						points.add(latLng1, null, name1);
-						points.add(latLng2, null, name2);
-						points.finish(function(){});
+						pointsModel.add(latLng1, null, name1);
+						pointsModel.add(latLng2, null, name2);
+						pointsView.finish(function(){});
 						//verify
 						assert.ok(leaflet_cluster_mock().addTo.calledOnce, "should have been added to the map");
 						assert.ok(leaflet_cluster_mock().addLayers.calledOnce, "should have added some markers");
@@ -115,12 +125,14 @@ define(["Squire", "leaflet", "jquery", "points", "leaflet_cluster"],
 					var injector = new Squire();
 					injector.mock('leaflet_cluster', function() {return leaflet_cluster_mock;});
 					
-					injector.require(['points', 'leaflet_cluster'],
-						function(Points, leaflet_cluster_mock) {
+					injector.require(['points_view', 'leaflet_cluster'],
+						function(PointsView, leaflet_cluster_mock) {
 							//run test
-							var points = dummyMap(Points, options);
+							var points = dummyMap(PointsView, options);
+							var pointsModel = points[0];
+							var pointsView = points[1];
 							//inspect
-							callback(points, leaflet_cluster_mock);
+							callback(pointsModel, pointsView, leaflet_cluster_mock);
 							//tear down
 							leaflet_cluster_mock().addLayers.restore();
 							leaflet_cluster_mock().addTo.restore();
@@ -132,12 +144,14 @@ define(["Squire", "leaflet", "jquery", "points", "leaflet_cluster"],
 			});
 		});
 		
-		function dummyMap(Points, options) {
+		function dummyMap(PointsView, options) {
 			$('#qunit-fixture').append('<div id="map" style="height: 180px;"></div>');
-			var map = leaflet.map('map');
+			var map = leaflet.map('map', {maxZoom: 10});
 			map.setView([51.505, -0.09], 13);
-			var points = new Points(map, options);
-			return points;
+			var config = new Config(options);
+			var pointsModel = new PointsModel(config);
+			var pointsView = new PointsView(map, config, pointsModel);
+			return [pointsModel, pointsView];
 		}
 		
 		function getOneMarkerText(assert, points) {
@@ -148,7 +162,7 @@ define(["Squire", "leaflet", "jquery", "points", "leaflet_cluster"],
 		
 		function getAllMarkerTexts(points) {
 			var markerTexts = [];
-			var map = points._map;
+			var map = points[1]._map;
 			$.each(map._layers, function (ml) {
 				var layers = map._layers[ml]._layers;
 				if (layers !== undefined) {
