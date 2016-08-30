@@ -1,7 +1,7 @@
-define(["sinon", "leaflet", "jquery", "points_view", "config"],
-    function(Sinon, leaflet, $, PointsView, Config) {
+define(["Squire", "sinon", "leaflet", "jquery", "points_view", "config"],
+    function(Squire, Sinon, leaflet, $, PointsView, Config) {
 		
-		QUnit.module('points', function() {
+		QUnit.module('points view', function() {
 			function testIcon(assert, type, popupText) {
 				//test
 				var marker = {
@@ -36,6 +36,48 @@ define(["sinon", "leaflet", "jquery", "points_view", "config"],
 				$text = getOneMarkerText(assert, pointsView);
 				assert.equal(popupText, $text.html());
 			});
+			
+			QUnit.module('clustering and layering', function() {
+				QUnit.test('cluster layer should work and should have required markers', function(assert) {
+					var done = assert.async();
+					var initialMarkers = [
+						{
+							latLng: [-0.09, 51.505],
+							popupText: 'abc'
+						},
+						{
+							latLng: [-0.09, 51.505],
+							popupText: 'def'
+						}
+					];
+					
+					var injector = new Squire();
+					var leafletClusterMock = sinon.stub();
+					var leafletClusterSpy = sinon.spy(function() {return leafletClusterMock});
+					leafletClusterMock.addLayers = sinon.stub();
+					leafletClusterMock.addTo = sinon.stub();
+					injector.mock('leaflet_cluster', leafletClusterSpy);
+					injector.require(['points_view'],
+						function(PointsView) {
+							var pointsView = dummyMap(PointsView, {cluster: true}, initialMarkers);
+							pointsView.finish(function() {});
+							//check leaflet_cluster constructor is called
+							assert.ok(leafletClusterSpy.calledOnce, "cluster layer group is needed");
+							//check all markers are added
+							assert.ok(leafletClusterMock.addLayers.calledOnce, "should have added layers");
+							var markers = leafletClusterMock.addLayers.getCall(0).args[0];
+							assert.equal(2, markers.length, "should have added both markers");
+							assert.equal('abc', markers[0].getPopup().getContent());
+							assert.equal('def', markers[1].getPopup().getContent());
+							//check cluster layer is added to the map
+							assert.ok(leafletClusterMock.addTo.calledOnce, "should have added layer to map");
+							//tidy
+							injector.clean();
+							done();
+						}
+					);
+				});
+			});
 		});
 		
 		function dummyMap(PointsView, options, markerList) {
@@ -44,8 +86,7 @@ define(["sinon", "leaflet", "jquery", "points_view", "config"],
 			map.setView([51.505, -0.09], 13);
 			var config = new Config(options);
 			var pointsModel = {};
-			pointsModel.getMarkerList = sinon.stub();
-			pointsModel.getMarkerList.returns(markerList);
+			pointsModel.getMarkerList = function() {return markerList};
 			var pointsView = new PointsView(map, config, pointsModel);
 			return pointsView;
 		}
