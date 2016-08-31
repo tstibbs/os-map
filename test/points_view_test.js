@@ -77,6 +77,73 @@ define(["Squire", "sinon", "leaflet", "jquery", "points_view", "config"],
 						}
 					);
 				});
+				
+				QUnit.test('matrix layers should be set up correctly', function(assert) {
+					var done = assert.async();
+					var name1 = 'abc';
+					var name2 = 'def';
+					var name3 = 'ghi';
+					var name4 = 'jkl';
+					var type1 = 'type1';
+					var type2 = 'type2';
+					var condition1 = 'condition1';
+					var condition2 = 'condition2';
+					var initialMarkers = {
+						type1 : {
+							condition1: [
+								{
+									latLng: [-0.06, 51.505],
+									popupText: name1
+								},
+							],
+							condition2: [
+								{
+									latLng: [-0.07, 51.506],
+									popupText: name2
+								}
+							]
+						},
+						type2 : {
+							condition1: [
+								{
+									latLng: [-0.08, 51.507],
+									popupText: name3
+								},
+							],
+							condition2: [
+								{
+									latLng: [-0.09, 51.508],
+									popupText: name4
+								}
+							]
+						}
+					};
+					
+					var injector = new Squire();
+					var leafletMatrixlayersMock = sinon.stub();
+					var leafletMatrixlayersSpy = sinon.spy(function() {return leafletMatrixlayersMock});
+					leafletMatrixlayersMock.addTo = sinon.stub();
+					injector.mock('leaflet_matrixlayers', leafletMatrixlayersSpy);
+					injector.require(['points_view'],
+						function(PointsView) {
+							var pointsView = dummyMap(PointsView, {cluster: false, dimensional_layering: true}, initialMarkers);
+							pointsView.finish(function() {});
+							//check matrix layers constructor is called
+							assert.ok(leafletMatrixlayersSpy.calledOnce, "matrix layer control is needed");
+							//check all markers are added
+							var actualMarkers = leafletMatrixlayersSpy.getCall(0).args[2];
+							assert.ok(name1, actualMarkers[type1 + '/' + condition1].getLayers()[0].getPopup().getContent());
+							assert.ok(name2, actualMarkers[type1 + '/' + condition2].getLayers()[0].getPopup().getContent());
+							assert.ok(name3, actualMarkers[type2 + '/' + condition1].getLayers()[0].getPopup().getContent());
+							assert.ok(name4, actualMarkers[type2 + '/' + condition2].getLayers()[0].getPopup().getContent());
+							// //check cluster layer is added to the map
+							assert.ok(leafletMatrixlayersMock.addTo.calledOnce, "should have added layer to map");
+							//tidy
+							injector.clean();
+							done();
+						}
+					);
+				});
 			});
 		});
 		
