@@ -140,6 +140,8 @@ module.exports = function(config) {
 
 	customLaunchers: browsers,
 	
+	concurrency: 3,
+	
 	browserNoActivityTimeout: 60000,
 	browserDisconnectTimeout: 10000,
 	captureTimeout: 60000
