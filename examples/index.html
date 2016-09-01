@@ -3,6 +3,9 @@
 	<head>
 		<meta charset=utf-8 />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+		
+		<!-- must be first -->
+        <script src='../js/error_handler.js'></script>
 
 		<link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet/v0.7.7/leaflet.css" />
 		<!-- Add the moment it's safe to load these at the same time because there are no conflicts and the styles will only be used if the particular control is in play -->
@@ -29,6 +32,9 @@
 	</head>
 
 	<body class="full-screen">
+		<div id="error-container" style="display: none;">
+			<p class="title">Some errors have occurred:</p>
+		</div>
 		<div id="loading-message-pane" class="full-screen">
 			<div class="loading-message-container">
 				<div class="loading-message-text">

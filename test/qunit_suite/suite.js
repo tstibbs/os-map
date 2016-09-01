@@ -10,10 +10,14 @@ var testFiles = [
 	"params_test.js",
 	"config_test.js",
 	"os_map_test.js",
-	"loader_test.js"
+	"loader_test.js",
+	"error_handler_test.js"
 ];
 
-testingPaths.loader = '../js/loader'; //this is a hack for testing, so no need for it to appear in app.js
+//these extras are a hack for testing, so no need for them to appear in app.js
+testingPaths.loader = '../js/loader';
+testingPaths.error_handler = '../js/error_handler';
+
 requirejs.config({
     paths: testingPaths,
     shim: {
