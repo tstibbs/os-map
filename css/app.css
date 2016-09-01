@@ -44,8 +44,34 @@ div.mini-map {
 
 .leaflet-container .leaflet-control-mapcentercoord, .leaflet-container .leaflet-control-mouseposition {
     background-color: rgba(255, 255, 255, 0.85);
-}
+}
+
 /* for now, hide the attribution control on the mini map */
 div.mini-map .leaflet-container .leaflet-control-attribution {
     display: none;
+}
+
+div#error-container {
+	background-color: rgba(255, 143, 143, 0.9);
+	position: absolute;
+	left: 0;
+	top: 0;
+	z-index: 2000;
+	margin: 5px;
+	padding: 10px;
+	border-color: black;
+	border-style: solid;
+	border-width: 2px;
+}
+
+div#error-container p.title {
+	font-style: italic;
+	margin-top: 0px;
+	margin-bottom: 8px;
+}
+
+div#error-container p.error {
+	font-family: monospace;
+	margin-top: 3px;
+	margin-bottom: 3px;
 }

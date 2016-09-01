@@ -3,6 +3,9 @@
 	<head>
 		<meta charset=utf-8 />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+		
+		<!-- must be first -->
+        <script src='../js/error_handler.js'></script>
 
 		<link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet/v0.7.7/leaflet.css" />
 		<link rel="stylesheet" href="https://cdn.rawgit.com/Leaflet/Leaflet.markercluster/232e93ccbe5b70241913f47a4d1a8ceec8c88c30/dist/MarkerCluster.Default.css" />
@@ -24,6 +27,9 @@
 	</head>
 
 	<body class="full-screen">
+		<div id="error-container" style="display: none;">
+			<p class="title">Some errors have occurred:</p>
+		</div>
 		<div id="loading-message-pane" class="full-screen">
 			<div class="loading-message-container">
 				<div class="loading-message-text">
