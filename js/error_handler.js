@@ -3,16 +3,39 @@
 var functionsToWrap = ['log', 'error', 'warn'];
 
 var outerThis = this;
+var bufferedMessages = [];//if the dom isn't ready yet, we'll buffer up the messages to replay later
+
+document.addEventListener("DOMContentLoaded", function(event) {
+	//document.onload = function() {
+	addErrorHandler();
+});
+
+function addErrorHandler() {
+	var dismissButton = document.querySelector('div#error-container a#dismiss-button');
+	dismissButton.onclick = function () {
+		document.getElementById('error-container').style.display = 'none';
+		return false;
+	};
+	for (var i = 0; i < bufferedMessages.length; i++) {
+		displayError(bufferedMessages);
+	}
+}
 
 function displayError() {
-	var elem = document.createElement('p');
-	elem.className = 'error';
 	var args = Array.prototype.slice.call(arguments);
-	var message = args.join(" | ");
-	elem.innerHTML = message;
 	var container = document.getElementById('error-container');
-	container.appendChild(elem);
-	container.style.display = 'block'; //may already be showing, but that's fine
+	if (container != null) {
+		var elem = document.createElement('p');
+		elem.className = 'error';
+		var message = args.join(" | ");
+		elem.innerHTML = message;
+		var list = document.getElementById('errors-list');
+		list.appendChild(elem);
+		container.style.display = 'block'; //may already be showing, but that's fine
+	} else {
+		//if the dom isn't ready yet, let's buffer the messages up for now
+		bufferedMessages.push(args);
+	}
 }
 
 if (window.console != null) {
