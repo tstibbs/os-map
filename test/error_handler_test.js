@@ -1,15 +1,23 @@
-define(['jquery', 'error_handler'],
-    function($, error_handler) {
+define(['jquery'],
+    function($) {
 		QUnit.module('error_handler', function() {
 		
 			function runTest(assert, caller, expected) {
 				//set up
 				var $container = $('<div id="error-container"></div>');
+				$container.append($('<div id="errors-list"></div>'));
+				$container.append($('<a id="dismiss-button" href="#"></a>'));
 				$('#qunit-fixture').append($container);
-				//run test
-				caller();
-				//verify
-				assert.equal(expected, $container.text());
+				var done = assert.async();
+			    require(['error_handler'], function(error_handler) {
+					//setup
+					addErrorHandler();//the dom is _never_ ready in qunit, so poke the error handler manually
+					//run test
+					caller();
+					//verify
+					assert.equal($container.text(), expected);
+					done();
+				});
 			}
 		
 			QUnit.test('console.log', function(assert) {
@@ -37,6 +45,23 @@ define(['jquery', 'error_handler'],
 					//can't just throw an error here as that would break the unit test itself.
 					window.onerror('blah', 'thingf', 0, 0, 'stuffe');
 				}, 'blah | thingf | stuffe');
+			});
+			QUnit.test('hide errors', function(assert) {
+				//set up
+				var $container = $('<div id="error-container"></div>');
+				$container.append($('<a id="dismiss-button" href="#"></a>'));
+				$('#qunit-fixture').append($container);
+				var done = assert.async();
+			    require(['error_handler'], function(error_handler) {
+					//setup
+					addErrorHandler();//the dom is _never_ ready in qunit, so poke the error handler manually
+					//run test
+			    	assert.ok($('#error-container').is(':visible'));
+					$('#dismiss-button').trigger("click");
+					//verify
+					assert.notOk($('#error-container').is(':visible'));
+					done();
+				});
 			});
 		});
 	}
