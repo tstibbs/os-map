@@ -47,6 +47,18 @@ define(["config"],
 					});
 					assert.equal(4, config2.blah);//passed-in value should override saved value
 				});
+				QUnit.test('saving is for a given page id', function(assert) {
+					//set up
+					var config1 = new Config({page_id: 'abc'});
+					config1.persist({blah: 5});
+					var config2 = new Config({page_id: 'xyz'});
+					config2.persist({blah: 6});
+					//test
+					var newConfig1 = new Config({page_id: 'abc'});
+					var newConfig2 = new Config({page_id: 'xyz'});
+					assert.equal(5, newConfig1.blah);
+					assert.equal(6, newConfig2.blah);
+				});
 			});
 		});
 	}
