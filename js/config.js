@@ -1,17 +1,23 @@
-define(["leaflet", "jquery"],
-    function(leaflet, $) {
+define(["leaflet", "jquery", "global"],
+    function(leaflet, $, global) {
+		
+		var defaultPageId = global.location.pathname.split("/").pop();
+		
 		var defaults = {
 			cluster: true,
 			dimensional_layering: false,
 			initial_zoom: 13,
 			start_position: [53.374694, -1.711474],//lat, long
 			force_config_override: false,//if true, start position and zoom will be taken from config, not from local storage
-			map_element_id: 'map'
+			map_element_id: 'map',
+			page_id: defaultPageId
 		};
 
 		var Config = leaflet.Class.extend({
 			initialize: function (options) {
 				var resolvedConfig = $.extend({}, defaults, options);
+				
+				this._storageId = 'os_map:' + resolvedConfig.page_id + 'config';
 				
 				if (options == null || options.force_config_override !== true) {//check *options*, don't want to retrieve this persisted value
 					//unless we've set the attribute to force override local config with the coded config, we should grab the local storage version and overwrite any matching keys
@@ -29,7 +35,7 @@ define(["leaflet", "jquery"],
 			
 			_getSavedConfig: function() {
 				if (localStorage !== undefined) {
-					var saved = localStorage.getItem('os_map:config');
+					var saved = localStorage.getItem(this._storageId);
 					if (saved != null) {
 						return JSON.parse(saved);
 					} else {
@@ -46,7 +52,7 @@ define(["leaflet", "jquery"],
 					if (saved != null) {
 						options = $.extend({}, saved, options);
 					}
-					localStorage.setItem('os_map:config', JSON.stringify(options));
+					localStorage.setItem(this._storageId, JSON.stringify(options));
 				}
 			}
 		});
