@@ -6,7 +6,12 @@ define(['Squire', 'sinon', 'config', 'mouseposition_osgb', 'screenposition_osgb'
 		
 		//TODO check that the right layer is being shown at the right zoom levels, but I'm not sure how...
 	
-		QUnit.module('osMap', function() {
+		QUnit.module('osMap', function(hooks) {
+			hooks.beforeEach(function() {
+				if (localStorage !== undefined) {
+					localStorage.clear();
+				}
+			});
 			QUnit.test('map centre', function(assert) {
 				var lat = 51.3;
 				var lng = -1.2;
@@ -33,6 +38,27 @@ define(['Squire', 'sinon', 'config', 'mouseposition_osgb', 'screenposition_osgb'
 				});
 			});
 			
+			QUnit.module('persistance', function() {
+				QUnit.test('zoom level', function(assert) {
+					var options = {initial_zoom: 12};
+					runTest(assert, false, options, function(leafletMap, mouseposition_osgb_mock, screenposition_osgb_mock) {
+						leafletMap.zoomIn(4);
+						var newConfig = new Config();
+						assert.equal(newConfig.initial_zoom, 16);
+					});
+				});
+				QUnit.test('map centre', function(assert) {
+					var startLatLng = [51.3, -1.2];
+					var newLatLng = [53.67, 1.877];
+					var options = {start_position: startLatLng};
+					runTest(assert, false, options, function(leafletMap, mouseposition_osgb_mock, screenposition_osgb_mock) {
+						leafletMap.panTo(newLatLng);
+						var newConfig = new Config();
+						assert.deepEqual(newConfig.start_position, newLatLng);
+					});
+				});
+			});
+			
 			QUnit.module('location displays', function() {
 				QUnit.test('non-mobile', function(assert) {
 					runTest(assert, false, {}, function(leafletMap, mouseposition_osgb_mock, screenposition_osgb_mock) {
@@ -51,7 +77,7 @@ define(['Squire', 'sinon', 'config', 'mouseposition_osgb', 'screenposition_osgb'
 				});
 			});
 		});
-		
+				
 		function runTest(assert, isMobile, options, verify) {
 			var done = assert.async();
 		
