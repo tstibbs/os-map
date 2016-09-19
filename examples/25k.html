@@ -23,7 +23,9 @@
         <script type="text/javascript">
             window.os_map_base = '../';
             loadOsMap(function(main){
-                main.buildMapWithData({}, window.points_to_load);
+                main.buildMapWithData({
+                    page_id: 'all_trigs'
+                }, window.points_to_load);
             });
         </script>
 	</head>
