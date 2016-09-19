@@ -76,6 +76,20 @@ define(['Squire', 'sinon', 'config', 'mouseposition_osgb', 'screenposition_osgb'
 					});
 				});
 			});
+			
+			QUnit.module('location control', function() {
+				QUnit.test('display', function(assert) {
+					runTest(assert, false, {show_locate_control: true}, function(leafletMap, mouseposition_osgb_mock, screenposition_osgb_mock, locateMock) {
+						assert.ok(locateMock().addTo.calledOnce, "locate control should be displayed");
+					});
+				});
+				
+				QUnit.test("don't display", function(assert) {
+					runTest(assert, false, {show_locate_control: false}, function(leafletMap, mouseposition_osgb_mock, screenposition_osgb_mock, locateMock) {
+					assert.notOk(locateMock().addTo.calledOnce, "locate control should not be displayed");
+					});
+				});
+			});
 		});
 				
 		function runTest(assert, isMobile, options, verify) {
@@ -85,19 +99,21 @@ define(['Squire', 'sinon', 'config', 'mouseposition_osgb', 'screenposition_osgb'
 			
 			sinon.spy(mouseposition_osgb_mock, "addTo");
 			sinon.spy(screenposition_osgb_mock, "addTo");
+			var locateMock = {addTo: sinon.spy()};
 
 			var injector = new Squire();
 			injector.mock('mobile', {isMobile: function() {return isMobile;}});
 			injector.mock('mouseposition_osgb', function() {return mouseposition_osgb_mock;});
 			injector.mock('screenposition_osgb', function() {return screenposition_osgb_mock;});
+			injector.mock('locate', function() {return locateMock;});
 			
-			injector.require(['os_map', 'mouseposition_osgb', 'screenposition_osgb'],
-				function(OsMap, mouseposition_osgb, screenposition_osgb) {
+			injector.require(['os_map', 'mouseposition_osgb', 'screenposition_osgb', 'locate'],
+				function(OsMap, mouseposition_osgb, screenposition_osgb, locate) {
 					//run test
 					var map = new OsMap(new Config(options));
 					var leafletMap = map.getMap();
 					//inspect
-					verify(leafletMap, mouseposition_osgb, screenposition_osgb);
+					verify(leafletMap, mouseposition_osgb, screenposition_osgb, locate);
 					//tear down
 					mouseposition_osgb_mock.addTo.restore();
 					screenposition_osgb_mock.addTo.restore();
@@ -107,7 +123,7 @@ define(['Squire', 'sinon', 'config', 'mouseposition_osgb', 'screenposition_osgb'
 			);
 		}
 		
-		//hack because the bing layer adds and removes function in a way that can cause an overlap between tests
+		//hack because the bing layer adds and removes functions in a way that can cause an overlap between tests
 		function waitForBingLayerToFinish(done) {
 			var metadataFunctionsExist = false;
 			for (fn in window) {

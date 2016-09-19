@@ -10,7 +10,8 @@ define(["leaflet", "jquery", "global"],
 			start_position: [53.374694, -1.711474],//lat, long
 			force_config_override: false,//if true, start position and zoom will be taken from config, not from local storage
 			map_element_id: 'map',
-			page_id: defaultPageId
+			page_id: defaultPageId,
+			show_locate_control: true
 		};
 
 		var Config = leaflet.Class.extend({

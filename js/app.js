@@ -12,6 +12,7 @@ var versions = {
 	leaflet_screenposition: 'cc990a672930886aaef55b1a66e651bdaaf27353',
 	leaflet_subgroup: 'e675f5736513ec6f9a8ab391965808b192990e9e',
 	leaflet_matrixlayers: 'ec4781a9ec7bf1b23535df30037805583f08bde2',
+	leaflet_locate: '0.52.0',
 	jquery: '3.0.0',
 	Squire: '0.2.1',
 	sinon: '1.17.5'
@@ -26,6 +27,7 @@ var paths = {
 	leaflet_screenposition: 'https://cdn.rawgit.com/tstibbs/Leaflet.MapCenterCoord/' + versions.leaflet_screenposition + '/src/L.Control.MapCenterCoord',
 	leaflet_subgroup: 'https://cdn.rawgit.com/ghybs/Leaflet.FeatureGroup.SubGroup/' + versions.leaflet_subgroup + '/leaflet.featuregroup.subgroup-src',
 	leaflet_matrixlayers: 'https://cdn.rawgit.com/tstibbs/Leaflet.MatrixLayersControl/' + versions.leaflet_matrixlayers + '/src/matrixControl',
+	leaflet_locate: 'https://cdn.jsdelivr.net/leaflet.locatecontrol/' + versions.leaflet_locate + '/L.Control.Locate.min',
 	jquery: 'https://code.jquery.com/jquery-' + versions.jquery
 }
 
@@ -70,6 +72,10 @@ requirejs.config({
         leaflet_matrixlayers: {
             deps: ['leaflet'],
             exports: 'L.control.matrixLayers'
+        },
+        leaflet_locate: {
+            deps: ['leaflet'],
+            exports: 'L.control.locate'
         },
         proj4js: {
             exports: 'module.exports'
