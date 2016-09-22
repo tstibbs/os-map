@@ -32,8 +32,8 @@ var paths = {
 }
 
 var testingPaths = {
-	Squire: 'https://npmcdn.com/squirejs@' + versions.Squire + '/src/Squire',
-	sinon: 'https://npmcdn.com/sinon@' + versions.sinon + '/pkg/sinon'
+	Squire: 'https://unpkg.com/squirejs@' + versions.Squire + '/src/Squire',
+	sinon: 'https://unpkg.com/sinon@' + versions.sinon + '/pkg/sinon'
 }
 
 if (window.location.search.indexOf("dev=true") !== -1) {
