@@ -1,5 +1,5 @@
 define(["leaflet", "leaflet_cluster", "leaflet_subgroup", "leaflet_matrixlayers", "points_model"],
-    function(leaflet, leaflet_cluster, leaflet_subgroup, leaflet_matrixlayers, PointsModel) {
+    function(leaflet, leaflet_cluster, leaflet_subgroup, Leaflet_MatrixLayers, PointsModel) {
 	
 		var icons = {
 			Pillar: leaflet.icon({
@@ -87,7 +87,7 @@ define(["leaflet", "leaflet_cluster", "leaflet_subgroup", "leaflet_matrixlayers"
 							matrixOverlays[type + '/' + condition] = subGroup;
 						}, this);
 					}, this);
-					var control = leaflet_matrixlayers(null, null, matrixOverlays, {dimensionNames: ['Type', 'Condition']});
+					var control = new Leaflet_MatrixLayers(null, null, matrixOverlays, {dimensionNames: ['Type', 'Condition']});
 					control.addTo(this._map);
 				}
 			}

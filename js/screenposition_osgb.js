@@ -1,7 +1,7 @@
 define(["leaflet_screenposition", "conversion", "jquery"],
-    function(leaflet_screenposition, conversion, $) {
+    function(Leaflet_ScreenPosition, conversion, $) {
         return function() {
-			var control = leaflet_screenposition({
+			var control = new Leaflet_ScreenPosition({
 				onMove: true,
 				icon: true,
 				latLngFormatter: function (lat, lng) {

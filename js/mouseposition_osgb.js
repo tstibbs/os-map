@@ -1,5 +1,5 @@
 define(["leaflet_mouseposition", "conversion"],
-    function(leaflet_mouseposition, conversion) {
+    function(Leaflet_MousePosition, conversion) {
         return function(options) {
 			if (options == null) {
 				options = {};
@@ -8,7 +8,7 @@ define(["leaflet_mouseposition", "conversion"],
 				return conversion.latLngToGridRef(lat, lng);
 			};
 			
-			return leaflet_mouseposition(options);
+			return new Leaflet_MousePosition(options);
         };
     }
 );

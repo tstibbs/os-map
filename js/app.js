@@ -55,11 +55,11 @@ requirejs.config({
         },
         leaflet_mouseposition: {
             deps: ['leaflet'],
-            exports: 'L.control.mousePosition'
+            exports: 'L.Control.MousePosition'
         },
         leaflet_screenposition: {
             deps: ['leaflet'],
-            exports: 'L.control.mapCenterCoord'
+            exports: 'L.Control.MapCenterCoord'
         },
         leaflet_cluster: {
             deps: ['leaflet'],
@@ -71,7 +71,7 @@ requirejs.config({
         },
         leaflet_matrixlayers: {
             deps: ['leaflet'],
-            exports: 'L.control.matrixLayers'
+            exports: 'L.Control.MatrixLayers'
         },
         leaflet_locate: {
             deps: ['leaflet'],
