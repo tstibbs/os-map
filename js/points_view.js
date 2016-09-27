@@ -74,7 +74,11 @@ define(["leaflet", "leaflet_cluster", "leaflet_subgroup", "leaflet_matrixlayers"
 							matrixOverlays[type + '/' + condition] = subGroup;
 						}, this);
 					}, this);
-					var control = new Leaflet_MatrixLayers(null, null, matrixOverlays, {dimensionNames: ['Type', 'Condition']});
+					var control = new Leaflet_MatrixLayers(null, null, matrixOverlays, {
+						dimensionNames: this._config.dimensionNames,
+						dimensionLabels: this._config.dimensionLabels,
+						dimensionValueLabels: this._config.dimensionValueLabels
+					});
 					control.addTo(this._map);
 				}
 			}

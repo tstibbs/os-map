@@ -1,4 +1,12 @@
 define(['leaflet'], function(leaflet) {
+	
+	var dimensionValueKeys = ['Pillar', 'Bolt', 'Surface Block', 'Rivet', 'Buried Block', 'Cut', 'Other', 'Berntsen', 'FBM', 'Intersected Station', 'Disc', 'Brass Plate', 'Active station', 'Block', 'Concrete Ring', 'Curry Stool', 'Fenomark', 'Platform Bolt', 'Cannon', 'Spider', 'Pipe'];
+	var dimensionValueLabels = {};
+
+	dimensionValueKeys.forEach(function(value) {
+		dimensionValueLabels[value] = '<a href="http://trigpointing.uk/wiki/' + value + '">' + value + '</a>';
+	});
+
 	return {
 		icons: {
 			Pillar: leaflet.icon({
@@ -11,6 +19,10 @@ define(['leaflet'], function(leaflet) {
 				iconAnchor: [11, 27],
 				popupAnchor: [0, -23]
 			}),
+		},
+		dimensionNames: ['Type', 'Condition'],
+		dimensionValueLabels: {
+			'Type': dimensionValueLabels
 		}
 	};
 });
