@@ -28,8 +28,8 @@
 				dimensional_layering: true,
 				page_id: 'all_trigs'
 			};
-            loadOsMap(function(main){
-                main.buildMapWithData(options, window.points_to_load);
+            loadOsMap(['trigpointing'], function(main, bundles){
+                main.buildMapWithData(options, bundles, window.points_to_load);
             });
         </script>
 	</head>

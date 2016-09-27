@@ -25,8 +25,8 @@
 				initial_zoom: 10,
 				start_position: [54.454463, -3.213515]
 			};
-            loadOsMap(function(main){
-                main.buildMapWithData(options, window.points_to_load);
+            loadOsMap(['trigpointing'], function(main, bundles){
+                main.buildMapWithData(options, bundles, window.points_to_load);
             });
         </script>
 	</head>

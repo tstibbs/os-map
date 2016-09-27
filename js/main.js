@@ -6,8 +6,8 @@ define(["os_map", "points_model", "points_view", "config", "params", "conversion
 		}
 		
 		return {
-			_buildMap: function(options) {
-				var config = new Config(options);
+			_buildMap: function(options, bundles) {
+				var config = new Config(options, bundles);
 				var osMap = new OsMap(config);
 				this._pointsModel = new PointsModel(config);
 				this._pointsView = new PointsView(osMap.getMap(), config, this._pointsModel);
@@ -17,8 +17,8 @@ define(["os_map", "points_model", "points_view", "config", "params", "conversion
 				return params('trigs') != null;
 			},
 			
-			buildMapFromUrl: function(options) {
-				this._buildMap(options);
+			buildMapFromUrl: function(options, bundles) {
+				this._buildMap(options, bundles);
 				var locationsFromUrl = params('trigs');
 				var allPoints = locationsFromUrl.split(";");
 				for (var i = 0; i < allPoints.length; i++) {
@@ -29,8 +29,8 @@ define(["os_map", "points_model", "points_view", "config", "params", "conversion
 				this._pointsView.finish(finish);
 			},
 			
-			buildMapWithDummyData: function(options) {
-				this._buildMap(options);
+			buildMapWithDummyData: function(options, bundles) {
+				this._buildMap(options, bundles);
 				//dummy data as an example
 				this._pointsModel.add(conversion.osgbToLngLat(418678, 385093), 'http://trigpointing.uk/trig/6995', 'Winhill Pike');
 				this._pointsModel.add(conversion.osgbToLngLat(422816, 385344), 'http://trigpointing.uk/trig/3795', 'High Neb');
@@ -39,8 +39,8 @@ define(["os_map", "points_model", "points_view", "config", "params", "conversion
 				this._pointsView.finish(finish);
 			},
 			
-			buildMapWithData: function(options, pointsToLoad) {
-				this._buildMap(options);
+			buildMapWithData: function(options, bundles, pointsToLoad) {
+				this._buildMap(options, bundles);
 				//['osgb_gridref','waypoint','name','physical_type','condition'],
 				for (var i = 0; i < pointsToLoad.length; i++) {
 					var point = pointsToLoad[i];

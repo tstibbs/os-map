@@ -15,8 +15,9 @@ define(["leaflet", "jquery", "global"],
 		};
 
 		var Config = leaflet.Class.extend({
-			initialize: function (options) {
+			initialize: function (options, configBundles) {
 				var resolvedConfig = $.extend({}, defaults, options);
+				this._applyBundles(resolvedConfig, configBundles);
 				
 				this._storageId = 'os_map:' + resolvedConfig.page_id + 'config';
 				
@@ -30,6 +31,22 @@ define(["leaflet", "jquery", "global"],
 				for (var property in resolvedConfig) {
 					if (resolvedConfig.hasOwnProperty(property)) {
 						this[property] = resolvedConfig[property];
+					}
+				}
+			},
+			
+			_applyBundles: function(resolvedConfig, bundles) {
+				if (bundles != null) {
+					bundles.forEach(function(bundle) {
+						this._applyBundle(resolvedConfig, bundle)
+					}, this);
+				}
+			},
+			
+			_applyBundle: function(resolvedConfig, bundle) {
+				for (var property in bundle) {
+					if (bundle.hasOwnProperty(property)) {
+						resolvedConfig[property] = bundle[property];
 					}
 				}
 			},

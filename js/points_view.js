@@ -1,19 +1,6 @@
 define(["leaflet", "leaflet_cluster", "leaflet_subgroup", "leaflet_matrixlayers", "points_model"],
     function(leaflet, leaflet_cluster, leaflet_subgroup, Leaflet_MatrixLayers, PointsModel) {
 	
-		var icons = {
-			Pillar: leaflet.icon({
-				iconUrl: window.os_map_base + 'img/pillar.png',
-				iconAnchor: [10, 40], // point of the icon which will correspond to marker's location
-				popupAnchor: [1, -38] // point from which the popup should open relative to the iconAnchor
-			}),
-			Bolt: leaflet.icon({
-				iconUrl: window.os_map_base + 'img/bolt.png',
-				iconAnchor: [11, 27],
-				popupAnchor: [0, -23]
-			}),
-		};
-	
 		var PointsView = leaflet.Class.extend({
 			initialize: function (map, config, pointsModel) {
 				this._markerList = null;
@@ -28,8 +15,8 @@ define(["leaflet", "leaflet_cluster", "leaflet_subgroup", "leaflet_matrixlayers"
 				var popupText = markerConfig.popupText;
 
 				var markerOptions = {};
-				if (icons[type] !== undefined) {
-				  markerOptions.icon = icons[type];
+				if (this._config.icons[type] !== undefined) {
+				  markerOptions.icon = this._config.icons[type];
 				}
 				var marker = leaflet.marker(latLng, markerOptions);
 				marker.bindPopup(popupText);
