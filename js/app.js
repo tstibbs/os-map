@@ -11,7 +11,7 @@ var versions = {
 	leaflet_mouseposition: 'b628c7be754c134c63117b3feb75e720a1d20673',
 	leaflet_screenposition: 'cc990a672930886aaef55b1a66e651bdaaf27353',
 	leaflet_subgroup: '1.0.1',
-	leaflet_matrixlayers: 'ef4b2614c58403283cedc9da147cef2a3121f71c',
+	leaflet_matrixlayers: '0f54890e8dda8d1d756fc68df2c41f40ede27258',
 	leaflet_locate: '0.52.0',
 	jquery: '3.0.0',
 	Squire: '0.2.1',
