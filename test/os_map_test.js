@@ -42,9 +42,15 @@ define(['Squire', 'sinon', 'config', 'mouseposition_osgb', 'screenposition_osgb'
 				QUnit.test('zoom level', function(assert) {
 					var options = {initial_zoom: 12};
 					runTest(assert, false, options, function(leafletMap, mouseposition_osgb_mock, screenposition_osgb_mock) {
+						//leaflet appears to fire events in add order, so we add an event and wait for it to fire to check that our change has been persisted
+						var done = assert.async();
+						leafletMap.on('zoomend', function() {
+							var newConfig = new Config();
+							assert.equal(newConfig.initial_zoom, 16);
+							done();
+						}, this);
+						//run test
 						leafletMap.zoomIn(4);
-						var newConfig = new Config();
-						assert.equal(newConfig.initial_zoom, 16);
 					});
 				});
 				QUnit.test('map centre', function(assert) {
