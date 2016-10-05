@@ -69,7 +69,7 @@ define(["config"],
 					var bundle = {
 						blah: 'thing'
 					}
-					var config = new Config({blah: 'stuff'}, bundle);
+					var config = new Config({blah: 'stuff'}, [bundle]);
 					assert.equal(config.blah, bundle.blah);
 				});
 				QUnit.test('bundles override each other', function(assert) {
@@ -79,7 +79,7 @@ define(["config"],
 					var bundle2 = {
 						blah: 'xyz'
 					}
-					var config = new Config({blah: 'stuff'}, bundle1, bundle2);
+					var config = new Config({blah: 'stuff'}, [bundle1, bundle2]);
 					assert.equal(config.blah, bundle2.blah);
 				});
 				QUnit.test('saved config overrides bundles', function(assert) {
@@ -92,7 +92,7 @@ define(["config"],
 					var bundle = {
 						blah: 'abc'
 					}
-					var config2 = new Config({blah: 'xyz'}, bundle);
+					var config2 = new Config({blah: 'xyz'}, [bundle]);
 					assert.equal(config2.blah, savedValue);
 				});
 			});

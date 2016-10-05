@@ -20,7 +20,7 @@ define(['loader'],
 					}
 				};
 				
-				loadOsMap(function(main) {
+				loadOsMap([], function(main) {
 					//just check that the thing we've been given is _actually_ the 'main' module
 					assert.ok(main.buildMapWithData !== undefined);
 					window.require = oldRequire;

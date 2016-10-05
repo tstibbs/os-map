@@ -151,7 +151,16 @@ define(["Squire", "sinon", "leaflet", "jquery", "points_view", "config"],
 			$('#qunit-fixture').append('<div id="map" style="height: 180px;"></div>');
 			var map = leaflet.map('map', {maxZoom: 10});
 			map.setView([51.505, -0.09], 13);
-			var config = new Config(options);
+			var bundle = {
+				icons: {
+					Pillar: leaflet.icon({
+						iconUrl: window.os_map_base + 'img/pillar.png',
+						iconAnchor: [10, 40], // point of the icon which will correspond to marker's location
+						popupAnchor: [1, -38] // point from which the popup should open relative to the iconAnchor
+					})
+				}
+			};
+			var config = new Config(options, [bundle]);
 			var pointsModel = {};
 			pointsModel.getMarkerList = function() {return markerList};
 			var pointsView = new PointsView(map, config, pointsModel);
