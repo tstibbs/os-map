@@ -1,5 +1,5 @@
 define(['Squire', 'sinon', 'config', 'mouseposition_osgb', 'screenposition_osgb'],
-    function(Squire, sinon, Config, mouseposition_osgb, screenposition_osgb) {
+	function(Squire, sinon, Config, mouseposition_osgb, screenposition_osgb) {
 
 		var mouseposition_osgb_mock = mouseposition_osgb();
 		var screenposition_osgb_mock = screenposition_osgb();

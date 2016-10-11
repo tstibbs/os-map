@@ -1,5 +1,5 @@
 define(["os_map", "points_model", "points_view", "config", "params", "conversion", "jquery"],
-    function(OsMap, PointsModel, PointsView, Config, params, conversion, $) {
+	function(OsMap, PointsModel, PointsView, Config, params, conversion, $) {
 			
 		function finish() {
 			$('div#loading-message-pane').hide();
@@ -68,5 +68,5 @@ define(["os_map", "points_model", "points_view", "config", "params", "conversion
 				this._pointsView.finish(finish);
 			}
 		};
-    }
+	}
 );

@@ -1,5 +1,5 @@
 define(["leaflet", "jquery", "mouseposition_osgb"],
-    function(leaflet, $, mouseposition_osgb) {
+	function(leaflet, $, mouseposition_osgb) {
 		QUnit.test("mouseposition_osgb - should display", function(assert) {
 			var $mapElement = $('<div id="map" style="height: 200px; width: 200px;"></div>');
 			$('#qunit-fixture').append($mapElement);

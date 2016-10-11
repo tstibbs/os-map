@@ -1,5 +1,5 @@
 define(["leaflet", "jquery", "global"],
-    function(leaflet, $, global) {
+	function(leaflet, $, global) {
 		
 		var defaultPageId = global.location.pathname.split("/").pop();
 		
@@ -77,5 +77,5 @@ define(["leaflet", "jquery", "global"],
 		});
 
 		return Config;
-    }
+	}
 );

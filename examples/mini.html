@@ -5,7 +5,7 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 		
 		<!-- must be first -->
-        <script src='../js/error_handler.js'></script>
+		<script src='../js/error_handler.js'></script>
 
 		<link rel="stylesheet" href="https://unpkg.com/leaflet@1.0.0/dist/leaflet.css" />
 		<!-- Add the moment it's safe to load these at the same time because there are no conflicts and the styles will only be used if the particular control is in play -->
@@ -15,20 +15,20 @@
 		<link rel="stylesheet" href="https://cdn.jsdelivr.net/leaflet.locatecontrol/0.52.0/L.Control.Locate.min.css" />
 		<link rel="stylesheet" href="../css/app.css" />
 		
-        <script src="mini.js"></script>
-        <script src='https://cdnjs.cloudflare.com/ajax/libs/require.js/2.2.0/require.js'></script>
-        <script src='../js/loader.js'></script>
-        <script type="text/javascript">
-            window.os_map_base = '../';
+		<script src="mini.js"></script>
+		<script src='https://cdnjs.cloudflare.com/ajax/libs/require.js/2.2.0/require.js'></script>
+		<script src='../js/loader.js'></script>
+		<script type="text/javascript">
+			window.os_map_base = '../';
 			var options = {
 				cluster: false,
 				initial_zoom: 10,
 				start_position: [54.454463, -3.213515]
 			};
-            loadOsMap(['trigpointing'], function(main, bundles){
-                main.buildMapWithData(options, bundles, window.points_to_load);
-            });
-        </script>
+			loadOsMap(['trigpointing'], function(main, bundles){
+				main.buildMapWithData(options, bundles, window.points_to_load);
+			});
+		</script>
 	</head>
 
 	<body>

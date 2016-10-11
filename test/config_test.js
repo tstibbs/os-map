@@ -1,5 +1,5 @@
 define(["config"],
-    function(Config) {
+	function(Config) {
 		QUnit.module('config', function(hooks) {
 			hooks.beforeEach(function() {
 				if (localStorage !== undefined) {

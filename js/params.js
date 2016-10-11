@@ -1,5 +1,5 @@
 define(['global'],
-    function(global) {
+	function(global) {
 	
 		var params = {};
 		var search = global.location.search;
@@ -12,8 +12,8 @@ define(['global'],
 			});
 		}
 
-        return function (key) {
-            return params[key];
-        };
-    }
+		return function (key) {
+			return params[key];
+		};
+	}
 );

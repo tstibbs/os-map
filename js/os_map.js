@@ -1,7 +1,7 @@
 define(["leaflet", "leaflet_bing", "locate", "mouseposition_osgb", "screenposition_osgb", "mobile", "config"],
-    function(leaflet, leaflet_bing, locate, mouseposition_osgb, screenposition_osgb, mobile, Config) {
+	function(leaflet, leaflet_bing, locate, mouseposition_osgb, screenposition_osgb, mobile, Config) {
 	
-        var bingKey = "LfO3DMI9S6GnXD7d0WGs~bq2DRVkmIAzSOFdodzZLvw~Arx8dclDxmZA0Y38tHIJlJfnMbGq5GXeYmrGOUIbS2VLFzRKCK0Yv_bAl6oe-DOc";
+		var bingKey = "LfO3DMI9S6GnXD7d0WGs~bq2DRVkmIAzSOFdodzZLvw~Arx8dclDxmZA0Y38tHIJlJfnMbGq5GXeYmrGOUIbS2VLFzRKCK0Yv_bAl6oe-DOc";
 	
 		var OsMap = leaflet.Class.extend({
 			initialize: function (config) {
@@ -13,11 +13,11 @@ define(["leaflet", "leaflet_bing", "locate", "mouseposition_osgb", "screenpositi
 				this._map.addLayer(bingOsLayer);
 				var fallbackLayer = new leaflet_bing(bingKey, {type: "Road", maxZoom: 11, minZoom: 0});
 				this._map.addLayer(fallbackLayer);
-                this._map.setView(new leaflet.LatLng(this._config.start_position[0], this._config.start_position[1]), this._config.initial_zoom);
+				this._map.setView(new leaflet.LatLng(this._config.start_position[0], this._config.start_position[1]), this._config.initial_zoom);
 
-                if (config.show_locate_control) {
-                    locate().addTo(this._map);
-                }
+				if (config.show_locate_control) {
+					locate().addTo(this._map);
+				}
 				
 				//hook up listener to save the location when we move it
 				this._map.on('zoomend moveend dragend', function() {
@@ -50,6 +50,6 @@ define(["leaflet", "leaflet_bing", "locate", "mouseposition_osgb", "screenpositi
 			}
 		});
 
-        return OsMap;
-    }
+		return OsMap;
+	}
 );

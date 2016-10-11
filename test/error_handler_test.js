@@ -1,5 +1,5 @@
 define(['jquery'],
-    function($) {
+	function($) {
 		QUnit.module('error_handler', function() {
 		
 			function runTest(assert, caller, expected) {
@@ -9,7 +9,7 @@ define(['jquery'],
 				$container.append($('<a id="dismiss-button" href="#"></a>'));
 				$('#qunit-fixture').append($container);
 				var done = assert.async();
-			    require(['error_handler'], function(error_handler) {
+				require(['error_handler'], function(error_handler) {
 					//setup
 					addErrorHandler();//the dom is _never_ ready in qunit, so poke the error handler manually
 					//run test
@@ -52,11 +52,11 @@ define(['jquery'],
 				$container.append($('<a id="dismiss-button" href="#"></a>'));
 				$('#qunit-fixture').append($container);
 				var done = assert.async();
-			    require(['error_handler'], function(error_handler) {
+				require(['error_handler'], function(error_handler) {
 					//setup
 					addErrorHandler();//the dom is _never_ ready in qunit, so poke the error handler manually
 					//run test
-			    	assert.ok($('#error-container').is(':visible'));
+					assert.ok($('#error-container').is(':visible'));
 					$('#dismiss-button').trigger("click");
 					//verify
 					assert.notOk($('#error-container').is(':visible'));

@@ -1,5 +1,5 @@
 define(['leaflet'],
-    function(leaflet) {
+	function(leaflet) {
 	
 		var PointsModel = leaflet.Class.extend({
 			initialize: function (config) {
@@ -61,6 +61,6 @@ define(['leaflet'],
 			}
 		});
 
-        return PointsModel;
-    }
+		return PointsModel;
+	}
 );

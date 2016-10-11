@@ -1,5 +1,5 @@
 define(["Squire", "sinon", "leaflet", "jquery", "points_view", "config"],
-    function(Squire, Sinon, leaflet, $, PointsView, Config) {
+	function(Squire, Sinon, leaflet, $, PointsView, Config) {
 		
 		QUnit.module('points view', function() {
 			function testIcon(assert, type, popupText) {

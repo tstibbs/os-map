@@ -2,24 +2,24 @@
 
 module.exports = function(config) {
   config.set({
-    frameworks: ['requirejs', 'qunit'],
+	frameworks: ['requirejs', 'qunit'],
 
-    files: [
-        {pattern: 'js/**/*.js', included: false},
-        {pattern: 'test/**/*.js', included: false},
-        'js/app.js',
-        'test/qunit_suite/suite.js',
-    ],
+	files: [
+		{pattern: 'js/**/*.js', included: false},
+		{pattern: 'test/**/*.js', included: false},
+		'js/app.js',
+		'test/qunit_suite/suite.js',
+	],
 
-    reporters: ['spec', 'coverage'],
+	reporters: ['spec', 'coverage'],
 
-    preprocessors: { 'js/**/*.js': ['coverage'] },
-    
+	preprocessors: { 'js/**/*.js': ['coverage'] },
+	
 	coverageReporter: {
 		type : 'lcov',
 		subdir: 'karma'
-    },
+	},
 
-    browsers: [/*'Chrome',*/ 'PhantomJS'],
+	browsers: [/*'Chrome',*/ 'PhantomJS'],
   });
 };

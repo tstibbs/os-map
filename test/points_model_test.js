@@ -1,5 +1,5 @@
 define(["jquery", "points_model", "config"],
-    function($, PointsModel, Config) {
+	function($, PointsModel, Config) {
 		
 		QUnit.module('points_model', function() {
 			QUnit.test('condition is optional', function(assert) {

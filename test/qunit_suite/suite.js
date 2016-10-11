@@ -19,15 +19,15 @@ testingPaths.loader = '../js/loader';
 testingPaths.error_handler = '../js/error_handler';
 
 requirejs.config({
-    paths: testingPaths,
-    shim: {
-        sinon: {
-            exports: 'sinon'
-        },
-        loader: {
-            exports: 'loadOsMap'
-        }
-    }
+	paths: testingPaths,
+	shim: {
+		sinon: {
+			exports: 'sinon'
+		},
+		loader: {
+			exports: 'loadOsMap'
+		}
+	}
 });
 
 if (window.__karma__ == undefined) {

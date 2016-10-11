@@ -1,5 +1,5 @@
 define(['loader'],
-    function(loader) {
+	function(loader) {
 		QUnit.module('loader', function() {
 			QUnit.test('check callback is called', function(assert) {
 				var done = assert.async();

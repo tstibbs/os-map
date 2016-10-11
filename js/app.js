@@ -43,31 +43,31 @@ if (window.location.search.indexOf("dev=true") !== -1) {
 
 
 requirejs.config({
-    baseUrl: urlBase + "js",
-    paths: paths,
-    shim: {
-        leaflet_bing: {
-            deps: ['leaflet'],
-            exports: 'L.BingLayer'
-        },
-        leaflet_mouseposition: {
-            deps: ['leaflet'],
-            exports: 'L.Control.MousePosition'
-        },
-        leaflet_screenposition: {
-            deps: ['leaflet'],
-            exports: 'L.Control.MapCenterCoord'
-        },
-        leaflet_cluster: {
-            deps: ['leaflet'],
-            exports: 'L.markerClusterGroup'
-        },
-        leaflet_locate: {
-            deps: ['leaflet'],
-            exports: 'L.control.locate'
-        },
-        proj4js: {
-            exports: 'module.exports'
-        }
-    }
+	baseUrl: urlBase + "js",
+	paths: paths,
+	shim: {
+		leaflet_bing: {
+			deps: ['leaflet'],
+			exports: 'L.BingLayer'
+		},
+		leaflet_mouseposition: {
+			deps: ['leaflet'],
+			exports: 'L.Control.MousePosition'
+		},
+		leaflet_screenposition: {
+			deps: ['leaflet'],
+			exports: 'L.Control.MapCenterCoord'
+		},
+		leaflet_cluster: {
+			deps: ['leaflet'],
+			exports: 'L.markerClusterGroup'
+		},
+		leaflet_locate: {
+			deps: ['leaflet'],
+			exports: 'L.control.locate'
+		},
+		proj4js: {
+			exports: 'module.exports'
+		}
+	}
 });

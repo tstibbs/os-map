@@ -1,5 +1,5 @@
 define(["conversion"],
-    function(conversion) {
+	function(conversion) {
 		QUnit.module('conversion', function() {
 			QUnit.test('latLngToGridRef - should return actual grid refs', function (assert) {
 				assert.equal(conversion.latLngToGridRef(52.657977, 1.716038), 'TG 51408 13177');

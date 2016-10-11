@@ -7,11 +7,11 @@ function loadOsMap(bundles, callback) {
 	var deps = ['main'];
 	Array.prototype.push.apply(deps, modules);
 	
-    require([window.os_map_base + 'js/app'], function() {
-        require(deps, function(main/*, bundles...*/) {
+	require([window.os_map_base + 'js/app'], function() {
+		require(deps, function(main/*, bundles...*/) {
 			var args = Array.prototype.slice.call(arguments);
 			var configBundles = args.length > 1 ? args.slice(1) : [];
-            callback(main, configBundles);
-        });
-    });
+			callback(main, configBundles);
+		});
+	});
 }

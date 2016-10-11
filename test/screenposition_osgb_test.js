@@ -1,5 +1,5 @@
 define(["leaflet", "screenposition_osgb"],
-    function(leaflet, screenposition_osgb) {
+	function(leaflet, screenposition_osgb) {
 		QUnit.module("screenposition_osgb", function(assert) {
 			QUnit.test("should display location", function(assert) {
 				//set up

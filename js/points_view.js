@@ -1,5 +1,5 @@
 define(["leaflet", "leaflet_cluster", "leaflet_subgroup", "leaflet_matrixlayers", "points_model"],
-    function(leaflet, leaflet_cluster, leaflet_subgroup, Leaflet_MatrixLayers, PointsModel) {
+	function(leaflet, leaflet_cluster, leaflet_subgroup, Leaflet_MatrixLayers, PointsModel) {
 	
 		var PointsView = leaflet.Class.extend({
 			initialize: function (map, config, pointsModel) {
@@ -84,6 +84,6 @@ define(["leaflet", "leaflet_cluster", "leaflet_subgroup", "leaflet_matrixlayers"
 			}
 		});
 
-        return PointsView;
-    }
+		return PointsView;
+	}
 );

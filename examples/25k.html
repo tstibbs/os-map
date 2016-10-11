@@ -5,7 +5,7 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
 		
 		<!-- must be first -->
-        <script src='../js/error_handler.js'></script>
+		<script src='../js/error_handler.js'></script>
 
 		<link rel="stylesheet" href="https://unpkg.com/leaflet@1.0.0/dist/leaflet.css" />
 		<link rel="stylesheet" href="https://cdn.rawgit.com/Leaflet/Leaflet.markercluster/232e93ccbe5b70241913f47a4d1a8ceec8c88c30/dist/MarkerCluster.Default.css" />
@@ -17,17 +17,17 @@
 		<link rel="stylesheet" href="https://cdn.jsdelivr.net/leaflet.locatecontrol/0.52.0/L.Control.Locate.min.css" />
 		<link rel="stylesheet" href="../css/app.css" />
 
-        <script src="all_trigs.js"></script>
-        <script src='https://cdnjs.cloudflare.com/ajax/libs/require.js/2.2.0/require.js'></script>
-        <script src='../js/loader.js'></script>
-        <script type="text/javascript">
-            window.os_map_base = '../';
-            loadOsMap(['trigpointing'], function(main, bundles){
-                main.buildMapWithData({
-                    page_id: 'all_trigs'
-                }, bundles, window.points_to_load);
-            });
-        </script>
+		<script src="all_trigs.js"></script>
+		<script src='https://cdnjs.cloudflare.com/ajax/libs/require.js/2.2.0/require.js'></script>
+		<script src='../js/loader.js'></script>
+		<script type="text/javascript">
+			window.os_map_base = '../';
+			loadOsMap(['trigpointing'], function(main, bundles){
+				main.buildMapWithData({
+					page_id: 'all_trigs'
+				}, bundles, window.points_to_load);
+			});
+		</script>
 	</head>
 
 	<body class="full-screen">

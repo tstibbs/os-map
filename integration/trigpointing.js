@@ -1,8 +1,8 @@
 $.get('down-flash.php' + window.location.search, function(data) {
-    var decodedXmlString = decodeURIComponent(data);
-    var dom = $($.parseXML(decodedXmlString));
-    var points = "";
-    dom.find('C').each(function(i, element) {
+	var decodedXmlString = decodeURIComponent(data);
+	var dom = $($.parseXML(decodedXmlString));
+	var points = "";
+	dom.find('C').each(function(i, element) {
 		if (points.length > 0) {
 			points = points + ";";
 		}
@@ -17,6 +17,6 @@ $.get('down-flash.php' + window.location.search, function(data) {
 		var eastings = point.attr('E');
 		var northings = point.attr('N');
 		points = points + eastings + "," + northings + "," + url + "," + name;
-    });
-    window.location="http://tstibbs.github.io/os-map/examples/index.html?trigs=" + encodeURIComponent(points);
+	});
+	window.location="http://tstibbs.github.io/os-map/examples/index.html?trigs=" + encodeURIComponent(points);
 });

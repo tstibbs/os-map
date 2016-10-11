@@ -1,6 +1,6 @@
 define(["leaflet_screenposition", "conversion", "jquery"],
-    function(Leaflet_ScreenPosition, conversion, $) {
-        return function() {
+	function(Leaflet_ScreenPosition, conversion, $) {
+		return function() {
 			var control = new Leaflet_ScreenPosition({
 				onMove: true,
 				icon: true,
@@ -41,6 +41,6 @@ define(["leaflet_screenposition", "conversion", "jquery"],
 					addShowHideHandling();
 				}
 			};
-        };
-    }
+		};
+	}
 );

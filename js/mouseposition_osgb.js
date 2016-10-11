@@ -1,6 +1,6 @@
 define(["leaflet_mouseposition", "conversion"],
-    function(Leaflet_MousePosition, conversion) {
-        return function(options) {
+	function(Leaflet_MousePosition, conversion) {
+		return function(options) {
 			if (options == null) {
 				options = {};
 			}
@@ -9,6 +9,6 @@ define(["leaflet_mouseposition", "conversion"],
 			};
 			
 			return new Leaflet_MousePosition(options);
-        };
-    }
+		};
+	}
 );

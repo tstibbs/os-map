@@ -1,23 +1,23 @@
 body.full-screen {
-    /* Make the body actually fill the screen, so that our map can too */
-    height: 100%;
-    width: 100%;
-    height: 100vh;
-    width: 100vw;
-    margin: 0;
+	/* Make the body actually fill the screen, so that our map can too */
+	height: 100%;
+	width: 100%;
+	height: 100vh;
+	width: 100vw;
+	margin: 0;
 }
 
 div.full-screen {
-    height: 100%;
-    width: 100%;
-    position: absolute;
-    top: 0;
-    left: 0;
+	height: 100%;
+	width: 100%;
+	position: absolute;
+	top: 0;
+	left: 0;
 }
 
 div.mini-map {
-    width: 200px;
-    height: 200px
+	width: 200px;
+	height: 200px
 }
 
 .loading-message-container {
@@ -39,16 +39,16 @@ div.mini-map {
 }
 
 #loading-message-pane {
-    z-index: 10;
+	z-index: 10;
 }
 
 .leaflet-container .leaflet-control-mapcentercoord, .leaflet-container .leaflet-control-mouseposition {
-    background-color: rgba(255, 255, 255, 0.85);
+	background-color: rgba(255, 255, 255, 0.85);
 }
 
 /* for now, hide the attribution control on the mini map */
 div.mini-map .leaflet-container .leaflet-control-attribution {
-    display: none;
+	display: none;
 }
 
 div#error-container {

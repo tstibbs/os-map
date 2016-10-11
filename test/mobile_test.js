@@ -1,5 +1,5 @@
 define(['Squire', 'mobile'],
-    function(Squire, mobile) {
+	function(Squire, mobile) {
 		QUnit.module('mobile', function() {		
 			//NOTE: some of these user agents might be munged slightly due to the author's paranoia.
 			
