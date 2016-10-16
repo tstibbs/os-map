@@ -13,6 +13,7 @@ var versions = {
 	leaflet_subgroup: '1.0.1',
 	leaflet_matrixlayers: '0f54890e8dda8d1d756fc68df2c41f40ede27258',
 	leaflet_locate: '0.52.0',
+	leaflet_controlHider: '17b9a58c82d9db09402ff53d6cf5a7834200bcfe',
 	jquery: '3.0.0',
 	Squire: '0.2.1',
 	sinon: '1.17.5'
@@ -28,7 +29,8 @@ var paths = {
 	leaflet_subgroup: 'https://unpkg.com/leaflet.featuregroup.subgroup@' + versions.leaflet_subgroup + '/dist/leaflet.featuregroup.subgroup',
 	leaflet_matrixlayers: 'https://cdn.rawgit.com/tstibbs/Leaflet.MatrixLayersControl/' + versions.leaflet_matrixlayers + '/src/matrixControl',
 	leaflet_locate: 'https://cdn.jsdelivr.net/leaflet.locatecontrol/' + versions.leaflet_locate + '/L.Control.Locate.min',
-	jquery: 'https://code.jquery.com/jquery-' + versions.jquery
+	leaflet_controlHider: 'https://cdn.rawgit.com/tstibbs/Leaflet.ControlHider/' + versions.leaflet_controlHider + '/src/hider',
+	jquery: 'https://code.jquery.com/jquery-' + versions.jquery,
 }
 
 var testingPaths = {
@@ -65,6 +67,10 @@ requirejs.config({
 		leaflet_locate: {
 			deps: ['leaflet'],
 			exports: 'L.control.locate'
+		},
+		leaflet_controlHider: {
+			deps: ['leaflet'],
+			exports: 'L.Control.ControlHider'
 		},
 		proj4js: {
 			exports: 'module.exports'
