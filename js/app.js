@@ -14,6 +14,8 @@ var versions = {
 	leaflet_matrixlayers: '0f54890e8dda8d1d756fc68df2c41f40ede27258',
 	leaflet_locate: '0.52.0',
 	leaflet_controlHider: '17b9a58c82d9db09402ff53d6cf5a7834200bcfe',
+	leaflet_boxSelector: '1e4366608dc49c8e8ebd4f240113b1d6462a649e',
+	file_saver: '1.3.3',
 	jquery: '3.0.0',
 	Squire: '0.2.1',
 	sinon: '1.17.5'
@@ -30,7 +32,10 @@ var paths = {
 	leaflet_matrixlayers: 'https://cdn.rawgit.com/tstibbs/Leaflet.MatrixLayersControl/' + versions.leaflet_matrixlayers + '/src/matrixControl',
 	leaflet_locate: 'https://cdn.jsdelivr.net/leaflet.locatecontrol/' + versions.leaflet_locate + '/L.Control.Locate.min',
 	leaflet_controlHider: 'https://cdn.rawgit.com/tstibbs/Leaflet.ControlHider/' + versions.leaflet_controlHider + '/src/hider',
-	jquery: 'https://code.jquery.com/jquery-' + versions.jquery,
+	leaflet_boxSelector: 'https://cdn.rawgit.com/tstibbs/Leaflet.BoxSelector/' + versions.leaflet_boxSelector + '/src/selector',
+	leaflet_boxSelector_Gpx: 'https://cdn.rawgit.com/tstibbs/Leaflet.BoxSelector/' + versions.leaflet_boxSelector + '/src/gpx',
+	file_saver: 'https://unpkg.com/file-saver@' + versions.file_saver + '/FileSaver.min',
+	jquery: 'https://code.jquery.com/jquery-' + versions.jquery
 }
 
 var testingPaths = {
@@ -41,6 +46,8 @@ var testingPaths = {
 if (window.location.search.indexOf("dev=true") !== -1) {
 	paths.leaflet = paths.leaflet + '-src';
 	paths.leaflet_matrixlayers = '../../Leaflet.MatrixLayersControl/src/matrixControl';
+	paths.leaflet_boxSelector = '../../Leaflet.BoxSelector/src/selector';
+	paths.leaflet_boxSelector_Gpx = '../../Leaflet.BoxSelector/src/gpx';
 }
 
 
@@ -71,6 +78,9 @@ requirejs.config({
 		leaflet_controlHider: {
 			deps: ['leaflet'],
 			exports: 'L.Control.ControlHider'
+		},
+		file_saver: {
+			exports: 'saveAs'
 		},
 		proj4js: {
 			exports: 'module.exports'

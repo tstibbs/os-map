@@ -1,5 +1,5 @@
-define(["leaflet", "leaflet_bing", "leaflet_controlHider", "locate", "mouseposition_osgb", "screenposition_osgb", "mobile", "config"],
-	function(leaflet, leaflet_bing, Leaflet_ControlHider, locate, mouseposition_osgb, screenposition_osgb, mobile, Config) {
+define(["leaflet", "leaflet_bing", "leaflet_controlHider", "selection", "locate", "mouseposition_osgb", "screenposition_osgb", "mobile", "config"],
+	function(leaflet, leaflet_bing, Leaflet_ControlHider, Selection, locate, mouseposition_osgb, screenposition_osgb, mobile, Config) {
 	
 		var bingKey = "LfO3DMI9S6GnXD7d0WGs~bq2DRVkmIAzSOFdodzZLvw~Arx8dclDxmZA0Y38tHIJlJfnMbGq5GXeYmrGOUIbS2VLFzRKCK0Yv_bAl6oe-DOc";
 	
@@ -33,7 +33,9 @@ define(["leaflet", "leaflet_bing", "leaflet_controlHider", "locate", "mouseposit
 			},
 			
 			_initControls: function() {
-				var controls = [new leaflet.Control.Zoom()];
+				var controls = [];
+				controls[0] = new leaflet.Control.Zoom();
+				controls[1] = new Selection();
 				if (this._config.show_locate_control) {
 					controls.push(locate());
 				}
