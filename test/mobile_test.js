@@ -39,6 +39,8 @@ define(['Squire', 'mobile'],
 			var mockWindow = {};
 			mockWindow.navigator = {};
 			mockWindow.navigator.userAgent = userAgent;
+			mockWindow.location = {};
+			mockWindow.location.search = "";
 			injector.mock('global', mockWindow);
 			injector.require(['mobile'], function(mobile) {
 				assert.equal(expected, mobile.isMobile(), "Expected: " + expected + " for user agent: " + userAgent);
