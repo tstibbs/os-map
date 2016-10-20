@@ -105,7 +105,9 @@ define(['Squire', 'sinon', 'config', 'mouseposition_osgb', 'screenposition_osgb'
 			
 			sinon.spy(mouseposition_osgb_mock, "addTo");
 			sinon.spy(screenposition_osgb_mock, "addTo");
-			var locateMock = {addTo: sinon.spy()};
+			var locateMock1 = function(){};
+			locateMock1.prototype.addTo = sinon.spy();
+			var locateMock = new locateMock1();
 
 			var injector = new Squire();
 			injector.mock('mobile', {isMobile: function() {return isMobile;}});
@@ -118,6 +120,7 @@ define(['Squire', 'sinon', 'config', 'mouseposition_osgb', 'screenposition_osgb'
 					//run test
 					var map = new OsMap(new Config(options));
 					var leafletMap = map.getMap();
+					map.getControls().addAllTo(map.getMap());
 					//inspect
 					verify(leafletMap, mouseposition_osgb, screenposition_osgb, locate);
 					//tear down

@@ -1,5 +1,5 @@
-define(["leaflet", "leaflet_bing", "leaflet_controlHider", "selection", "locate", "mouseposition_osgb", "screenposition_osgb", "mobile", "config"],
-	function(leaflet, leaflet_bing, Leaflet_ControlHider, Selection, locate, mouseposition_osgb, screenposition_osgb, mobile, Config) {
+define(["leaflet", "leaflet_bing", "mouseposition_osgb", "screenposition_osgb", "mobile", "config", "controls"],
+	function(leaflet, leaflet_bing, mouseposition_osgb, screenposition_osgb, mobile, Config, Controls) {
 	
 		var bingKey = "LfO3DMI9S6GnXD7d0WGs~bq2DRVkmIAzSOFdodzZLvw~Arx8dclDxmZA0Y38tHIJlJfnMbGq5GXeYmrGOUIbS2VLFzRKCK0Yv_bAl6oe-DOc";
 	
@@ -10,7 +10,7 @@ define(["leaflet", "leaflet_bing", "leaflet_controlHider", "selection", "locate"
 				this._map = new leaflet.Map(this._config.map_element_id, {
 					zoomControl: false
 				});
-				this._initControls();
+				this._controls = new Controls(this._config.show_locate_control);
 
 				// create bing layers
 				var bingOsLayer = new leaflet_bing(bingKey, {type: "OrdnanceSurvey", minZoom: 12, maxZoom: 18, maxNativeZoom: 17});
@@ -32,25 +32,6 @@ define(["leaflet", "leaflet_bing", "leaflet_controlHider", "selection", "locate"
 				}
 			},
 			
-			_initControls: function() {
-				var controls = [];
-				controls[0] = new leaflet.Control.Zoom();
-				controls[1] = new Selection();
-				if (this._config.show_locate_control) {
-					controls.push(locate());
-				}
-				
-				//add hider _first_, then everything else
-				if (mobile.isMobile()) {
-					var hider = new Leaflet_ControlHider(controls);
-					hider.addTo(this._map);
-				}
-				
-				controls.forEach(function(control) {
-					control.addTo(this._map);
-				}.bind(this));
-			},
-			
 			_saveLocation: function() {
 				var center = this._map.getCenter();
 				var start_position = [center.lat, center.lng];
@@ -66,6 +47,10 @@ define(["leaflet", "leaflet_bing", "leaflet_controlHider", "selection", "locate"
 
 			getMap: function () {
 				return this._map;
+			},
+			
+			getControls: function() {
+				return this._controls;
 			}
 		});
 

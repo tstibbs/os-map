@@ -8,9 +8,9 @@ define(["os_map", "points_model", "points_view", "config", "params", "conversion
 		return {
 			_buildMap: function(options, bundles) {
 				var config = new Config(options, bundles);
-				var osMap = new OsMap(config);
+				this._osMap = new OsMap(config);
 				this._pointsModel = new PointsModel(config);
-				this._pointsView = new PointsView(osMap.getMap(), config, this._pointsModel);
+				this._pointsView = new PointsView(this._osMap.getMap(), config, this._pointsModel, this._osMap.getControls());
 			},
 			
 			hasUrlData: function() {
@@ -27,6 +27,7 @@ define(["os_map", "points_model", "points_view", "config", "params", "conversion
 					this._pointsModel.add(lngLat, point[2], point[3]);
 				}
 				this._pointsView.finish(finish);
+				this._osMap.getControls().addAllTo(this._osMap.getMap());
 			},
 			
 			buildMapWithDummyData: function(options, bundles) {
@@ -37,6 +38,7 @@ define(["os_map", "points_model", "points_view", "config", "params", "conversion
 				this._pointsModel.add(conversion.osgbToLngLat(419762, 390990), 'http://trigpointing.uk/trig/949', 'Back Tor');
 				this._pointsModel.add(conversion.osgbToLngLat(412927, 387809), 'http://trigpointing.uk/trig/3019', 'Edale Moor');
 				this._pointsView.finish(finish);
+				this._osMap.getControls().addAllTo(this._osMap.getMap());
 			},
 			
 			buildMapWithData: function(options, bundles, pointsToLoad) {
@@ -66,6 +68,7 @@ define(["os_map", "points_model", "points_view", "config", "params", "conversion
 					this._pointsModel.add(lngLat, url, name, extraInfo, physicalType, condition);
 				}
 				this._pointsView.finish(finish);
+				this._osMap.getControls().addAllTo(this._osMap.getMap());
 			}
 		};
 	}

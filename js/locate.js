@@ -1,13 +1,10 @@
 define(["leaflet_locate"],
 	function(leaflet_locate) {
-		return function(options) {
-			if (options == null) {
-				options = {};
+		return L.Control.Locate.extend({
+			options: {
+				keepCurrentZoomLevel: true,
+				setView: 'once'
 			}
-			options.keepCurrentZoomLevel = true;
-			options.setView = 'once';
-
-			return L.control.locate(options); // can't get shim to work right now
-		};
+		});
 	}
 );
