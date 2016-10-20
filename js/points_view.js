@@ -21,6 +21,10 @@ define(["leaflet", "leaflet_cluster", "leaflet_subgroup", "leaflet_matrixlayers"
 				}
 				var marker = leaflet.marker(latLng, markerOptions);
 				marker.bindPopup(popupText);
+				if (markerConfig.exportName != null) {
+					//selection control looks for .name in its default actions
+					marker.name = markerConfig.exportName.replace(/"/g, "'");
+				}
 				return marker;
 			},
 

@@ -30,7 +30,8 @@ define(['leaflet'],
 				var marker = {
 					latLng: [lat, lng],
 					type: type,
-					popupText: popupText
+					popupText: popupText,
+					exportName: name
 				}
 				
 				if (this._config.dimensional_layering) {
