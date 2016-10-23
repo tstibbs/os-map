@@ -13,7 +13,7 @@ var versions = {
 	leaflet_subgroup: '1.0.1',
 	leaflet_matrixlayers: '0f54890e8dda8d1d756fc68df2c41f40ede27258',
 	leaflet_locate: '0.52.0',
-	leaflet_controlHider: '17b9a58c82d9db09402ff53d6cf5a7834200bcfe',
+	leaflet_controlHider: 'ef39ae61eaf3976144c938295ee22ebe27fbcaa0',
 	leaflet_boxSelector: 'dcea490a0bb472139ee2c9d37a9b868ec92c7bd7',
 	file_saver: '1.3.3',
 	jquery: '3.0.0',
