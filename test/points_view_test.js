@@ -166,7 +166,8 @@ define(["Squire", "sinon", "leaflet", "jquery", "points_view", "config", "contro
 			var config = new Config(options, [bundle]);
 			var pointsModel = {};
 			pointsModel.getMarkerList = function() {return markerList};
-			var pointsView = new PointsView(map, config, pointsModel, new Controls());
+			var layers = {};
+			var pointsView = new PointsView(map, config, pointsModel, new Controls(config, layers), layers);
 			return pointsView;
 		}
 		

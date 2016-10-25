@@ -1,14 +1,21 @@
-define(["leaflet", "leaflet_controlHider", "selection", "locate", "mobile", "leaflet_matrixlayers"],
-	function(leaflet, Leaflet_ControlHider, Selection, Locate, mobile, Leaflet_MatrixLayers) {
+define(["leaflet", "leaflet_controlHider", "selection", "locate", "mobile"],
+	function(leaflet, Leaflet_ControlHider, Selection, Locate, mobile) {
 
 		//even if some items aren't used in this particular configuration, we'll stick to a given order (resulting gaps are fine)
-		var order = [Leaflet_ControlHider, leaflet.Control.Zoom, Locate, Leaflet_MatrixLayers, Selection];
+		var order = [
+			Leaflet_ControlHider,
+			leaflet.Control.Zoom,
+			Locate,
+			leaflet.Control.Layers, //matrix layers extends this, so will appear in the same slot
+			Selection
+		];
 	
 		var Controls = leaflet.Class.extend({
-			initialize: function(show_locate_control) {
+			initialize: function(config, layers) {
 				this._controlsToHide = [];
 				this._controlsToAdd = [];
-				this._show_locate_control = show_locate_control;
+				this._config = config;
+				this._layers = layers;
 				this._addDefaults();
 			},
 			
@@ -18,8 +25,11 @@ define(["leaflet", "leaflet_controlHider", "selection", "locate", "mobile", "lea
 				if (mobile.isMobile()) {
 					this.addControl(new Leaflet_ControlHider(this._controlsToHide), false);
 				}
-				if (this._show_locate_control) {
+				if (this._config.show_locate_control) {
 					this.addControl(new Locate());
+				}
+				if (!this._config.dimensional_layering && this._layers != null && Object.keys(this._layers).length > 1) {
+					this.addControl(new leaflet.Control.Layers(this._layers, null));
 				}
 			},
 			
