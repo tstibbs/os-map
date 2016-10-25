@@ -1,5 +1,5 @@
-define(["Squire", "sinon", "leaflet", "jquery", "points_view", "config"],
-	function(Squire, Sinon, leaflet, $, PointsView, Config) {
+define(["Squire", "sinon", "leaflet", "jquery", "points_view", "config", "controls"],
+	function(Squire, Sinon, leaflet, $, PointsView, Config, Controls) {
 		
 		QUnit.module('points view', function() {
 			function testIcon(assert, type, popupText) {
@@ -120,7 +120,6 @@ define(["Squire", "sinon", "leaflet", "jquery", "points_view", "config"],
 					};
 					
 					var injector = new Squire();
-					var leafletMatrixlayersMock = sinon.stub();
 					var MatrixlayersMock = sinon.stub();
 					MatrixlayersMock.prototype.addTo = sinon.stub();
 					injector.mock('leaflet_matrixlayers', MatrixlayersMock);
@@ -137,7 +136,11 @@ define(["Squire", "sinon", "leaflet", "jquery", "points_view", "config"],
 							assert.ok(name3, actualMarkers[type2 + '/' + condition1].getLayers()[0].getPopup().getContent());
 							assert.ok(name4, actualMarkers[type2 + '/' + condition2].getLayers()[0].getPopup().getContent());
 							// //check cluster layer is added to the map
-							assert.ok(MatrixlayersMock.prototype.addTo.calledOnce, "should have added layer to map");
+							var found = false;
+							for (var i = 0; i < pointsView._controls._controlsToAdd.length; i++) {
+								found |= pointsView._controls._controlsToAdd[i] instanceof MatrixlayersMock;
+							}
+							assert.ok(found, "should have added layer to map");
 							//tidy
 							injector.clean();
 							done();
@@ -163,7 +166,7 @@ define(["Squire", "sinon", "leaflet", "jquery", "points_view", "config"],
 			var config = new Config(options, [bundle]);
 			var pointsModel = {};
 			pointsModel.getMarkerList = function() {return markerList};
-			var pointsView = new PointsView(map, config, pointsModel);
+			var pointsView = new PointsView(map, config, pointsModel, new Controls());
 			return pointsView;
 		}
 		

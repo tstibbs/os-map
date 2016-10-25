@@ -2,11 +2,12 @@ define(["leaflet", "leaflet_cluster", "leaflet_subgroup", "leaflet_matrixlayers"
 	function(leaflet, leaflet_cluster, leaflet_subgroup, Leaflet_MatrixLayers, PointsModel) {
 	
 		var PointsView = leaflet.Class.extend({
-			initialize: function (map, config, pointsModel) {
+			initialize: function (map, config, pointsModel, controls) {
 				this._markerList = null;
 				this._map = map;
 				this._config = config;
 				this._model = pointsModel;
+				this._controls = controls;
 			},
 			
 			_translateMarker: function(markerConfig) {
@@ -20,6 +21,10 @@ define(["leaflet", "leaflet_cluster", "leaflet_subgroup", "leaflet_matrixlayers"
 				}
 				var marker = leaflet.marker(latLng, markerOptions);
 				marker.bindPopup(popupText);
+				if (markerConfig.exportName != null) {
+					//selection control looks for .name in its default actions
+					marker.name = markerConfig.exportName.replace(/"/g, "'");
+				}
 				return marker;
 			},
 
@@ -79,7 +84,7 @@ define(["leaflet", "leaflet_cluster", "leaflet_subgroup", "leaflet_matrixlayers"
 						dimensionLabels: this._config.dimensionLabels,
 						dimensionValueLabels: this._config.dimensionValueLabels
 					});
-					control.addTo(this._map);
+					this._controls.addControl(control);
 				}
 			}
 		});
