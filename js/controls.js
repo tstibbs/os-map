@@ -1,11 +1,12 @@
-define(["leaflet", "leaflet_controlHider", "selection", "locate", "mobile"],
-	function(leaflet, Leaflet_ControlHider, Selection, Locate, mobile) {
+define(["leaflet", "leaflet_controlHider", "selection", "locate", "mobile", "leaflet_geosearch", "leaflet_geosearch_osm"],
+	function(leaflet, Leaflet_ControlHider, Selection, Locate, mobile, Leaflet_Geosearch, Leaflet_Geosearch_Osm) {
 
 		//even if some items aren't used in this particular configuration, we'll stick to a given order (resulting gaps are fine)
 		var order = [
 			Leaflet_ControlHider,
 			leaflet.Control.Zoom,
 			Locate,
+			Leaflet_Geosearch,
 			leaflet.Control.Layers, //matrix layers extends this, so will appear in the same slot
 			Selection
 		];
@@ -22,6 +23,9 @@ define(["leaflet", "leaflet_controlHider", "selection", "locate", "mobile"],
 			_addDefaults: function() {
 				this.addControl(new leaflet.Control.Zoom(), true);
 				this.addControl(new Selection());
+				this.addControl(new Leaflet_Geosearch({
+					provider: new Leaflet_Geosearch_Osm()
+				}));
 				if (mobile.isMobile()) {
 					this.addControl(new Leaflet_ControlHider(this._controlsToHide), false);
 				}

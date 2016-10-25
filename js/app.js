@@ -15,6 +15,7 @@ var versions = {
 	leaflet_locate: '0.52.0',
 	leaflet_controlHider: 'ef39ae61eaf3976144c938295ee22ebe27fbcaa0',
 	leaflet_boxSelector: '25ea3892a8933966ac4c23f59d7d48eb69448f23',
+	leaflet_geosearch: '1.0.0',
 	file_saver: '1.3.3',
 	jquery: '3.0.0',
 	Squire: '0.2.1',
@@ -34,6 +35,8 @@ var paths = {
 	leaflet_controlHider: 'https://cdn.rawgit.com/tstibbs/Leaflet.ControlHider/' + versions.leaflet_controlHider + '/src/hider',
 	leaflet_boxSelector: 'https://cdn.rawgit.com/tstibbs/Leaflet.BoxSelector/' + versions.leaflet_boxSelector + '/src/selector',
 	leaflet_boxSelector_Gpx: 'https://cdn.rawgit.com/tstibbs/Leaflet.BoxSelector/' + versions.leaflet_boxSelector + '/src/gpx',
+	leaflet_geosearch: 'https://unpkg.com/leaflet-geosearch@' + versions.leaflet_geosearch + '/src/js/l.control.geosearch',
+	leaflet_geosearch_osm: 'https://unpkg.com/leaflet-geosearch@' + versions.leaflet_geosearch + '/src/js/l.geosearch.provider.openstreetmap',
 	file_saver: 'https://unpkg.com/file-saver@' + versions.file_saver + '/FileSaver.min',
 	jquery: 'https://code.jquery.com/jquery-' + versions.jquery
 }
@@ -78,6 +81,14 @@ requirejs.config({
 		leaflet_controlHider: {
 			deps: ['leaflet'],
 			exports: 'L.Control.ControlHider'
+		},
+		leaflet_geosearch: {
+			deps: ['leaflet'],
+			exports: 'L.Control.GeoSearch'
+		},
+		leaflet_geosearch_osm: {
+			deps: ['leaflet', 'leaflet_geosearch'],
+			exports: 'L.GeoSearch.Provider.OpenStreetMap'
 		},
 		file_saver: {
 			exports: 'saveAs'
