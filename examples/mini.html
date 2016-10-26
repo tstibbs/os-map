@@ -26,7 +26,10 @@
 			var options = {
 				cluster: false,
 				initial_zoom: 10,
-				start_position: [54.454463, -3.213515]
+				start_position: [54.454463, -3.213515],
+				show_search_control: false,
+				show_locate_control: false,
+				show_layers_control: false
 			};
 			loadOsMap(['trigpointing'], function(main, bundles){
 				main.buildMapWithData(options, bundles, window.points_to_load);

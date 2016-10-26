@@ -1,5 +1,5 @@
-define(["leaflet", "layers", "mouseposition_osgb", "screenposition_osgb", "mobile", "config", "controls"],
-	function(leaflet, layers, mouseposition_osgb, screenposition_osgb, mobile, Config, Controls) {
+define(["leaflet", "layers", "config", "controls"],
+	function(leaflet, layers, Config, Controls) {
 		var OsMap = leaflet.Class.extend({
 			initialize: function (config) {
 				this._config = config;
@@ -18,13 +18,6 @@ define(["leaflet", "layers", "mouseposition_osgb", "screenposition_osgb", "mobil
 				this._map.on('zoomend moveend dragend', function() {
 					this._saveLocation();
 				}, this);
-				
-				//position displays
-				if (mobile.isMobile()) {
-					screenposition_osgb().addTo(this._map);
-				} else {
-					mouseposition_osgb().addTo(this._map);
-				}
 			},
 			
 			_saveLocation: function() {

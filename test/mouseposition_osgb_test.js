@@ -1,5 +1,5 @@
 define(["leaflet", "jquery", "mouseposition_osgb"],
-	function(leaflet, $, mouseposition_osgb) {
+	function(leaflet, $, Mouseposition_Osgb) {
 		QUnit.test("mouseposition_osgb - should display", function(assert) {
 			var $mapElement = $('<div id="map" style="height: 200px; width: 200px;"></div>');
 			$('#qunit-fixture').append($mapElement);
@@ -9,7 +9,7 @@ define(["leaflet", "jquery", "mouseposition_osgb"],
 			//check that it hasn't shown up yet, just to validate the rest of our test
 			assert.equal(0, $positionDisplay.length);
 			//add the class under test
-			mouseposition_osgb().addTo(map);
+			new Mouseposition_Osgb().addTo(map);
 			//now check that the mouse position element is showing up
 			$positionDisplay = $('div#map div.leaflet-control-mouseposition');
 			assert.equal(1, $positionDisplay.length);

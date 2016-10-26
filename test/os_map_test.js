@@ -1,8 +1,8 @@
 define(['Squire', 'sinon', 'config', 'mouseposition_osgb', 'screenposition_osgb'],
-	function(Squire, sinon, Config, mouseposition_osgb, screenposition_osgb) {
+	function(Squire, sinon, Config, Mouseposition_Osgb, Screenposition_Osgb) {
 
-		var mouseposition_osgb_mock = mouseposition_osgb();
-		var screenposition_osgb_mock = screenposition_osgb();
+		var mouseposition_osgb_mock = new Mouseposition_Osgb();
+		var screenposition_osgb_mock = new Screenposition_Osgb();
 		
 		//TODO check that the right layer is being shown at the right zoom levels, but I'm not sure how...
 	
