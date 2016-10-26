@@ -24,6 +24,7 @@ define(["leaflet", "leaflet_controlHider", "selection", "locate", "mobile", "lea
 				this.addControl(new leaflet.Control.Zoom(), true);
 				this.addControl(new Selection());
 				this.addControl(new Leaflet_Geosearch({
+					showPopup: true,
 					provider: new Leaflet_Geosearch_Osm()
 				}));
 				if (mobile.isMobile()) {
