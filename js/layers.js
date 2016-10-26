@@ -10,7 +10,7 @@ define(['leaflet', 'leaflet_bing'],
 		//Bing road maps
 		var bingRoads = new Leaflet_bing(bingKey, {type: "Road", maxZoom: 18, minZoom: 0});
 		//OSM
-		var osm = new leaflet.TileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+		var osm = new leaflet.TileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
 			minZoom: 0, maxZoom: 19, attribution: 'Map data © <a href="http://openstreetmap.org">OpenStreetMap</a> contributors'
 		});
 		

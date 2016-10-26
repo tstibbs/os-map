@@ -24,8 +24,8 @@ var versions = {
 
 var paths = {
 	leaflet: 'https://unpkg.com/leaflet@' + versions.leaflet + '/dist/leaflet',
-	leaflet_bing: 'http://cdnjs.cloudflare.com/ajax/libs/leaflet-plugins/' + versions.leaflet_bing + '/layer/tile/Bing',
-	proj4: 'http://cdnjs.cloudflare.com/ajax/libs/proj4js/' + versions.proj4 + '/proj4',
+	leaflet_bing: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet-plugins/' + versions.leaflet_bing + '/layer/tile/Bing',
+	proj4: 'https://cdnjs.cloudflare.com/ajax/libs/proj4js/' + versions.proj4 + '/proj4',
 	leaflet_cluster: 'https://cdn.rawgit.com/Leaflet/Leaflet.markercluster/' + versions.leaflet_cluster + '/dist/leaflet.markercluster-src',
 	leaflet_mouseposition: 'https://cdn.rawgit.com/tstibbs/Leaflet.MousePosition/' + versions.leaflet_mouseposition + '/src/L.Control.MousePosition',
 	leaflet_screenposition: 'https://cdn.rawgit.com/tstibbs/Leaflet.MapCenterCoord/' + versions.leaflet_screenposition + '/src/L.Control.MapCenterCoord',
