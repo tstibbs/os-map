@@ -17,7 +17,8 @@ define(["leaflet", "jquery", "global"],
 			show_layers_control: true,
 			icons: {},
 			dimensionNames: [],
-			dimensionValueLabels: {}
+			dimensionValueLabels: {},
+			defaultLayer: "OS"
 		};
 
 		var Config = leaflet.Class.extend({

@@ -14,18 +14,33 @@ define(['leaflet', 'leaflet_bing'],
 			minZoom: 0, maxZoom: 19, attribution: 'Map data © <a href="http://openstreetmap.org">OpenStreetMap</a> contributors'
 		});
 		
-		var allLayers = {
+		var layers = {
 			"OS":bingOsGroup,
 			"Bing Roads": bingRoads,
 			"OSM": osm
 		};
+		
+		function _listenForLayerChange(layerId, layer, config) {
+			layer.on('add', function() {
+				config.persist({defaultLayer: layerId});
+			}.bind(this));
+		}
 
-		return function(map, addDefaults) {
-			if (addDefaults) {
+		return function(map, config) {
+			//if we have a default layer set, select that now
+			var layerToSelect = layers[config.defaultLayer]
+			if (layerToSelect != null) {
+				layerToSelect.addTo(map);
+			} else {
 				bingOsGroup.addTo(map);
 			}
+
+			//set up listener to persist which layer is selected
+			for (var id in layers) {
+				_listenForLayerChange(id, layers[id], config);
+			}
 			
-			return allLayers;
+			return layers;
 		};
 	}
 );

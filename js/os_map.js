@@ -8,7 +8,7 @@ define(["leaflet", "layers", "config", "controls"],
 					zoomControl: false
 				});
 				//add layers
-				this._layers = layers(this._map, true);
+				this._layers = layers(this._map, this._config);
 				//set start point
 				this._map.setView(new leaflet.LatLng(this._config.start_position[0], this._config.start_position[1]), this._config.initial_zoom);
 				//add controls
