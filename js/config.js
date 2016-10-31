@@ -1,5 +1,5 @@
-define(["leaflet", "jquery", "global"],
-	function(leaflet, $, global) {
+define(["leaflet", "jquery", "global", "params"],
+	function(leaflet, $, global, params) {
 		
 		var defaultPageId = global.location.pathname.split("/").pop();
 		
@@ -35,6 +35,13 @@ define(["leaflet", "jquery", "global"],
 					//unless we've set the attribute to force override local config with the coded config, we should grab the local storage version and overwrite any matching keys
 					var saved = this._getSavedConfig();
 					resolvedConfig = $.extend({}, resolvedConfig, saved);
+				}
+
+				if (params('startPosition')) {//lat, long
+					resolvedConfig.start_position = params('startPosition').split(',');
+				}
+				if (params('startZoom')) {
+					resolvedConfig.initial_zoom = params('startZoom');
 				}
 				
 				//set all values locally so that the exporter object works like a hash
