@@ -11,7 +11,9 @@ var testFiles = [
 	"config_test.js",
 	"os_map_test.js",
 	"loader_test.js",
-	"error_handler_test.js"
+	"error_handler_test.js",
+	"controls_test.js",
+	"layers_test.js"
 ];
 
 //these extras are a hack for testing, so no need for them to appear in app.js
