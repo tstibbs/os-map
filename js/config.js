@@ -15,6 +15,7 @@ define(["leaflet", "jquery", "global"],
 			show_search_control: true,
 			show_locate_control: true,
 			show_layers_control: true,
+			show_hider_control: 'mobile',// false, true, 'mobile'
 			icons: {},
 			dimensionNames: [],
 			dimensionValueLabels: {},

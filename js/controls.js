@@ -33,7 +33,7 @@ define(["leaflet", "leaflet_controlHider", "selection", "locate", "mobile", "lea
 						provider: new Leaflet_Geosearch_Osm()
 					}));
 				}
-				if (mobile.isMobile()) {
+				if (this._config.show_hider_control == true || (this._config.show_hider_control == 'mobile' && mobile.isMobile())) {
 					this.addControl(new Leaflet_ControlHider(this._controlsToHide), false);
 				}
 				if (this._config.show_locate_control) {

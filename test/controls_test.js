@@ -20,13 +20,12 @@ define(['Squire', 'sinon', 'config', 'leaflet'],
 				});
 			});
 
-			function controlIncludedWhen(moduleName, option, depName, displaysOnMobile) {
+			function controlIncludedWhen(moduleName, option, defaultValue, depName, displaysOnMobile) {
 				QUnit.module(moduleName, function() {
 					QUnit.test("should display", function(assert) {
 						var options = {};
-						options[option] = true;
+						options[option] = defaultValue != null ? defaultValue : true;
 						var isMobile = (displaysOnMobile == true);
-						console.log(moduleName + "-should-" + isMobile);
 						runTest(assert, isMobile, options, depName, 
 							function(leafletMap, specifiedMock) {
 								assert.ok(specifiedMock().addTo.calledOnce, moduleName + " should be displayed");
@@ -36,9 +35,8 @@ define(['Squire', 'sinon', 'config', 'leaflet'],
 					
 					QUnit.test("shouldn't display", function(assert) {
 						var options = {};
-						options[option] = false;
-						var isMobile = displaysOnMobile != undefined && !displaysOnMobile;
-						console.log(moduleName + "-shouldn't-" + isMobile);
+						options[option] = defaultValue != null ? defaultValue : false;
+						var isMobile = (displaysOnMobile == false);
 						runTest(assert, isMobile, options, depName,
 							function(leafletMap, specifiedMock) {
 								assert.notOk(specifiedMock().addTo.calledOnce, moduleName + " should not be displayed");
@@ -48,11 +46,12 @@ define(['Squire', 'sinon', 'config', 'leaflet'],
 				});
 			}
 			
-			controlIncludedWhen('location control', 'show_locate_control', 'locate');
-			controlIncludedWhen('selection control', 'show_selection_control', 'selection');
-			controlIncludedWhen('search control', 'show_search_control', 'leaflet_geosearch');
+			controlIncludedWhen('location control', 'show_locate_control', null, 'locate');
+			controlIncludedWhen('selection control', 'show_selection_control', null, 'selection');
+			controlIncludedWhen('search control', 'show_search_control', null, 'leaflet_geosearch');
 			//controlIncludedWhen('layers control', 'show_layers_control', 'locate');
-			controlIncludedWhen('hider control', '', 'leaflet_controlHider', true);
+			controlIncludedWhen('hider control (property controlled)', 'show_hider_control', null, 'leaflet_controlHider');
+			controlIncludedWhen('hider control (mobile controlled)', 'show_hider_control', 'mobile', 'leaflet_controlHider', true);
 		});
 				
 		function runTest(assert, isMobile, options, depName, verify) {
