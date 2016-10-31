@@ -1,5 +1,5 @@
 define(["leaflet", "screenposition_osgb"],
-	function(leaflet, screenposition_osgb) {
+	function(leaflet, Screenposition_Osgb) {
 		QUnit.module("screenposition_osgb", function(assert) {
 			QUnit.test("should display location", function(assert) {
 				//set up
@@ -10,7 +10,7 @@ define(["leaflet", "screenposition_osgb"],
 				//check that it hasn't shown up yet, just to validate the rest of our test
 				assert.equal(0, $positionDisplay.length);
 				//add the class under test
-				screenposition_osgb().addTo(map);
+				new Screenposition_Osgb().addTo(map);
 				//now check that the mouse position element is showing up
 				$positionDisplay = $('div#map div.leaflet-control-mapcentercoord');
 				assert.equal(1, $positionDisplay.length);
@@ -23,7 +23,7 @@ define(["leaflet", "screenposition_osgb"],
 				$('#qunit-fixture').append('<div id="map" style="height: 180px;"></div>');
 				var map = leaflet.map('map');
 				map.setView([51.505, -0.09], 13);
-				screenposition_osgb().addTo(map);
+				new Screenposition_Osgb().addTo(map);
 				//show cross hairs
 				var $positionDisplay = $('div#map div.leaflet-control-mapcentercoord');
 				$positionDisplay.click();

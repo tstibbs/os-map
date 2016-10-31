@@ -1,15 +1,20 @@
 define(["leaflet_screenposition", "conversion", "jquery"],
 	function(Leaflet_ScreenPosition, conversion, $) {
-		return function() {
-			var control = new Leaflet_ScreenPosition({
+		return Leaflet_ScreenPosition.extend({
+			options: {
 				onMove: true,
 				icon: true,
 				latLngFormatter: function (lat, lng) {
 					return conversion.latLngToGridRef(lat, lng);
 				}
-			});
+			},
 			
-			function addShowHideHandling() {
+			addTo: function(map) {
+				Leaflet_ScreenPosition.prototype.addTo.call(this, map);
+				this._addShowHideHandling();
+			},
+			
+			_addShowHideHandling: function() {
 				var $icon = $('div.leaflet-control-mapcentercoord-icon.leaflet-zoom-hide');
 				var isIconVisible = false;
 				var $control = $('div.leaflet-control-mapcentercoord.leaflet-control');
@@ -34,13 +39,6 @@ define(["leaflet_screenposition", "conversion", "jquery"],
 				//start with crosshairs hidden
 				hideIcon();
 			}
-			
-			return {
-				addTo: function(map) {
-					control.addTo(map);
-					addShowHideHandling();
-				}
-			};
-		};
+		});
 	}
 );

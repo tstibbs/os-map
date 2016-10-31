@@ -2,12 +2,13 @@ define(["leaflet", "leaflet_cluster", "leaflet_subgroup", "leaflet_matrixlayers"
 	function(leaflet, leaflet_cluster, leaflet_subgroup, Leaflet_MatrixLayers, PointsModel) {
 	
 		var PointsView = leaflet.Class.extend({
-			initialize: function (map, config, pointsModel, controls) {
+			initialize: function (map, config, pointsModel, controls, layers) {
 				this._markerList = null;
 				this._map = map;
 				this._config = config;
 				this._model = pointsModel;
 				this._controls = controls;
+				this._layers = layers;
 			},
 			
 			_translateMarker: function(markerConfig) {
@@ -79,11 +80,12 @@ define(["leaflet", "leaflet_cluster", "leaflet_subgroup", "leaflet_matrixlayers"
 							matrixOverlays[type + '/' + condition] = subGroup;
 						}, this);
 					}, this);
-					var control = new Leaflet_MatrixLayers(null, null, matrixOverlays, {
+					var control = new Leaflet_MatrixLayers(this._layers, null, matrixOverlays, {
 						dimensionNames: this._config.dimensionNames,
 						dimensionLabels: this._config.dimensionLabels,
 						dimensionValueLabels: this._config.dimensionValueLabels
 					});
+					//override the basic layers control
 					this._controls.addControl(control);
 				}
 			}

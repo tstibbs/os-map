@@ -1,25 +1,52 @@
-define(["leaflet", "leaflet_controlHider", "selection", "locate", "mobile", "leaflet_matrixlayers"],
-	function(leaflet, Leaflet_ControlHider, Selection, Locate, mobile, Leaflet_MatrixLayers) {
+define(["leaflet", "leaflet_controlHider", "selection", "locate", "mobile", "leaflet_geosearch", "leaflet_geosearch_osm", "mouseposition_osgb", "screenposition_osgb"],
+	function(leaflet, Leaflet_ControlHider, Selection, Locate, mobile, Leaflet_Geosearch, Leaflet_Geosearch_Osm, Mouseposition_Osgb, Screenposition_Osgb) {
 
 		//even if some items aren't used in this particular configuration, we'll stick to a given order (resulting gaps are fine)
-		var order = [Leaflet_ControlHider, leaflet.Control.Zoom, Locate, Leaflet_MatrixLayers, Selection];
+		var order = [
+			Leaflet_ControlHider,
+			leaflet.Control.Zoom,
+			Locate,
+			Leaflet_Geosearch,
+			leaflet.Control.Layers, //matrix layers extends this, so will appear in the same slot
+			Selection,
+			Mouseposition_Osgb,
+			Screenposition_Osgb
+		];
 	
 		var Controls = leaflet.Class.extend({
-			initialize: function(show_locate_control) {
+			initialize: function(config, layers) {
 				this._controlsToHide = [];
 				this._controlsToAdd = [];
-				this._show_locate_control = show_locate_control;
+				this._config = config;
+				this._layers = layers;
 				this._addDefaults();
 			},
 			
 			_addDefaults: function() {
 				this.addControl(new leaflet.Control.Zoom(), true);
-				this.addControl(new Selection());
+				if (this._config.show_selection_control) {
+					this.addControl(new Selection());
+				}
+				if (this._config.show_search_control) {
+					this.addControl(new Leaflet_Geosearch({
+						showPopup: true,
+						provider: new Leaflet_Geosearch_Osm()
+					}));
+				}
 				if (mobile.isMobile()) {
 					this.addControl(new Leaflet_ControlHider(this._controlsToHide), false);
 				}
-				if (this._show_locate_control) {
+				if (this._config.show_locate_control) {
 					this.addControl(new Locate());
+				}
+				if (this._config.show_layers_control && !this._config.dimensional_layering && this._layers != null && Object.keys(this._layers).length > 1) {
+					this.addControl(new leaflet.Control.Layers(this._layers, null));
+				}
+				//position displays
+				if (mobile.isMobile()) {
+					this.addControl(new Screenposition_Osgb());
+				} else {
+					this.addControl(new Mouseposition_Osgb());
 				}
 			},
 			

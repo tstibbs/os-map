@@ -10,7 +10,7 @@ define(["os_map", "points_model", "points_view", "config", "params", "conversion
 				var config = new Config(options, bundles);
 				this._osMap = new OsMap(config);
 				this._pointsModel = new PointsModel(config);
-				this._pointsView = new PointsView(this._osMap.getMap(), config, this._pointsModel, this._osMap.getControls());
+				this._pointsView = new PointsView(this._osMap.getMap(), config, this._pointsModel, this._osMap.getControls(), this._osMap.getLayers());
 			},
 			
 			hasUrlData: function() {

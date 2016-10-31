@@ -11,13 +11,20 @@ define(["leaflet", "jquery", "global"],
 			force_config_override: false,//if true, start position and zoom will be taken from config, not from local storage
 			map_element_id: 'map',
 			page_id: defaultPageId,
+			show_selection_control: true,
+			show_search_control: true,
 			show_locate_control: true,
-			icons: {}
+			show_layers_control: true,
+			icons: {},
+			dimensionNames: [],
+			dimensionValueLabels: {},
+			defaultLayer: "OS"
 		};
 
 		var Config = leaflet.Class.extend({
 			initialize: function (options, configBundles) {
 				var resolvedConfig = $.extend({}, defaults, options);
+				this._checkForUndefaultedProperties(options, "window config");
 				this._applyBundles(resolvedConfig, configBundles);
 				
 				this._storageId = 'os_map:' + resolvedConfig.page_id + 'config';
@@ -45,9 +52,18 @@ define(["leaflet", "jquery", "global"],
 			},
 			
 			_applyBundle: function(resolvedConfig, bundle) {
+				this._checkForUndefaultedProperties(bundle, "bundle");
 				for (var property in bundle) {
 					if (bundle.hasOwnProperty(property)) {
 						resolvedConfig[property] = bundle[property];
+					}
+				}
+			},
+			
+			_checkForUndefaultedProperties: function(newConfig, source) {
+				for (var property in newConfig) {
+					if (newConfig.hasOwnProperty(property) && !defaults.hasOwnProperty(property)) {
+						console.warn('Property "' + property + '" (set from ' + source + ') should have a default');
 					}
 				}
 			},

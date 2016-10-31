@@ -13,7 +13,11 @@ OS OpenSpace doesn't have the 1:25,000 mapping and the embeddable Bing client is
 Because I wanted to learn about require. The page load time seems to increase significantly with require, so I'd probably remove it if wanted to use this code for something in production.
 
 ## How can I try it?
-[Live demo](http://tstibbs.github.io/os-map/examples/index.html)
+[Basic map demo](https://tstibbs.github.io/os-map/examples/index.html)
+
+[Map showing many markers with a category-based selector](https://tstibbs.github.io/os-map/examples/25k-layers.html)
+
+[Mini-map that can be embedded into a page](https://tstibbs.github.io/os-map/examples/mini.html)
 
 ## Does it support mobile devices?
 In theory yes. If we detect that you are using a mobile device then the mouse pointer positioning stuff goes away and the coordinates instead show the location that is at the centre of the bit of the map you are currently viewing. Leaflet itself [already supports mobile devices](http://leafletjs.com/examples/mobile.html).
@@ -22,7 +26,7 @@ In theory yes. If we detect that you are using a mobile device then the mouse po
 OS maps are actually quite colourful and creating an icon that stands out regardless of the map beneath it was surprisingly difficult. However, it's just a placeholder really as I'm aware that my graphic design skills are pretty limited - so I'm more than happy to receive suggestions!
 
 ## Unit tests
-There are some basic unit tests covering some of the functionality. To run these go here http://tstibbs.github.io/os-map/test/qunit_suite/test.html or run these commands:
+There are some basic unit tests covering some of the functionality. To run these go here https://tstibbs.github.io/os-map/test/qunit_suite/test.html or run these commands:
 ```
 npm install
 npm test
@@ -31,7 +35,7 @@ npm test
 ## [trigpointing.uk](http://trigpointing.uk)
 This project started as an excuse to learn a little about a few javascript libraries I'd never used (leaflet and requirejs mainly). However recently I added some stuff to it to enable it to be used as the map for tripointing.uk, because I struggle to use the "interactive" map on that site. If you want to try this functionality out, you simply need to do a search on trigpointing.uk, then run the following (e.g. in Chrome press F12 and then paste this code into the console):
 ```
-$.getScript("http://tstibbs.github.io/os-map/integration/trigpointing.js");
+$.getScript("https://tstibbs.github.io/os-map/integration/trigpointing.js");
 ```
 After a short delay it should redirect you to this site and display the results of your search.
 
