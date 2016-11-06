@@ -13,7 +13,7 @@ var versions = {
 	leaflet_subgroup: '1.0.1',
 	leaflet_matrixlayers: '0f54890e8dda8d1d756fc68df2c41f40ede27258',
 	leaflet_locate: '0.52.0',
-	leaflet_controlHider: 'ef39ae61eaf3976144c938295ee22ebe27fbcaa0',
+	leaflet_controlHider: '3df76ebbfda70789027a40aa6f2e05db603aa364',
 	leaflet_boxSelector: '25ea3892a8933966ac4c23f59d7d48eb69448f23',
 	leaflet_geosearch: '01854d273650a4b5b28e53e7852257280a25a010',
 	file_saver: '1.3.3',
@@ -51,6 +51,7 @@ if (window.location.search.indexOf("dev=true") !== -1) {
 	paths.leaflet_matrixlayers = '../../Leaflet.MatrixLayersControl/src/matrixControl';
 	paths.leaflet_boxSelector = '../../Leaflet.BoxSelector/src/selector';
 	paths.leaflet_boxSelector_Gpx = '../../Leaflet.BoxSelector/src/gpx';
+	paths.leaflet_controlHider = '../../Leaflet.ControlHider/src/hider';
 }
 
 

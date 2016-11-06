@@ -1,5 +1,5 @@
-define(["leaflet", "layers", "config", "controls"],
-	function(leaflet, layers, Config, Controls) {
+define(["leaflet", "layers", "config", "controls", "fullscreen_link"],
+	function(leaflet, layers, Config, Controls, fullscreen_link) {
 		var OsMap = leaflet.Class.extend({
 			initialize: function (config) {
 				this._config = config;
@@ -13,6 +13,8 @@ define(["leaflet", "layers", "config", "controls"],
 				this._map.setView(new leaflet.LatLng(this._config.start_position[0], this._config.start_position[1]), this._config.initial_zoom);
 				//add controls
 				this._controls = new Controls(this._config, this._layers);
+				
+				fullscreen_link(this._map);
 				
 				//hook up listener to save the location when we move it
 				this._map.on('zoomend moveend dragend', function() {

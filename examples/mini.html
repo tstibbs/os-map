@@ -13,7 +13,7 @@
 		<link rel="stylesheet" href="https://cdn.rawgit.com/tstibbs/Leaflet.MousePosition/b628c7be754c134c63117b3feb75e720a1d20673/src/L.Control.MousePosition.css" />
 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
 		<link rel="stylesheet" href="https://cdn.jsdelivr.net/leaflet.locatecontrol/0.52.0/L.Control.Locate.min.css" />
-		<link rel="stylesheet" href="https://cdn.rawgit.com/tstibbs/Leaflet.ControlHider/ef39ae61eaf3976144c938295ee22ebe27fbcaa0/src/hider.css" />
+		<link rel="stylesheet" href="https://cdn.rawgit.com/tstibbs/Leaflet.ControlHider/3df76ebbfda70789027a40aa6f2e05db603aa364/src/hider.css" />
 		<link rel="stylesheet" href="https://cdn.rawgit.com/tstibbs/Leaflet.BoxSelector/25ea3892a8933966ac4c23f59d7d48eb69448f23/src/selector.css" />
 		<link rel="stylesheet" href="https://cdn.rawgit.com/tstibbs/L.GeoSearch/01854d273650a4b5b28e53e7852257280a25a010/src/css/l.geosearch.css" />
 		<link rel="stylesheet" href="../css/app.css" />
@@ -29,7 +29,8 @@
 				start_position: [54.454463, -3.213515],
 				show_search_control: false,
 				show_locate_control: false,
-				show_layers_control: false
+				show_hider_control: true,
+				hider_control_start_visible: false
 			};
 			loadOsMap(['trigpointing'], function(main, bundles){
 				main.buildMapWithData(options, bundles, window.points_to_load);
@@ -53,5 +54,6 @@
 			</div>
 			<div id="map" class="mini-map"></div>
 		</div>
+		<div class="full-screen-link"></div>
 	</body>
 </html>
