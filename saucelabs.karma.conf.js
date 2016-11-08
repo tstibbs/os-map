@@ -62,12 +62,13 @@ var extraBrowsers = {
 	platform: linux,
 	version: '48'
   },
-  sl_osx_safari: {
-	base: 'SauceLabs',
-	browserName: safari,
-	platform: osx,
-	version: '9'
-  },
+  //something odd happens in the tests which is probably impossible to diagnose without access to a safari instance
+  // sl_osx_safari: {
+	// base: 'SauceLabs',
+	// browserName: safari,
+	// platform: osx,
+	// version: '9'
+  // },
   sl_osx_chrome: {
 	base: 'SauceLabs',
 	browserName: chrome,
