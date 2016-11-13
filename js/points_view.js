@@ -1,5 +1,5 @@
-define(["leaflet", "leaflet_cluster", "leaflet_subgroup", "leaflet_matrixlayers", "points_model"],
-	function(leaflet, leaflet_cluster, leaflet_subgroup, Leaflet_MatrixLayers, PointsModel) {
+define(["underscore", "leaflet", "leaflet_cluster", "leaflet_subgroup", "leaflet_matrixlayers", "points_model"],
+	function(_, leaflet, leaflet_cluster, leaflet_subgroup, Leaflet_MatrixLayers, PointsModel) {
 	
 		var PointsView = leaflet.Class.extend({
 			initialize: function (map, config, pointsModel, controls, layers) {
@@ -11,20 +11,53 @@ define(["leaflet", "leaflet_cluster", "leaflet_subgroup", "leaflet_matrixlayers"
 				this._layers = layers;
 			},
 			
+			_notEmpty: function(input) {
+				return input !== undefined && input !== null && input.length > 0;
+			},
+			
 			_translateMarker: function(markerConfig) {
-				var type = markerConfig.type;
+				//get everything from the model - anything that gets put into the dom needs to be escaped to prevent XSS
 				var latLng = markerConfig.latLng;
-				var popupText = markerConfig.popupText;
+				var name = _.escape(markerConfig.name);
+				var extraTexts = markerConfig.extraTexts;
+				if (extraTexts != null) {
+					extraTexts = extraTexts.map(function(val) {return _.escape(val);});
+				}
+				var exportName = _.escape(markerConfig.exportName);
+				var icon = markerConfig.icon;
+				var url = _.escape(markerConfig.url);
+				
+				//construct the contents of the popup
+				if (!this._notEmpty(name)) {
+					name = url;
+				}
+				if (this._notEmpty(exportName)) {
+					exportName = name;
+				}
+				var popupText = "";
+				if (this._notEmpty(url)) {
+					popupText = '<a href="' + url + '">' + name + '</a>';
+				} else if (this._notEmpty(name)) {
+					popupText = '<span>' + name + '</span>';
+				}
+				if (extraTexts != null) {
+					for (var i = 0; i < extraTexts.length; i++) {
+						if (popupText.length > 0) {
+							popupText += '<br />';
+						}
+						popupText = popupText + '<span>' + extraTexts[i] + '</span>';
+					}
+				}
 
 				var markerOptions = {};
-				if (this._config.icons[type] !== undefined) {
-				  markerOptions.icon = this._config.icons[type];
+				if (this._config.icons[icon] !== undefined) {
+					markerOptions.icon = this._config.icons[icon];
 				}
 				var marker = leaflet.marker(latLng, markerOptions);
 				marker.bindPopup(popupText);
-				if (markerConfig.exportName != null) {
+				if (exportName != null) {
 					//selection control looks for .name in its default actions
-					marker.name = markerConfig.exportName.replace(/"/g, "'");
+					marker.name = exportName.replace(/"/g, "'");
 				}
 				return marker;
 			},

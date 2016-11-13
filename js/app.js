@@ -17,6 +17,7 @@ var versions = {
 	leaflet_boxSelector: '25ea3892a8933966ac4c23f59d7d48eb69448f23',
 	leaflet_geosearch: '01854d273650a4b5b28e53e7852257280a25a010',
 	file_saver: '1.3.3',
+	underscore: '1.8.3',
 	jquery: '3.0.0',
 	Squire: '0.2.1',
 	sinon: '1.17.5'
@@ -38,6 +39,7 @@ var paths = {
 	leaflet_geosearch: 'https://cdn.rawgit.com/tstibbs/L.GeoSearch/' + versions.leaflet_geosearch + '/src/js/l.control.geosearch',
 	leaflet_geosearch_osm: 'https://cdn.rawgit.com/tstibbs/L.GeoSearch/' + versions.leaflet_geosearch + '/src/js/l.geosearch.provider.openstreetmap',
 	file_saver: 'https://unpkg.com/file-saver@' + versions.file_saver + '/FileSaver.min',
+	underscore: 'https://cdnjs.cloudflare.com/ajax/libs/underscore.js/' + versions.underscore + '/underscore-min',
 	jquery: 'https://code.jquery.com/jquery-' + versions.jquery
 }
 

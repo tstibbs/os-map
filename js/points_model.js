@@ -7,31 +7,17 @@ define(['leaflet'],
 				this._config = config;
 			},
 
-			add: function (lngLat, url, name, extraText, type, condition) {
+			add: function (lngLat, url, name, extraTexts, type, condition) {
 				var lng = lngLat[0];
 				var lat = lngLat[1];
 				
-				if (name == null) {
-					name = url;
-				}
-				var popupText = "";
-				if (url != null) {
-					popupText = '<a href="' + url + '">' + name + '</a>';
-				} else if (name != null) {
-					popupText = '<span>' + name + '</span>';
-				}
-				if (popupText.length > 0) {
-					popupText = popupText + '<br />';
-				}
-				if (extraText != null) {
-					popupText = popupText + extraText;
-				}
-				
 				var marker = {
 					latLng: [lat, lng],
-					type: type,
-					popupText: popupText,
-					exportName: name
+					name: name,
+					extraTexts: extraTexts,
+					exportName: name,
+					url: url,
+					icon: type
 				}
 				
 				if (this._config.dimensional_layering) {

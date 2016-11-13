@@ -2,12 +2,15 @@ define(["Squire", "sinon", "leaflet", "jquery", "points_view", "config", "contro
 	function(Squire, Sinon, leaflet, $, PointsView, Config, Controls) {
 		
 		QUnit.module('points view', function() {
-			function testIcon(assert, type, popupText) {
+			function testIcon(assert, type, name, condition, url, extraTexts, exportName) {
 				//test
 				var marker = {
 					latLng: [-0.09, 51.505],
-					type: type,
-					popupText: popupText
+					icon: type,
+					url: url,
+					extraTexts: extraTexts,
+					exportName: exportName,
+					name: name
 				};
 				var pointsView = dummyMap(PointsView, { cluster: false }, [marker]);
 				pointsView.finish(function() {});//callback not needed as not async here
@@ -17,7 +20,36 @@ define(["Squire", "sinon", "leaflet", "jquery", "points_view", "config", "contro
 				assert.ok(markerElements.is(":visible"), "should be visible");
 				return pointsView;
 			}
-		
+			
+			QUnit.test('should accept null name', function(assert) {
+				var name = null;
+				var url = "http://example/";
+				var pointsView = testIcon(assert, undefined, name, undefined, url);
+				$text = getOneMarkerText(assert, pointsView);
+				assert.equal($text.text(), url);
+				assert.equal($('a', $text).attr('href'), url);
+			});
+			
+			QUnit.test('should accept null url', function(assert) {
+				var name = "this is my name";
+				var url = null;
+				var pointsView = testIcon(assert, undefined, name, undefined, url);
+				$text = getOneMarkerText(assert, pointsView);
+				assert.equal($text.text(), name);
+				assert.equal($('a', $text).length, 0, "should not be any links");
+			});
+			
+			QUnit.test('should include extra text', function(assert) {
+				var name = null;
+				var url = "http://example/";
+				var extraTexts = ["abc", "this is more text", "blah", 100];
+				var pointsView = testIcon(assert, undefined, name, undefined, url, extraTexts);
+				$text = getOneMarkerText(assert, pointsView);
+				extraTexts.forEach(function(extraText) {
+					assert.notEqual($text.text().indexOf(extraText), -1);//just check it's included, we're not too concerned where
+				});
+			});
+
 			QUnit.test('basic marker should display', function(assert) {
 				testIcon(assert);
 				var markerIconSource = $('img.leaflet-marker-icon')[0].src
@@ -31,10 +63,20 @@ define(["Squire", "sinon", "leaflet", "jquery", "points_view", "config", "contro
 			});
 			
 			QUnit.test('marker should display text', function(assert) {
-				var popupText = "blah popup text stuff<br>more xyz";
-				var pointsView = testIcon(assert, undefined, popupText);
+				var name = "this is my name";
+				var pointsView = testIcon(assert, undefined, name);
 				$text = getOneMarkerText(assert, pointsView);
-				assert.equal(popupText, $text.html());
+				assert.equal($text.text(), name);
+			});
+			
+			QUnit.test('marker should not allow XSS', function(assert) {
+				var name = '<img>';
+				var url = '<img>';
+				var exportName = '<img>';
+				var extraTexts = ['<img>', '<img>'];
+				var pointsView = testIcon(assert, undefined, name, undefined, url, extraTexts, exportName);
+				$text = getOneMarkerText(assert, pointsView);
+				assert.equal($text.html().indexOf('<img'), -1);
 			});
 			
 			QUnit.module('clustering and layering', function() {
@@ -43,11 +85,11 @@ define(["Squire", "sinon", "leaflet", "jquery", "points_view", "config", "contro
 					var initialMarkers = [
 						{
 							latLng: [-0.09, 51.505],
-							popupText: 'abc'
+							name: 'abc'
 						},
 						{
 							latLng: [-0.09, 51.505],
-							popupText: 'def'
+							name: 'def'
 						}
 					];
 					
@@ -67,8 +109,8 @@ define(["Squire", "sinon", "leaflet", "jquery", "points_view", "config", "contro
 							assert.ok(leafletClusterMock.addLayers.calledOnce, "should have added layers");
 							var markers = leafletClusterMock.addLayers.getCall(0).args[0];
 							assert.equal(2, markers.length, "should have added both markers");
-							assert.equal('abc', markers[0].getPopup().getContent());
-							assert.equal('def', markers[1].getPopup().getContent());
+							assert.equal(getContentText(markers[0]), 'abc');
+							assert.equal(getContentText(markers[1]), 'def');
 							//check cluster layer is added to the map
 							assert.ok(leafletClusterMock.addTo.calledOnce, "should have added layer to map");
 							//tidy
@@ -93,13 +135,13 @@ define(["Squire", "sinon", "leaflet", "jquery", "points_view", "config", "contro
 							condition1: [
 								{
 									latLng: [-0.06, 51.505],
-									popupText: name1
+									name: name1
 								},
 							],
 							condition2: [
 								{
 									latLng: [-0.07, 51.506],
-									popupText: name2
+									name: name2
 								}
 							]
 						},
@@ -107,13 +149,13 @@ define(["Squire", "sinon", "leaflet", "jquery", "points_view", "config", "contro
 							condition1: [
 								{
 									latLng: [-0.08, 51.507],
-									popupText: name3
+									name: name3
 								},
 							],
 							condition2: [
 								{
 									latLng: [-0.09, 51.508],
-									popupText: name4
+									name: name4
 								}
 							]
 						}
@@ -131,10 +173,10 @@ define(["Squire", "sinon", "leaflet", "jquery", "points_view", "config", "contro
 							assert.ok(MatrixlayersMock.calledOnce, "matrix layer control is needed");
 							//check all markers are added
 							var actualMarkers = MatrixlayersMock.getCall(0).args[2];
-							assert.ok(name1, actualMarkers[type1 + '/' + condition1].getLayers()[0].getPopup().getContent());
-							assert.ok(name2, actualMarkers[type1 + '/' + condition2].getLayers()[0].getPopup().getContent());
-							assert.ok(name3, actualMarkers[type2 + '/' + condition1].getLayers()[0].getPopup().getContent());
-							assert.ok(name4, actualMarkers[type2 + '/' + condition2].getLayers()[0].getPopup().getContent());
+							assert.ok(getContentText(actualMarkers[type1 + '/' + condition1].getLayers()[0]), name1);
+							assert.ok(getContentText(actualMarkers[type1 + '/' + condition2].getLayers()[0]), name2);
+							assert.ok(getContentText(actualMarkers[type2 + '/' + condition1].getLayers()[0]), name3);
+							assert.ok(getContentText(actualMarkers[type2 + '/' + condition2].getLayers()[0]), name4);
 							// //check cluster layer is added to the map
 							var found = false;
 							for (var i = 0; i < pointsView._controls._controlsToAdd.length; i++) {
@@ -175,6 +217,10 @@ define(["Squire", "sinon", "leaflet", "jquery", "points_view", "config", "contro
 			var markerTexts = getAllMarkerTexts(pointsView)
 			assert.equal(markerTexts.length, 1);
 			return $('<div>' + markerTexts[0] + '</div>');
+		}
+
+		function getContentText(marker) {
+			return $('<div>' + marker.getPopup().getContent() + '</div>').text();
 		}
 		
 		function getAllMarkerTexts(pointsView) {
