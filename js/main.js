@@ -64,8 +64,11 @@ define(["os_map", "points_model", "points_view", "config", "params", "conversion
 					} catch (err) {
 						if (console) {console.log(err);}
 					}
-					var extraInfo = '<span>Condition: '+condition+'</span><br /><span>Physical Type: '+physicalType+'</span>';
-					this._pointsModel.add(lngLat, url, name, extraInfo, physicalType, condition);
+					var extraInfos = [
+						'Condition: ' + condition,
+						'Physical Type: ' + physicalType
+					];
+					this._pointsModel.add(lngLat, url, name, extraInfos, physicalType, condition);
 				}
 				this._pointsView.finish(finish);
 				this._osMap.getControls().addAllTo(this._osMap.getMap());
