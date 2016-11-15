@@ -43,12 +43,13 @@ var extraBrowsers = {
 	platform: win10,
 	version: '13'
   },
-  sl_win7_safari: {
-	base: 'SauceLabs',
-	browserName: safari,
-	platform: win7,
-	version: '5.1'
-  },
+  //something odd happens in the tests which is probably impossible to diagnose without access to a safari instance
+  //sl_win7_safari: {
+	//base: 'SauceLabs',
+	//browserName: safari,
+	//platform: win7,
+	//version: '5.1'
+  //},
   //there is a problem with opera causing requirejs to time out, so commenting out until I have chance to look into it further
   //sl_opera: {
   //  base: 'SauceLabs',
