@@ -71,12 +71,13 @@ define(["Squire", "sinon", "leaflet", "jquery", "points_view", "config", "contro
 			
 			QUnit.test('marker should not allow XSS', function(assert) {
 				var name = '<img>';
-				var url = '<img>';
+				var url = '"><hr></a><a href="';//some browsers decode the html within the href so, set this to be something different so we can check for it later
 				var exportName = '<img>';
 				var extraTexts = ['<img>', '<img>'];
 				var pointsView = testIcon(assert, undefined, name, undefined, url, extraTexts, exportName);
 				$text = getOneMarkerText(assert, pointsView);
 				assert.equal($text.html().indexOf('<img'), -1);
+				assert.equal($('hr', $text).length, 0);//will appear in the text, but not in the actual dom
 			});
 			
 			QUnit.module('clustering and layering', function() {
