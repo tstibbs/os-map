@@ -25,11 +25,11 @@
 			var options = {
 				cluster: false
 			};
-			loadOsMap(['trigpointing'], function(main, bundles){
+			loadOsMap([], function(main){
 				if (main.hasUrlData()) {
-					main.buildMapFromUrl(options, bundles);
+					main.buildMapFromUrl(options);
 				} else {
-					main.buildMapWithDummyData(options, bundles);
+					main.buildMapWithDummyData(options);
 				}
 			});
 			

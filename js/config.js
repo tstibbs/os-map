@@ -27,7 +27,7 @@ define(["leaflet", "jquery", "global", "params"],
 			initialize: function (options, configBundles) {
 				var resolvedConfig = $.extend({}, defaults, options);
 				this._checkForUndefaultedProperties(options, "window config");
-				this._applyBundles(resolvedConfig, configBundles);
+				resolvedConfig.bundles = configBundles;
 				
 				this._storageId = 'os_map:' + resolvedConfig.page_id + 'config';
 				
@@ -48,23 +48,6 @@ define(["leaflet", "jquery", "global", "params"],
 				for (var property in resolvedConfig) {
 					if (resolvedConfig.hasOwnProperty(property)) {
 						this[property] = resolvedConfig[property];
-					}
-				}
-			},
-			
-			_applyBundles: function(resolvedConfig, bundles) {
-				if (bundles != null) {
-					bundles.forEach(function(bundle) {
-						this._applyBundle(resolvedConfig, bundle)
-					}, this);
-				}
-			},
-			
-			_applyBundle: function(resolvedConfig, bundle) {
-				this._checkForUndefaultedProperties(bundle, "bundle");
-				for (var property in bundle) {
-					if (bundle.hasOwnProperty(property)) {
-						resolvedConfig[property] = bundle[property];
 					}
 				}
 			},

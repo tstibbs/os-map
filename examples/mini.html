@@ -18,7 +18,6 @@
 		<link rel="stylesheet" href="https://cdn.rawgit.com/tstibbs/L.GeoSearch/01854d273650a4b5b28e53e7852257280a25a010/src/css/l.geosearch.css" />
 		<link rel="stylesheet" href="../css/app.css" />
 		
-		<script src="mini.js"></script>
 		<script src='https://cdnjs.cloudflare.com/ajax/libs/require.js/2.2.0/require.js'></script>
 		<script src='../js/loader.js'></script>
 		<script type="text/javascript">
@@ -32,8 +31,8 @@
 				show_hider_control: true,
 				hider_control_start_visible: false
 			};
-			loadOsMap(['trigpointing'], function(main, bundles){
-				main.buildMapWithData(options, bundles, window.points_to_load);
+			loadOsMap(['trigpointing_mini'], function(main, bundles){
+				main.buildMapWithBundleDatas(options, bundles);
 			});
 		</script>
 	</head>
