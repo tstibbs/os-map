@@ -1,10 +1,38 @@
-define(['leaflet'],
-	function(leaflet) {
+define(['leaflet', 'conversion'],
+	function(leaflet, conversion) {
 	
-		var PointsModel = leaflet.Class.extend({
+		var PointsBuilder = leaflet.Class.extend({
 			initialize: function (config) {
 				this._markerList = null;
 				this._config = config;
+			},
+			
+			parse: function(point) {
+				//['osgb_gridref','waypoint','name','physical_type','condition'],
+				var gridref = point[0];
+				var waypoint = point[1];
+				var name = point[2];
+				var physicalType = point[3];
+				var condition = point[4];
+				var waypointRegex = /TP0*(\d+)/;
+				var url = null;
+				if (waypointRegex.test(waypoint)) {
+					var match = waypointRegex.exec(waypoint);
+					var trigId = match[1];
+					url = 'http://trigpointing.uk/trig/' + trigId;
+				}
+				var lngLat;
+				try {
+					lngLat = conversion.gridRefToLngLat(gridref);	
+				} catch (err) {
+					if (console) {console.log(err);}
+					return;
+				}
+				var extraInfos = [
+					'Condition: ' + condition,
+					'Physical Type: ' + physicalType
+				];
+				this.add(lngLat, url, name, extraInfos, physicalType, condition);
 			},
 
 			add: function (lngLat, url, name, extraTexts, type, condition) {
@@ -48,6 +76,6 @@ define(['leaflet'],
 			}
 		});
 
-		return PointsModel;
+		return PointsBuilder;
 	}
 );
