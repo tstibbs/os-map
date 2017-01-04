@@ -1,12 +1,11 @@
-define(["underscore", "leaflet", "leaflet_cluster", "leaflet_subgroup", "leaflet_matrixlayers", "points_model"],
-	function(_, leaflet, leaflet_cluster, leaflet_subgroup, Leaflet_MatrixLayers, PointsModel) {
+define(["underscore", "leaflet", "leaflet_cluster", "leaflet_subgroup", "leaflet_matrixlayers"],
+	function(_, leaflet, leaflet_cluster, leaflet_subgroup, Leaflet_MatrixLayers) {
 	
 		var PointsView = leaflet.Class.extend({
-			initialize: function (map, config, pointsModel, controls, layers) {
-				this._markerList = null;
+			initialize: function (map, config, modelsByAspect, controls, layers) {
 				this._map = map;
 				this._config = config;
-				this._model = pointsModel;
+				this._modelsByAspect = modelsByAspect;
 				this._controls = controls;
 				this._layers = layers;
 			},
@@ -75,8 +74,15 @@ define(["underscore", "leaflet", "leaflet_cluster", "leaflet_subgroup", "leaflet
 				return group;
 			},
 			
+			_mergeMarkerLists: function() {
+				var allMarkers = [];
+				Object.keys(this._modelsByAspect).forEach(function(key){
+					allMarkers = allMarkers.concat(this._modelsByAspect[key].getMarkerList());
+				}.bind(this));
+				return allMarkers;
+			},
+			
 			finish: function (finished) {
-				this._markerList = this._translateMarkerGroup(this._model.getMarkerList());
 				var parentGroup = null;
 				if (this._config.cluster) {
 					parentGroup = leaflet_cluster({
@@ -94,30 +100,40 @@ define(["underscore", "leaflet", "leaflet_cluster", "leaflet_subgroup", "leaflet
 				
 				parentGroup.addTo(this._map);
 				if (!this._config.dimensional_layering) {
+					var markerList = this._translateMarkerGroup(this._mergeMarkerLists());
 					if (this._config.cluster) {
-						parentGroup.addLayers(this._markerList);
+						parentGroup.addLayers(markerList);
 					} else {
-						for (var i = 0; i < this._markerList.length; i++) {
-							parentGroup.addLayer(this._markerList[i]);
+						for (var i = 0; i < markerList.length; i++) {
+							parentGroup.addLayer(markerList[i]);
 						}
 					}
 				} else {
-					//grouped
-					var matrixOverlays = {};
-					Object.keys(this._markerList).forEach(function (type) {
-						var conditions = this._markerList[type];
-						Object.keys(conditions).forEach(function (condition) { 
-							var arrayOfMarkers = conditions[condition];
-							var subGroup = leaflet.featureGroup.subGroup(parentGroup, arrayOfMarkers);
-							//don't add to the map yet - let the layer control do that if it thinks it needs to - otherwise we could add all layers then immediately try to remove them all, which can cause UI weirdness
-							matrixOverlays[type + '/' + condition] = subGroup;
-						}, this);
-					}, this);
-					var control = new Leaflet_MatrixLayers(this._layers, null, matrixOverlays, {
-						dimensionNames: this._config.dimensionNames,
-						dimensionLabels: this._config.dimensionLabels,
-						dimensionValueLabels: this._config.dimensionValueLabels
+					var control = new Leaflet_MatrixLayers(this._layers, null, {}, {
+						multiAspects: true
 					});
+					for (var aspect in this._modelsByAspect) {
+						var model = this._modelsByAspect[aspect]
+						var markerList = this._translateMarkerGroup(model.getMarkerList());
+						var matrixOverlays = {};
+						var iter = function(markers, path) {
+							if (markers.constructor === Array) {
+								var subGroup = leaflet.featureGroup.subGroup(parentGroup, markers);
+								//don't add to the map yet - let the layer control do that if it thinks it needs to - otherwise we could add all layers then immediately try to remove them all, which can cause UI weirdness
+								matrixOverlays[path] = subGroup;
+							} else {
+								Object.keys(markers).forEach(function (dimValue) {
+									var newPath = path.length == 0 ? dimValue : path + '/' + dimValue;
+									var sublist = markers[dimValue];
+									iter(sublist, newPath);
+								});
+							}
+						}
+						iter(markerList, '');
+						var dimensionNames = this._config.bundles[aspect].dimensionNames;
+						//TODO matrix layers should take a map of config, which we should pass in direct from the bundle, instead of giving each config option individually
+						control.addAspect(aspect, matrixOverlays, dimensionNames);
+					}
 					//override the basic layers control
 					this._controls.addControl(control);
 				}
