@@ -1,4 +1,4 @@
-define(['leaflet', 'conversion', 'bundles/trigs/points_builder'],
+define(['leaflet', 'conversion', './points_builder'],
 	function(leaflet, conversion, pointsBuilder) {
 		var dimensionValueKeys = ['Pillar', 'Bolt', 'Surface Block', 'Rivet', 'Buried Block', 'Cut', 'Other', 'Berntsen', 'FBM', 'Intersected Station', 'Disc', 'Brass Plate', 'Active station', 'Block', 'Concrete Ring', 'Curry Stool', 'Fenomark', 'Platform Bolt', 'Cannon', 'Spider', 'Pipe'];
 		var dimensionValueLabels = {};

@@ -1,3 +1,3 @@
 define(['jquery', './config_base'], function($, trigpointingBase) {
-	return $.extend({dataToLoad: 'all_trigs.js'}, trigpointingBase);
+	return $.extend({dataToLoad: 'data_all.json'}, trigpointingBase);
 });

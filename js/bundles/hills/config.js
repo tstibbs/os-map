@@ -1,9 +1,9 @@
-define(['leaflet', 'bundles/hills/points_builder'],
+define(['leaflet', './points_builder'],
 	function(leaflet, PointsBuilder) {
 
 		return {
 			dimensionNames: ['Hills'],
-			dataToLoad: 'hills.js',
+			dataToLoad: 'data.json',
 			parser: PointsBuilder
 		};
 	}

@@ -44,12 +44,13 @@ define(["leaflet", "os_map", "points_view", "config", "params", "conversion", "j
 			
 			buildMapWithBundleDatas: function(options, bundles) {
 				this._buildMap(options, bundles);
-				console.log(this);
 				var promises = [];
 				Object.keys(bundles).forEach(function(bundleName) {
 					var bundle = bundles[bundleName];
+					var dataToLoad = bundle.dataToLoad;
+					dataToLoad = '../js/bundles/' + bundleName.substring(0, bundleName.lastIndexOf('/')) + '/' + dataToLoad;
 					var ajaxRequest = $.ajax({
-						url: bundle.dataToLoad,
+						url: dataToLoad,
 						dataType: 'json'
 					}).fail(function(xhr, textError, error) {
 						console.error("Failed to load map data: " + textError);
@@ -68,7 +69,6 @@ define(["leaflet", "os_map", "points_view", "config", "params", "conversion", "j
 			},
 			
 			_finishLoading: function() {
-				console.log(this);
 				this._pointsView = new PointsView(this._osMap.getMap(), this._config, this._pointsModels, this._osMap.getControls(), this._osMap.getLayers());
 				this._pointsView.finish(finish);
 				this._osMap.getControls().addAllTo(this._osMap.getMap());
