@@ -130,9 +130,8 @@ define(["underscore", "leaflet", "leaflet_cluster", "leaflet_subgroup", "leaflet
 							}
 						}
 						iter(markerList, '');
-						var dimensionNames = this._config.bundles[aspect].dimensionNames;
-						//TODO matrix layers should take a map of config, which we should pass in direct from the bundle, instead of giving each config option individually
-						control.addAspect(aspect, matrixOverlays, dimensionNames);
+						var aspectOptions = this._config.bundles[aspect];//will have other options, but collisions are unlikely
+						control.addAspect(aspect, matrixOverlays, aspectOptions);
 					}
 					//override the basic layers control
 					this._controls.addControl(control);
