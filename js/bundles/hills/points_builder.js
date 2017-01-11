@@ -2,9 +2,10 @@ define(['leaflet'],
 	function(leaflet) {
 	
 		var PointsBuilder = leaflet.Class.extend({
-			initialize: function (config) {
+			initialize: function (config, bundleConfig) {
 				this._markerList = null;
 				this._config = config;
+				this._bundleConfig = bundleConfig;
 			},
 			
 			parse: function(point, pointsModel) {
@@ -21,8 +22,18 @@ define(['leaflet'],
 				var physicalType = "*";
 				var condition = "*";
 
-				this._add(lngLat, url, name, null, classification);
-
+				var classificationStrings = classification.split(';').map(function(classf) {
+					var displayString = this._bundleConfig.dimensionValueLabels[this._bundleConfig.dimensionNames[0]][classf];
+					if (displayString == null) {
+						displayString = classf;
+					}
+					return displayString;
+				}.bind(this));
+				var extraInfos = {
+					'Height': height,
+					'Classifications': classificationStrings
+				};
+				this._add(lngLat, url, name, extraInfos, classification);
 			},
 
 			_add: function (lngLat, url, name, extraTexts, classification) {

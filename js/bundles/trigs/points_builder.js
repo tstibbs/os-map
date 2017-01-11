@@ -28,10 +28,10 @@ define(['leaflet', 'conversion'],
 					if (console) {console.log(err);}
 					return;
 				}
-				var extraInfos = [
-					'Condition: ' + condition,
-					'Physical Type: ' + physicalType
-				];
+				var extraInfos = {
+					'Condition': condition,
+					'Physical Type': physicalType
+				};
 				this.add(lngLat, url, name, extraInfos, physicalType, condition);
 			},
 

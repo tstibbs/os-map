@@ -57,7 +57,7 @@ define(["leaflet", "os_map", "points_view", "config", "params", "conversion", "j
 						console.log(error);
 					}).done(function(data) {
 						var pointsToLoad = data.points_to_load;
-						var pointsModel = new bundle.parser(this._config);
+						var pointsModel = new bundle.parser(this._config, bundle);
 						for (var i = 0; i < pointsToLoad.length; i++) {
 							pointsModel.parse(pointsToLoad[i]);
 						}

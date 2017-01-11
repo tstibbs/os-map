@@ -20,7 +20,17 @@ define(["underscore", "leaflet", "leaflet_cluster", "leaflet_subgroup", "leaflet
 				var name = _.escape(markerConfig.name);
 				var extraTexts = markerConfig.extraTexts;
 				if (extraTexts != null) {
-					extraTexts = extraTexts.map(function(val) {return _.escape(val);});
+					var newExtraTexts = {};
+					Object.keys(extraTexts).forEach(function(key) {
+						var escapedKey = _.escape(key);
+						var value = extraTexts[key];
+						if (Array.isArray(value)) {
+							newExtraTexts[escapedKey] = value.map(_.escape);
+						} else {
+							newExtraTexts[escapedKey] = _.escape(value);
+						}
+					});
+					extraTexts = newExtraTexts;
 				}
 				var exportName = _.escape(markerConfig.exportName);
 				var icon = markerConfig.icon;
@@ -35,17 +45,27 @@ define(["underscore", "leaflet", "leaflet_cluster", "leaflet_subgroup", "leaflet
 				}
 				var popupText = "";
 				if (this._notEmpty(url)) {
-					popupText = '<a href="' + url + '">' + name + '</a>';
+					popupText = '<a href="' + url + '" class="popup-title">' + name + '</a>';
 				} else if (this._notEmpty(name)) {
-					popupText = '<span>' + name + '</span>';
+					popupText = '<span class="popup-title">' + name + '</span>';
 				}
 				if (extraTexts != null) {
-					for (var i = 0; i < extraTexts.length; i++) {
+					Object.keys(extraTexts).forEach(function(key) {
 						if (popupText.length > 0) {
 							popupText += '<br />';
 						}
-						popupText = popupText + '<span>' + extraTexts[i] + '</span>';
-					}
+						popupText += '<span class="popup-entry-key">' + key + ': </span>';
+						var value = extraTexts[key];
+						if (Array.isArray(value)) {
+							popupText += '<ul class="popup-entry-list">'
+							for (var i = 0; i < value.length; i++) {
+								popupText += '<li>' + value[i] + '</li>'
+							}
+							popupText += '</ul>'
+						} else {
+							popupText += '<span>' + value + '</span>';
+						}
+					}.bind(this));
 				}
 
 				var markerOptions = {};
