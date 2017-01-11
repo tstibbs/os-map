@@ -43,12 +43,12 @@ define(["leaflet", "os_map", "points_view", "config", "params", "conversion", "j
 			},
 			
 			buildMapWithBundleDatas: function(options, bundles) {
+				var bundleDataPrefix = ((params('remoteData') == 'true') ? 'https://rawgit.com/tstibbs/os-map/hills' : '..');//some mobile browsers don't support local ajax, so this provides a workaround for dev on mobile devices.
 				this._buildMap(options, bundles);
 				var promises = [];
 				Object.keys(bundles).forEach(function(bundleName) {
 					var bundle = bundles[bundleName];
-					var dataToLoad = bundle.dataToLoad;
-					dataToLoad = '../js/bundles/' + bundleName.substring(0, bundleName.lastIndexOf('/')) + '/' + dataToLoad;
+					var dataToLoad = bundleDataPrefix + '/js/bundles/' + bundleName.substring(0, bundleName.lastIndexOf('/')) + '/' + bundle.dataToLoad;
 					var ajaxRequest = $.ajax({
 						url: dataToLoad,
 						dataType: 'json'
