@@ -1,10 +1,13 @@
 define(['leaflet', 'conversion', './points_builder'],
 	function(leaflet, conversion, pointsBuilder) {
+		var dimensionNames = ['Trigs - type', 'Trigs - condition'];
 		var dimensionValueKeys = ['Pillar', 'Bolt', 'Surface Block', 'Rivet', 'Buried Block', 'Cut', 'Other', 'Berntsen', 'FBM', 'Intersected Station', 'Disc', 'Brass Plate', 'Active station', 'Block', 'Concrete Ring', 'Curry Stool', 'Fenomark', 'Platform Bolt', 'Cannon', 'Spider', 'Pipe'];
 		var dimensionValueLabels = {};
+		var typeValueLabels = {};
+		dimensionValueLabels[dimensionNames[0]] = typeValueLabels;
 
 		dimensionValueKeys.forEach(function(value) {
-			dimensionValueLabels[value] = '<a href="http://trigpointing.uk/wiki/' + value + '">' + value + '</a>';
+			typeValueLabels[value] = '<a href="http://trigpointing.uk/wiki/' + value + '">' + value + '</a>';
 		});
 
 		return {
@@ -20,10 +23,8 @@ define(['leaflet', 'conversion', './points_builder'],
 					popupAnchor: [0, -23]
 				}),
 			},
-			dimensionNames: ['Type', 'Condition'],
-			dimensionValueLabels: {
-				'Type': dimensionValueLabels
-			},
+			dimensionNames: dimensionNames,
+			dimensionValueLabels: dimensionValueLabels,
 			parser: pointsBuilder
 		};
 	}
