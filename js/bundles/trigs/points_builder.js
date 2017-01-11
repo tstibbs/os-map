@@ -2,9 +2,10 @@ define(['leaflet', 'conversion'],
 	function(leaflet, conversion) {
 	
 		var PointsBuilder = leaflet.Class.extend({
-			initialize: function (config) {
+			initialize: function (config, bundleConfig) {
 				this._markerList = null;
 				this._config = config;
+				this._bundleConfig = bundleConfig;
 			},
 			
 			parse: function(point) {
@@ -73,6 +74,10 @@ define(['leaflet', 'conversion'],
 			
 			getMarkerList: function() {
 				return this._markerList;
+			},
+			
+			getBundleConfig: function() {
+				return this._bundleConfig;
 			}
 		});
 

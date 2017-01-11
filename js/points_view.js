@@ -14,7 +14,7 @@ define(["underscore", "leaflet", "leaflet_cluster", "leaflet_subgroup", "leaflet
 				return input !== undefined && input !== null && input.length > 0;
 			},
 			
-			_translateMarker: function(markerConfig) {
+			_translateMarker: function(markerConfig, bundleConfig) {
 				//get everything from the model - anything that gets put into the dom needs to be escaped to prevent XSS
 				var latLng = markerConfig.latLng;
 				var name = _.escape(markerConfig.name);
@@ -69,8 +69,8 @@ define(["underscore", "leaflet", "leaflet_cluster", "leaflet_subgroup", "leaflet
 				}
 
 				var markerOptions = {};
-				if (this._config.icons[icon] !== undefined) {
-					markerOptions.icon = this._config.icons[icon];
+				if (bundleConfig.icons != null && bundleConfig.icons[icon] != null) {
+					markerOptions.icon = bundleConfig.icons[icon];
 				}
 				var marker = leaflet.marker(latLng, markerOptions);
 				marker.bindPopup(popupText);
@@ -81,25 +81,17 @@ define(["underscore", "leaflet", "leaflet_cluster", "leaflet_subgroup", "leaflet
 				return marker;
 			},
 
-			_translateMarkerGroup: function(group) {
+			_translateMarkerGroup: function(group, bundleConfig) {
 				if (group.constructor === Array) {
 					group.forEach(function(markerConfig, i, group) {
-						group[i] = this._translateMarker(markerConfig);
+						group[i] = this._translateMarker(markerConfig, bundleConfig);
 					}, this);
 				} else { //is hash
 					for (dimension in group) {
-						group[dimension] = this._translateMarkerGroup(group[dimension]);
+						group[dimension] = this._translateMarkerGroup(group[dimension], bundleConfig);
 					}
 				}
 				return group;
-			},
-			
-			_mergeMarkerLists: function() {
-				var allMarkers = [];
-				Object.keys(this._modelsByAspect).forEach(function(key){
-					allMarkers = allMarkers.concat(this._modelsByAspect[key].getMarkerList());
-				}.bind(this));
-				return allMarkers;
 			},
 			
 			finish: function (finished) {
@@ -120,7 +112,11 @@ define(["underscore", "leaflet", "leaflet_cluster", "leaflet_subgroup", "leaflet
 				
 				parentGroup.addTo(this._map);
 				if (!this._config.dimensional_layering) {
-					var markerList = this._translateMarkerGroup(this._mergeMarkerLists());
+					var markerLists = Object.keys(this._modelsByAspect).map(function(aspect) {
+						var model = this._modelsByAspect[aspect]
+						return this._translateMarkerGroup(model.getMarkerList(), model.getBundleConfig());
+					}.bind(this));
+					var markerList = [].concat.apply([], markerLists);
 					if (this._config.cluster) {
 						parentGroup.addLayers(markerList);
 					} else {
@@ -134,7 +130,7 @@ define(["underscore", "leaflet", "leaflet_cluster", "leaflet_subgroup", "leaflet
 					});
 					for (var aspect in this._modelsByAspect) {
 						var model = this._modelsByAspect[aspect]
-						var markerList = this._translateMarkerGroup(model.getMarkerList());
+						var markerList = this._translateMarkerGroup(model.getMarkerList(), model.getBundleConfig());
 						var matrixOverlays = {};
 						var iter = function(markers, path) {
 							if (markers.constructor === Array) {

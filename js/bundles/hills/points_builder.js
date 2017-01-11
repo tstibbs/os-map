@@ -69,6 +69,10 @@ define(['leaflet'],
 			
 			getMarkerList: function() {
 				return this._markerList;
+			},
+			
+			getBundleConfig: function() {
+				return this._bundleConfig;
 			}
 		});
 
