@@ -70,11 +70,14 @@ class Converter {
 	}
 
 	writeOut(input, output) {
-		fs.createReadStream(input)
-			.pipe(csv.parse())
+		writeOutStream(fs.createReadStream(input), output);
+	}
+
+	writeOutStream(inputStream, output) {
+		inputStream.pipe(csv.parse())
 			.pipe(csv.transform(this._formatLine.bind(this)))
 			.pipe(new HeaderFooterTransformer(this._attribution, this._columnHeaders))
-			.pipe(process.stdout);
+			.pipe(fs.createWriteStream(output));
 	}
 }
 
