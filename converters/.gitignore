@@ -1,5 +1,6 @@
-hills.csv
-trigs.csv
+*.csv
+*.xls
+out.json
 
 # Created by https://www.gitignore.io/api/node
 
