@@ -1,5 +1,5 @@
-define(["os_map", "points_model", "points_view", "config", "params", "conversion", "jquery"],
-	function(OsMap, PointsModel, PointsView, Config, params, conversion, $) {
+define(["leaflet", "os_map", "points_view", "config", "params", "conversion", "jquery", 'bundles/trigs/config_base'],
+	function(leaflet, OsMap, PointsView, Config, params, conversion, $, trigsPointsBundle) {
 			
 		function finish() {
 			$('div#loading-message-pane').hide();
@@ -7,69 +7,69 @@ define(["os_map", "points_model", "points_view", "config", "params", "conversion
 		
 		return {
 			_buildMap: function(options, bundles) {
-				var config = new Config(options, bundles);
-				this._osMap = new OsMap(config);
-				this._pointsModel = new PointsModel(config);
-				this._pointsView = new PointsView(this._osMap.getMap(), config, this._pointsModel, this._osMap.getControls(), this._osMap.getLayers());
+				this._config = new Config(options, bundles);
+				this._osMap = new OsMap(this._config);
+				this._pointsModels = {};
 			},
 			
 			hasUrlData: function() {
 				return params('trigs') != null;
 			},
 			
-			buildMapFromUrl: function(options, bundles) {
-				this._buildMap(options, bundles);
+			buildMapFromUrl: function(options) {
+				this._buildMap(options, {trigs: trigsPointsBundle});
+				var pointsModel = new trigsPointsBundle.parser(this._config);
 				var locationsFromUrl = params('trigs');
 				var allPoints = locationsFromUrl.split(";");
 				for (var i = 0; i < allPoints.length; i++) {
 					var point = allPoints[i].split(',');
 					var lngLat = conversion.osgbToLngLat(point[0], point[1]);
-					this._pointsModel.add(lngLat, point[2], point[3]);
+					pointsModel.add(lngLat, point[2], point[3]);
 				}
-				this._pointsView.finish(finish);
-				this._osMap.getControls().addAllTo(this._osMap.getMap());
+				this._pointsModels.trigs = pointsModel;
+				this._finishLoading();
 			},
 			
-			buildMapWithDummyData: function(options, bundles) {
-				this._buildMap(options, bundles);
+			buildMapWithDummyData: function(options) {
+				this._buildMap(options, {trigs: trigsPointsBundle});
 				//dummy data as an example
-				this._pointsModel.add(conversion.osgbToLngLat(418678, 385093), 'http://trigpointing.uk/trig/6995', 'Winhill Pike');
-				this._pointsModel.add(conversion.osgbToLngLat(422816, 385344), 'http://trigpointing.uk/trig/3795', 'High Neb');
-				this._pointsModel.add(conversion.osgbToLngLat(419762, 390990), 'http://trigpointing.uk/trig/949', 'Back Tor');
-				this._pointsModel.add(conversion.osgbToLngLat(412927, 387809), 'http://trigpointing.uk/trig/3019', 'Edale Moor');
-				this._pointsView.finish(finish);
-				this._osMap.getControls().addAllTo(this._osMap.getMap());
+				var pointsModel = new trigsPointsBundle.parser(this._config);
+				pointsModel.add(conversion.osgbToLngLat(418678, 385093), 'http://trigpointing.uk/trig/6995', 'Winhill Pike');
+				pointsModel.add(conversion.osgbToLngLat(422816, 385344), 'http://trigpointing.uk/trig/3795', 'High Neb');
+				pointsModel.add(conversion.osgbToLngLat(419762, 390990), 'http://trigpointing.uk/trig/949', 'Back Tor');
+				pointsModel.add(conversion.osgbToLngLat(412927, 387809), 'http://trigpointing.uk/trig/3019', 'Edale Moor');
+				this._pointsModels.trigs = pointsModel;
+				this._finishLoading();
 			},
 			
-			buildMapWithData: function(options, bundles, pointsToLoad) {
+			buildMapWithBundleDatas: function(options, bundles) {
+				var bundleDataPrefix = ((params('remoteData') == 'true') ? 'https://rawgit.com/tstibbs/os-map/hills' : '..');//some mobile browsers don't support local ajax, so this provides a workaround for dev on mobile devices.
 				this._buildMap(options, bundles);
-				//['osgb_gridref','waypoint','name','physical_type','condition'],
-				for (var i = 0; i < pointsToLoad.length; i++) {
-					var point = pointsToLoad[i];
-					var gridref = point[0];
-					var waypoint = point[1];
-					var name = point[2];
-					var physicalType = point[3];
-					var condition = point[4];
-					var waypointRegex = /TP0*(\d+)/;
-					var url = null;
-					if (waypointRegex.test(waypoint)) {
-						var match = waypointRegex.exec(waypoint);
-						var trigId = match[1];
-						url = 'http://trigpointing.uk/trig/' + trigId;
-					}
-					var lngLat;
-					try {
-						lngLat = conversion.gridRefToLngLat(gridref);	
-					} catch (err) {
-						if (console) {console.log(err);}
-					}
-					var extraInfos = [
-						'Condition: ' + condition,
-						'Physical Type: ' + physicalType
-					];
-					this._pointsModel.add(lngLat, url, name, extraInfos, physicalType, condition);
-				}
+				var promises = [];
+				Object.keys(bundles).forEach(function(bundleName) {
+					var bundle = bundles[bundleName];
+					var dataToLoad = bundleDataPrefix + '/js/bundles/' + bundleName.substring(0, bundleName.lastIndexOf('/')) + '/' + bundle.dataToLoad;
+					var ajaxRequest = $.ajax({
+						url: dataToLoad,
+						dataType: 'json'
+					}).fail(function(xhr, textError, error) {
+						console.error("Failed to load map data: " + textError);
+						console.log(error);
+					}).done(function(data) {
+						var pointsToLoad = data.points_to_load;
+						var pointsModel = new bundle.parser(this._config, bundle);
+						for (var i = 0; i < pointsToLoad.length; i++) {
+							pointsModel.parse(pointsToLoad[i]);
+						}
+						this._pointsModels[bundleName] = pointsModel;
+					}.bind(this));
+					promises.push(ajaxRequest);
+				}.bind(this));
+				$.when.apply($, promises).always(this._finishLoading.bind(this));
+			},
+			
+			_finishLoading: function() {
+				this._pointsView = new PointsView(this._osMap.getMap(), this._config, this._pointsModels, this._osMap.getControls(), this._osMap.getLayers());
 				this._pointsView.finish(finish);
 				this._osMap.getControls().addAllTo(this._osMap.getMap());
 			}

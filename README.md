@@ -15,7 +15,7 @@ Because I wanted to learn about require. The page load time seems to increase si
 ## How can I try it?
 [Basic map demo](https://tstibbs.github.io/os-map/examples/index.html)
 
-[Map showing many markers with a category-based selector](https://tstibbs.github.io/os-map/examples/25k-layers.html)
+[Map showing many markers with a category-based selector](https://tstibbs.github.io/os-map/examples/index.html?trigs=true&hills=true)
 
 [Mini-map that can be embedded into a page](https://tstibbs.github.io/os-map/examples/mini.html)
 
